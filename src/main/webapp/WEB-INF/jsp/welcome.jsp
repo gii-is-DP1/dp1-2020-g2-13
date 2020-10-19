@@ -6,6 +6,7 @@
 
 <petclinic:layout pageName="home">
     <h2><fmt:message key="welcome"/></h2>
+     <img class="img-responsive" src="https://www.us.es/sites/default/files/logoPNG_3.png"/>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
