@@ -70,6 +70,18 @@
 				<picUrl></picUrl>
 			</properties>
 		</developer>
+		<developer>
+			<id>guilleeF1</id>
+			<name>Guille</name>
+			<email>guillelrosado@gmail.com</email>
+			<url>https://github.com/guilleeF1</url>
+			<roles>
+				<role>SuperLiderDelGrupoElMejorDelMundo</role>
+			</roles>
+			<properties>
+				<picUrl></picUrl>
+			</properties>
+		</developer>
 		
 		
 		<!-- More developers ... -->
