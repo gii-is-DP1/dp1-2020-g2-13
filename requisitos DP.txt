@@ -1,0 +1,168 @@
+
+REQUISITOS DE INFO
+
+RII 01 --- Usuarios
+
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los usuarios:
+   -Nombre
+   -Apellidos
+   -Localidad
+   -Nivel   (posible barra de nivel, para saber a que bloque pertence)
+   -informacion sobre los pdf´s visitados y su tiempo
+   -Actividades realizadas
+   -tests aprobados
+   -tests suspendidos
+
+RII 02 --- PDF
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los PDF's:
+   -Archivo
+   -UnlockLevel
+   -UsuarioUpload 
+   -fechaUpload
+   -UsuariosVisitas
+   -Autor (String)
+   -Tiempo visualizadoTotal (para posibles estadisticas)
+
+
+RII 03 --- Videos
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los videos:
+   -Video/link
+   -UnlockLevel
+   -UsuarioUpload
+   -Descripción
+   -Duración
+   -fechaUpload
+   -UsuariosVisitas
+   -Tiempo visualizadoTotal (para posibles estadisticas)
+
+RII 04 --- mensajes
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los mensajes:
+   -autor
+   -fecha
+   -tipo  (mensaje, comentario, evento...)
+   -contenido
+   -likes
+   -Comentarios
+
+RII 05 --- foros
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los foros:
+   -Nombre  (basado en categoría)
+   -mensajes
+   -UnlockLevel 
+   
+RII 06 --- preguntas
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los foros:
+   -pregunta
+   -tipo (desarrollo, test,completar...)
+   -respuesta
+
+RII 07 --- Tests
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre los tests:
+   -preguntas
+   -puntuacionMax
+   -PuntuacionMin (aprobado)
+   -autor
+   -Examinados
+
+REGLAS DE NEGOCIO 
+
+
+Rn 01 --- Restriccion nivel 1 (para conseguir level 1)
+Como coordinadora de Golden5,
+quiero que sean nivel 1 los usuarios que cumplan XX minutos de visualización de pdf/videos,
+para evitar usuarios fantasmas
+
+Rn 02 --- Restriccion nivel 2 (para conseguir level 2)
+Como coordinadora de Golden5,
+quiero que sean nivel 2 los usuarios que sean nivel 1 y además aprueben los test correspondientes a dicho nivel,
+para evitar usuarios fantasma
+
+Rn 03 --- Restriccion nivel 3 (para conseguir level 3)
+Como coordinadora de Golden5,
+quiero que sean nivel 3 los usuarios que sean nivel 2 y además aprueben los test correspondientes a dicho nivel,
+para evitar usuarios fantasma
+
+Rn 04 --- contenido restringido
+Como coordinadora de Golden5,
+quiero que haya ciertos contenidos exclusivos para ciertos niveles,
+para incentivar al usuario a progresar de nivel
+   
+Rn 05 --- acumulación de niveles
+Como coordinadora de Golden5,
+quiero que el contenido exclusivo de un nivel inferior al de un usuario x, este disponible también para este,
+para mantener la estructura de niveles.
+
+Rn 06 --- Nombrar archivos
+Como coordinadora de Golden5,
+quiero que todos los archivos subidos tengan un nombre asignado,
+para que los usuarios sepan sobre que tratan y agilizar su búsqueda
+
+
+(En prox reunión, bsucar nuevas RN)
+
+REQUISITOS FUNCIONALES
+
+
+RF 01 --- Visualización de pdf´s	
+Como coordinadora de Golden5,
+quiero que se puedan visualizar pdfs en el apartado adecuado,
+para poder formar a los docentes y centros en los ámbitos en cuestión
+
+RF 02 --- Visualización de videos
+Como coordinadora de Golden5,
+quiero que se puedan visualizar vídeos en el apartado adecuado,
+para poder formar a los docentes y centros en los ámbitos en cuestión
+
+RF 03 --- Uso de herramientas
+Como coordinadora de Golden5,
+quiero que se puedan descargar herramientas en el apartado adecuado,
+para que los profesionales puedan hacer uso de ellas en sus trabajos
+
+RF 04 --- Busqueda perfiles
+Como coordinadora de Golden5,
+quiero que se pueda hacer búsqueda de perfiles,
+para que distintas personas puedan tener una comunicación a través de esta plataforma
+
+RF 05 --- Edición de perfiles
+Como coordinadora de Golden5,
+quiero que se puedan editar y crear perfiles,
+para poder manejarlos y actualizarlos en momentos específicos
+
+RF 06 --- sistema de Autenticación
+Como coordinadora de Golden5,
+quiero que se puedan registrar usuarios,
+para tener un control de acceso.
+
+RF 07 --- Log in
+Como coordinadora de Golden5,
+quiero que puedan acceder usuarios con sus credenciales,
+para tener un control de acceso.
+
+RF 08 --- Sistema de pestañas
+Como coordinadora de Golden5,
+quiero que exista un sistema de pestañas,
+para poder navegar fácilmente entre los distintos aparatados de la página
+
+RF 09 --- Filtro de perfiles
+Como coordinadora de Golden5,
+quiero que se puedan filtrar los perfiles en la búsqueda,
+para optimizar el tiempo invertido en buscar otros perfiles
+
+RF 10 --- Sistema de administracion
+Como coordinadora de Golden5,
+quiero que existan herramientas de administrador,
+para poder cambiar partes de la página web sin necesidad de contactar con técnicos informáticos
+
+REQUISITOS NO FUNCIONALES
+
+RNF 10 --- Facilidad de cambio
+Como coordinadora de Golden5,
+quiero que los informáticos encargados del proyecto puedan cambiar cosas de la misma fácilmente,
+para poder añadir y eliminar cosas de la página web sin demasiada dificultad
