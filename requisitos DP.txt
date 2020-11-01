@@ -104,6 +104,16 @@ Como coordinadora de Golden5,
 quiero que todos los archivos subidos tengan un nombre asignado,
 para que los usuarios sepan sobre que tratan y agilizar su búsqueda
 
+Rn 07 --- Características de administrador
+Como coordinadora de Golden5,
+quiero que haya características de la aplicación que estén reservadas al administrador de esta,
+para poder controlar mejor lo que ocurre en la página
+
+Rn 08 --- Subida de pdf y vídeos
+Como coordinadora de Golden5, 
+quiero que solo los autores puedan subir contenido (pdfs y vídeos) a la página,
+para que el contenido de la web sea siempre de la mayor calidad posible
+
 
 (En prox reunión, bsucar nuevas RN)
 
