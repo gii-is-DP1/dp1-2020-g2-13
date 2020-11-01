@@ -76,12 +76,12 @@ REGLAS DE NEGOCIO
 
 Rn 01 --- Restriccion nivel 1 (para conseguir level 1)
 Como coordinadora de Golden5,
-quiero que sean nivel 1 los usuarios que cumplan XX minutos de visualización de pdf/videos,
+quiero que sean nivel 1 todos los usuarios que no han visto los suficientes vídeos/pdf para subir al nivel 2,
 para evitar usuarios fantasmas
 
 Rn 02 --- Restriccion nivel 2 (para conseguir level 2)
 Como coordinadora de Golden5,
-quiero que sean nivel 2 los usuarios que sean nivel 1 y además aprueben los test correspondientes a dicho nivel,
+quiero que sean nivel 2 los usuarios que cumplan XX minutos de visualización de pdf/videos,
 para evitar usuarios fantasma
 
 Rn 03 --- Restriccion nivel 3 (para conseguir level 3)
