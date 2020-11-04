@@ -17,5 +17,6 @@ public class LogroService {
 	public Collection<Logro> findAll(){	
 		return  logroRepository.findAll();	
 	}
+	
 }
 
