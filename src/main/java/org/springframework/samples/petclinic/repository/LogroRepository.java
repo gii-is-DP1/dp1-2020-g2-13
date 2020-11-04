@@ -8,6 +8,5 @@ import org.springframework.samples.petclinic.model.Logro;
 public interface LogroRepository extends  CrudRepository<Logro, Integer > {
 	
 	Collection<Logro> findAll();
-	
 
 }

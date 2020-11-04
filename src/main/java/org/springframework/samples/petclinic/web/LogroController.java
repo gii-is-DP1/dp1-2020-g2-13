@@ -21,5 +21,4 @@ public class LogroController {
         return "logros/LogrosListing";
     }
 	
-	
 }

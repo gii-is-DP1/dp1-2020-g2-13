@@ -12,7 +12,7 @@ import lombok.Data;
 public class Logro extends BaseEntity {
 	
 	private String nombre;
-	
+
 	
 	@Size(max = 250)
 	private String descripcion;
