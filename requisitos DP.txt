@@ -70,6 +70,13 @@ quiero almacenar la siguiente info sobre los tests:
    -PuntuacionMin (aprobado)
    -autor
    -Examinados
+   
+RII 08 --- Herramientas
+Como coordinadora de Golden5,
+quiero almacenar la siguiente info sobre las herramientas:
+   -Nombre
+   -descripción
+   -herramienta
 
 REGLAS DE NEGOCIO 
 
