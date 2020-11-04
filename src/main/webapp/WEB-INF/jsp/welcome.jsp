@@ -6,9 +6,12 @@
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <petclinic:layout pageName="home">
-
+  
      <img class="img-responsive" src="https://www.us.es/sites/default/files/logoPNG_3.png"/>
+
+
     
+
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>

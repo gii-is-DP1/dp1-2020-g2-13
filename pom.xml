@@ -59,6 +59,20 @@
 			</properties>
 		</developer>
 		<developer>
+
+			<id>pabcolcap</id>
+			<name>Pablo</name>
+			<email>pabcolcap@alum.us.es</email>
+			<url>https://github.com/PabloColmeneroCapote</url>
+			<roles>
+				<role>AlmiranteDeLaFlota</role>
+			</roles>
+			<properties>
+				<picUrl></picUrl>
+			</properties>
+		</developer>
+		<developer>
+
 			<id>iarrans</id>
 			<name>Isabel</name>
 			<email>isabelarrans@gmail.com</email>
@@ -70,6 +84,20 @@
 				<picUrl></picUrl>
 			</properties>
 		</developer>
+
+		<developer>
+			<id>guilleeF1</id>
+			<name>Guille</name>
+			<email>guillelrosado@gmail.com</email>
+			<url>https://github.com/guilleeF1</url>
+			<roles>
+				<role>SuperLiderDelGrupoElMejorDelMundo</role>
+			</roles>
+			<properties>
+				<picUrl></picUrl>
+			</properties>
+		</developer>
+
 		
 		
 		<!-- More developers ... -->
