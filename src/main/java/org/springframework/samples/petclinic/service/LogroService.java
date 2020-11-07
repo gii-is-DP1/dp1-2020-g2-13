@@ -31,6 +31,9 @@ public class LogroService {
 
 	}
 	
+	public void save(Logro logro) {
+		logroRepository.save(logro);
+	}
 	
 	
 	
