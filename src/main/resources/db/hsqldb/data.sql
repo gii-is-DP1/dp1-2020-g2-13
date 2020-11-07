@@ -32,6 +32,11 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
+INSERT INTO logros(id,nombre,descripcion) VALUES (1,'Hola_mundo', 'primer logro conseguido por registro');
+INSERT INTO logros(id,nombre,descripcion) VALUES (2,'Chocapi', 'Choque con pizarra');
+
+
+
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
 INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');

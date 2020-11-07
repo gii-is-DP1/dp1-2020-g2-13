@@ -59,6 +59,7 @@
 			</properties>
 		</developer>
 		<developer>
+
 			<id>pabcolcap</id>
 			<name>Pablo</name>
 			<email>pabcolcap@alum.us.es</email>
@@ -71,6 +72,7 @@
 			</properties>
 		</developer>
 		<developer>
+
 			<id>iarrans</id>
 			<name>Isabel</name>
 			<email>isabelarrans@gmail.com</email>
@@ -82,6 +84,7 @@
 				<picUrl></picUrl>
 			</properties>
 		</developer>
+
 		<developer>
 			<id>guilleeF1</id>
 			<name>Guille</name>
@@ -94,6 +97,7 @@
 				<picUrl></picUrl>
 			</properties>
 		</developer>
+
 		
 		
 		<!-- More developers ... -->

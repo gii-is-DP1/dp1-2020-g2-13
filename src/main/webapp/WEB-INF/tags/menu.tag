@@ -39,12 +39,39 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Veterinarians</span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
+                    title="logro" dropdown="${true}">
+                        <ul class="dropdown-menu">
+                            <li>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/logros" />">Logros</a>
+                                        </div>
+                                    </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/logros" />">Logros2</a>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                </petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
+				<!--<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
+					title="ver logros disponibles">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Logros</span>
+				</petclinic:menuItem>-->
+				
+				<!--<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
-				</petclinic:menuItem>
+				</petclinic:menuItem>-->
 
 			</ul>
 
