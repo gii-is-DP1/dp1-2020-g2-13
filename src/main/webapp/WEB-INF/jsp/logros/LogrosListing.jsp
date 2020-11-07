@@ -12,9 +12,11 @@
         <thead>
         <tr>
             <th style="width: 20%;">Nombre</th>
-            <th style="width: 80%;">Descripción</th>
+            <th style="width: 80%;">DescripciÃ³n</th>
+
             <th></th>
             <th></th>
+
         </tr>
         </thead>
         <tbody>
@@ -26,6 +28,7 @@
                 <td>
                     <c:out value="${logros.descripcion}"/>
                 </td>
+
                 <td>
                 	<a href="/logros/${logro.id}/edit">
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -36,6 +39,7 @@
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
                 </td>
+
 
             </tr>
         </c:forEach>
