@@ -8,8 +8,13 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "hilos")
-public class Hilo extends BaseEntity{
+public class Hilo extends BaseEntity {
+
+	private enum Categoria {
+		General, Buenas_practicas, Preguntas, Eventos, Noticias
+	}
 
 	private String nombre;
-	private Integer UnlockLevel;
+	private String categoria;
+
 }
