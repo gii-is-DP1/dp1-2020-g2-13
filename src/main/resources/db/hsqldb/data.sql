@@ -32,8 +32,14 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
+-- Insertar logros
 INSERT INTO logros(id,nombre,descripcion) VALUES (1,'Hola_mundo', 'primer logro conseguido por registro');
 INSERT INTO logros(id,nombre,descripcion) VALUES (2,'Chocapi', 'Choque con pizarra');
+
+
+-- Insertar usuarios
+INSERT INTO usuarios(nombre,apellidos,localidad,colegio,email,contrasena) VALUES ('María José','Lera','Sevilla','Colegio de prueba','email@us.es','Qwerty123');
+INSERT INTO usuarios(nombre,apellidos,localidad,colegio,email,contrasena) VALUES ('Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','Qwerty123');
 
 
 
