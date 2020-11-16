@@ -30,12 +30,16 @@
                 </td>
 
                 <td>
-                	<a href="/logros/${logro.id}/edit">
+
+                	<a href="/logros/${logros.id}/edit">
+
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 	</a>
                 </td>
                 <td>
-                	<a href="/logros/${logro.id}/delete">
+
+                	<a href="/logros/${logros.id}/delete">
+
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
                 </td>
@@ -45,5 +49,9 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <p>
+    	<a href="/logros/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Goal</a>
+    </p>
 
 </petclinic:layout>
