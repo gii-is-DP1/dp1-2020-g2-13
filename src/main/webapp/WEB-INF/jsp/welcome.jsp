@@ -6,14 +6,10 @@
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
-
+  
      <img class="img-responsive" src="https://www.us.es/sites/default/files/logoPNG_3.png"/>
 
-    <c:foreach items="${personas}" var="p">
-    	<h1>${p.firstName}</h1>
-    	
-    </c:foreach>
+
     
 
     <div class="row">
