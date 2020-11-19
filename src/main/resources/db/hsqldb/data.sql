@@ -42,7 +42,6 @@ INSERT INTO usuarios(nombre,apellidos,localidad,colegio,email,contrasena) VALUES
 INSERT INTO usuarios(nombre,apellidos,localidad,colegio,email,contrasena) VALUES ('Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','Qwerty123');
 
 
-
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
 INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');

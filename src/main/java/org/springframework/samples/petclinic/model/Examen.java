@@ -7,10 +7,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tests")
-public class Test extends BaseEntity{
+@Table(name = "examenes")
+public class Examen extends BaseEntity{
 
 	private String titulos;
-	private Double puntuacionMaxima;
-	private Double puntuacionMinima;
+	private String puntuacionMaxima;
+	private String puntuacionMinima;
 }
