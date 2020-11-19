@@ -16,6 +16,8 @@
             <th style="width: 80%;">Localidad</th>
             <th style="width: 80%;">Colegio</th>
             <th style="width: 80%;">Email</th>
+            <th></th>
+            <th></th>
 
 
         </tr>
@@ -39,10 +41,28 @@
                     <c:out value="${usuarios.email}"/>
                 </td>
                 
+                <td>
+
+                	<a href="/usuarios/${usuarios.id}/edit">
+
+                	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                	</a>
+                </td>
+                <td>
+
+                	<a href="/usuarios/${usuarios.id}/delete">
+
+                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                	</a>
+                </td>
+                
 
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <p>
+    	<a href="/usuarios/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Usuario</a>
+    </p>
 
 </petclinic:layout>

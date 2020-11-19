@@ -86,6 +86,18 @@
                             </li>
                         </ul>
                 </petclinic:menuItem>
+                <petclinic:menuItem active="${name eq 'pdfs'}" url="/usuarios"
+                    title="usuario" dropdown="${true}">
+                        <ul class="dropdown-menu">
+                            <li>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/usuarios" />">Usuarios</a>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                </petclinic:menuItem>
 
 				<!--<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
 					title="ver logros disponibles">
