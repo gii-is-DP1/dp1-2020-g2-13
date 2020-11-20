@@ -87,6 +87,20 @@
                         </ul>
                 </petclinic:menuItem>
 
+                <petclinic:menuItem active="${name eq 'pdfs'}" url="/usuarios"
+                    title="usuario" dropdown="${true}">
+                        <ul class="dropdown-menu">
+                            <li>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/usuarios" />">Usuarios</a>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                </petclinic:menuItem>
+
+
 				<!--<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
 					title="ver logros disponibles">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -111,7 +125,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>Â 
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
