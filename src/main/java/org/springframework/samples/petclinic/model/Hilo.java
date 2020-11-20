@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,4 +18,7 @@ public class Hilo extends BaseEntity {
 	private String nombre;
 	private String categoria;
 
+	
+	@ManyToOne(optional = true)
+	private Usuario usuario;
 }

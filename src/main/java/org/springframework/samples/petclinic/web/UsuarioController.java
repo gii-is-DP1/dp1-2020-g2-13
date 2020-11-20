@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -8,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Usuario;
+import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,16 +31,16 @@ public class UsuarioController {
 
 	public static final String USUARIOS_FORM = "usuarios/createOrUpdateUsuariosForm";
 
-	
 	@Autowired
 	UsuarioService usuarioService;
-	
+	@Autowired
+	HiloService hiloService;
+
 	@GetMapping
 	public String listUsuarios(ModelMap model) {
 		model.addAttribute("usuarios", usuarioService.findAll());
-		return 	USUARIOS_LISTING;
+		return USUARIOS_LISTING;
 	}
-	
 
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
@@ -53,7 +53,7 @@ public class UsuarioController {
 			return listUsuarios(model);
 		}
 	}
-	
+
 	@PostMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
 			ModelMap model) {
@@ -67,36 +67,42 @@ public class UsuarioController {
 			return listUsuarios(model);
 		}
 	}
-	
+
 	@GetMapping("/{id}/delete")
-	public String deletePdf(@PathVariable("id") int id,ModelMap model) {
-		Optional<Usuario> usuario=usuarioService.findById(id);
-		if(usuario.isPresent()) {
+	public String deletePdf(@PathVariable("id") int id, ModelMap model) {
+		Optional<Usuario> usuario = usuarioService.findById(id);
+		if (usuario.isPresent()) {
 			usuarioService.delete(usuario.get());
-			model.addAttribute("message","The user was deleted successfully!");
+			model.addAttribute("message", "The user was deleted successfully!");
 			return listUsuarios(model);
-		}else {
-			model.addAttribute("message","We cannot find the user you tried to delete!");
+		} else {
+			model.addAttribute("message", "We cannot find the user you tried to delete!");
 			return listUsuarios(model);
 		}
 	}
-	
+
 	@GetMapping("/new")
 	public String editNewDisease(ModelMap model) {
-		model.addAttribute("usuario",new Usuario());
+		model.addAttribute("usuario", new Usuario());
 		return USUARIOS_FORM;
 	}
-	
+
 	@PostMapping("/new")
-	public String saveNewDisease(@Valid Usuario usuario, BindingResult binding,ModelMap model) {
-		if(binding.hasErrors()) {			
+	public String saveNewDisease(@Valid Usuario usuario, BindingResult binding, ModelMap model) {
+		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
-		}else {
+		} else {
 			usuarioService.save(usuario);
-			model.addAttribute("message", "The user was created successfully!");			
+			model.addAttribute("message", "The user was created successfully!");
 			return listUsuarios(model);
 		}
 	}
-	
+
+	@GetMapping(value = "{usuarioId}/hilos")
+	public String getPetClinicHistory(@PathVariable("usuarioId") int usuarioId, ModelMap model) {
+		model.addAttribute("usuario", usuarioService.findById(usuarioId).get());
+		model.addAttribute("hilos", hiloService.findByUsuarioId(usuarioId));
+		return "usuarios/UsuarioHilos";
+	}
 
 }
