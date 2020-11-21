@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -36,6 +35,7 @@ public class UsuarioController {
 
 	public static final String USUARIOS_FORM = "usuarios/createOrUpdateUsuariosForm";
 
+	public static final String PERFIL = "usuarios/perfil";
 
 	@Autowired
 	UsuarioService usuarioService;
@@ -44,7 +44,6 @@ public class UsuarioController {
 
 	@Autowired
 	ExamenService examenService;
-
 
 	@GetMapping
 	public String listUsuarios(ModelMap model) {
@@ -114,7 +113,7 @@ public class UsuarioController {
 		model.addAttribute("hilos", hiloService.findByUsuarioId(usuarioId));
 		return "usuarios/UsuarioHilos";
 	}
-	
+
 	@GetMapping(value = "{usuarioId}/examenes")
 	public String getExamenAuthor(@PathVariable("usuarioId") int usuarioId, ModelMap model) {
 		model.addAttribute("usuario", usuarioService.findById(usuarioId).get());
@@ -122,6 +121,16 @@ public class UsuarioController {
 		return "usuarios/UsuarioHilos";
 	}
 
-
+	@GetMapping("/{id}/perfil")
+	public String perfil(@PathVariable("id") int id, ModelMap model) {
+		Optional<Usuario> usuario = usuarioService.findById(id);
+		if (usuario.isPresent()) {
+			model.addAttribute("usuario", usuario.get());
+			return PERFIL;
+		} else {
+			model.addAttribute("message", "We cannot show the profile of the user you have chosen!");
+			return listUsuarios(model);
+		}
+	}
 
 }
