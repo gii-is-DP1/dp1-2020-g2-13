@@ -13,7 +13,15 @@
     <form:form modelAttribute="hilo" class="form-horizontal" id="add-hilo-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Name" name="nombre"/>
-            <petclinic:inputField label="Categoria" name="categoria"/>          
+            <petclinic:inputField label="Categoria" name="categoria"/>
+			<div class="form-group">
+            	<label class="col-sm-2 control-label">Creador</label>
+            	<div class="col-sm-10">
+				<form:select path="usuario">
+            		<form:options itemValue="id" itemLabel="nombre" items="${usuarios}" />
+            	</form:select>
+            	</div>                        
+            </div>          
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

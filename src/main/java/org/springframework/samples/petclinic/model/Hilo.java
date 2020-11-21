@@ -19,6 +19,6 @@ public class Hilo extends BaseEntity {
 	private String categoria;
 
 	
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	private Usuario usuario;
 }
