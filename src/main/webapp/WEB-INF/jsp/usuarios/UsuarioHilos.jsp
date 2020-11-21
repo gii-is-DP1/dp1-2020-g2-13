@@ -32,19 +32,6 @@
 
                 <td>
 
-                	<a href="/hilos/${hilos.id}/edit">
-
-                	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                	</a>
-                </td>
-                <td>
-
-                	<a href="/hilos/${hilos.id}/delete">
-
-                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                	</a>
-                </td>
-
 
             </tr>
         </c:forEach>
