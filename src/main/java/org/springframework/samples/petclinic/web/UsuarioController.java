@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Usuario;
 
+import org.springframework.samples.petclinic.service.ExamenService;
+
 import org.springframework.samples.petclinic.service.HiloService;
 
 import org.springframework.samples.petclinic.service.UsuarioService;
@@ -39,6 +41,10 @@ public class UsuarioController {
 	UsuarioService usuarioService;
 	@Autowired
 	HiloService hiloService;
+
+	@Autowired
+	ExamenService examenService;
+
 
 	@GetMapping
 	public String listUsuarios(ModelMap model) {
@@ -109,6 +115,13 @@ public class UsuarioController {
 		return "usuarios/UsuarioHilos";
 	}
 	
+	@GetMapping(value = "{usuarioId}/examenes")
+	public String getExamenAuthor(@PathVariable("usuarioId") int usuarioId, ModelMap model) {
+		model.addAttribute("usuario", usuarioService.findById(usuarioId).get());
+		model.addAttribute("examenes", examenService.findByUsuarioId(usuarioId));
+		return "usuarios/UsuarioHilos";
+	}
+
 
 
 }
