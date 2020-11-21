@@ -32,4 +32,15 @@ public class UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 
+	public Optional<Usuario> findById(int id) {
+		return usuarioRepository.findById(id);
+	}
+	public void delete(Usuario usuario) {
+		usuarioRepository.deleteById(usuario.getId());
+	}
+	public void save(Usuario usuario) {
+		usuarioRepository.save(usuario);
+	}
+	
+
 }
