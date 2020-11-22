@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="hilos">
     <h2>
-        <c:if test="${usuario['new']}">New </c:if> Usuario
+        <c:if test="${usuario['new']}">Nuevo </c:if> usuario
     </h2>
     <form:form modelAttribute="usuario" class="form-horizontal" id="add-usuario-form">
         <div class="form-group has-feedback">
@@ -17,16 +17,16 @@
             <petclinic:inputField label="Localidad" name="localidad"/>      
             <petclinic:inputField label="Colegio" name="colegio"/>
             <petclinic:inputField label="Email" name="email"/>    
-             <petclinic:inputField label="Contrasena" name="contrasena"/>   
+             <petclinic:inputField label="Contraseña" name="contrasena"/>   
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${usuario['new']}">
-                        <button class="btn btn-default" type="submit">Add Usuario</button>
+                        <button class="btn btn-default" type="submit">Registrar usuario</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Usuario</button>
+                        <button class="btn btn-default" type="submit">Editar usuario</button>
                     </c:otherwise>
                 </c:choose>
             </div>
