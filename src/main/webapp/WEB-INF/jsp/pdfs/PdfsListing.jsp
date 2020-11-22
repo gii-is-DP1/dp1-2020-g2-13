@@ -6,12 +6,12 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="pdfs">
-    <h2>Pdfs</h2>
+<petclinic:layout pageName="documentos">
+    <h2>Documentos</h2>
         <table id="pdfsTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 100%;">Pdf</th>
+            <th style="width: 100%;">Documento</th>
             <th></th>
             <th></th>
 
@@ -46,7 +46,7 @@
     </table>
     
     <p>
-    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add PDF</a>
+    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Documento</a>
     </p>
 
 </petclinic:layout>

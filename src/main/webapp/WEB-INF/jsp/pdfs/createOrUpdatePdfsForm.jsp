@@ -6,9 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="pdfs">
+<petclinic:layout pageName="documentos">
     <h2>
-        <c:if test="${pdf['new']}">New </c:if> Pdf
+        <c:if test="${pdf['new']}">New </c:if> Documento
     </h2>
     <form:form modelAttribute="pdf" class="form-horizontal" id="add-pdf-form">
         <div class="form-group has-feedback">
@@ -18,10 +18,10 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${pdf['new']}">
-                        <button class="btn btn-default" type="submit">Add PDF</button>
+                        <button class="btn btn-default" type="submit">Añadir documento</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update PDF</button>
+                        <button class="btn btn-default" type="submit">Editar documento</button>
                     </c:otherwise>
                 </c:choose>
             </div>
