@@ -14,6 +14,7 @@ public class Hilo extends BaseEntity {
 	private enum Categoria {
 		General, Buenas_practicas, Preguntas, Eventos, Noticias
 	}
+	
 
 	private String nombre;
 	private String categoria;
