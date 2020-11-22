@@ -6,39 +6,42 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="logros">
-    <h2>Logros</h2>
-        <table id="logrosTable" class="table table-striped">
+<petclinic:layout pageName="examenes">
+    <h2>Ex·menes creados</h2>
+        <table id="examenesTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 20%;">Nombre</th>
-            <th style="width: 80%;">Descripci√≥n</th>
-
+            <th style="width: 20%;">Titulos</th>
+            <th style="width: 80%;">Puntuacion Maxima</th>
+            <th style="width: 80%;">Puntuacion Minima</th>
             <th></th>
             <th></th>
 
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${logros}" var="logros">
+        <c:forEach items="${examenes}" var="examenes">
             <tr>
                 <td>
-                    <c:out value="${logros.nombre}"/>
+                    <c:out value="${examenes.titulos}"/>
                 </td>
                 <td>
-                    <c:out value="${logros.descripcion}"/>
+                    <c:out value="${examenes.puntuacionMaxima}"/>
+                </td>
+                <td>
+                    <c:out value="${examenes.puntuacionMinima}"/>
                 </td>
 
                 <td>
 
-                	<a href="/logros/${logros.id}/edit">
+                	<a href="/examenes/${examenes.id}/edit">
 
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 	</a>
                 </td>
                 <td>
 
-                	<a href="/logros/${logros.id}/delete">
+                	<a href="/examenes/${examenes.id}/delete">
 
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
@@ -51,7 +54,7 @@
     </table>
     
     <p>
-    	<a href="/logros/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Goal</a>
+    	<a href="/examenes/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Exam</a>
     </p>
 
 </petclinic:layout>

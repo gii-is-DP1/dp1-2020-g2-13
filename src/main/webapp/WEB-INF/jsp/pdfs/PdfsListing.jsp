@@ -6,39 +6,34 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="logros">
-    <h2>Logros</h2>
-        <table id="logrosTable" class="table table-striped">
+<petclinic:layout pageName="documentos">
+    <h2>Documentos</h2>
+        <table id="pdfsTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 20%;">Nombre</th>
-            <th style="width: 80%;">Descripci√≥n</th>
-
+            <th style="width: 100%;">Documento</th>
             <th></th>
             <th></th>
 
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${logros}" var="logros">
+        <c:forEach items="${pdfs}" var="pdfs">
             <tr>
                 <td>
-                    <c:out value="${logros.nombre}"/>
-                </td>
-                <td>
-                    <c:out value="${logros.descripcion}"/>
+                    <c:out value="${pdfs.archivo}"/>
                 </td>
 
                 <td>
 
-                	<a href="/logros/${logros.id}/edit">
+                	<a href="/pdfs/${pdfs.id}/edit">
 
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 	</a>
                 </td>
                 <td>
 
-                	<a href="/logros/${logros.id}/delete">
+                	<a href="/pdfs/${pdfs.id}/delete">
 
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
@@ -51,7 +46,7 @@
     </table>
     
     <p>
-    	<a href="/logros/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Goal</a>
+    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÒadir Documento</a>
     </p>
 
 </petclinic:layout>
