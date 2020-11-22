@@ -41,7 +41,6 @@
 					<span>Veterinarians</span>
 				</petclinic:menuItem>
 				
-				-->
 				
 				<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
                     title="logro" dropdown="${true}">
@@ -63,9 +62,29 @@
                             </li>
                         </ul>
                 </petclinic:menuItem>
+				-->
 				
-				<petclinic:menuItem active="${name eq 'hilos'}" url="/hilos"
-                    title="hilo" dropdown="${true}">
+				<petclinic:menuItem active="${name eq 'contenido'}" url="/pdfs"
+                    title="contenido" dropdown="${true}">
+                        <ul class="dropdown-menu">
+                            <li>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/pdfs" />">Documentos</a>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                </petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'herramientas'}" url="/"
+                    title="herramientas" >
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Herramientas</span>
+                </petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'foro'}" url="/hilos"
+                    title="foro" dropdown="${true}">
                         <ul class="dropdown-menu">
                             <li>
                                     <div class="row">
@@ -73,10 +92,16 @@
                                                 <a href="<c:url value="/hilos" />">Hilos</a>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/usuarios" />">Usuarios</a>
+                                        </div>
+                                    </div>
                             </li>
                         </ul>
                 </petclinic:menuItem>
 				
+				<!--
 				<petclinic:menuItem active="${name eq 'pdfs'}" url="/pdfs"
                     title="pdf" dropdown="${true}">
                         <ul class="dropdown-menu">
@@ -90,7 +115,7 @@
                         </ul>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'pdfs'}" url="/usuarios"
+                <petclinic:menuItem active="${name eq 'usuarios'}" url="/usuarios"
                     title="usuario" dropdown="${true}">
                         <ul class="dropdown-menu">
                             <li>
@@ -104,7 +129,7 @@
                 </petclinic:menuItem>
 
 
-				<!--<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
+				<petclinic:menuItem active="${name eq 'logros'}" url="/logros"
 					title="ver logros disponibles">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Logros</span>

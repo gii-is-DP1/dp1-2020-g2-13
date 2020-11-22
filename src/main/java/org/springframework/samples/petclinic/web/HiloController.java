@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HiloController {
 	public static final String HILOS_FORM = "hilos/createOrUpdateHilosForm";
 	public static final String HILOS_LISTING = "hilos/HilosListing";
+	public static final String HILO_VISTA = "hilos/vistaHilo";
 
 	@Autowired
 	HiloService hiloService;
@@ -44,6 +45,18 @@ public class HiloController {
 			model.addAttribute("hilo", hilo.get());
 			model.addAttribute("usuarios", usuarios);
 			return HILOS_FORM;
+		} else {
+			model.addAttribute("message", "We cannot find the thread you tried to edit!");
+			return listHilos(model);
+		}
+	}
+
+	@GetMapping("/{id}")
+	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
+		Optional<Hilo> hilo = hiloService.findById(id);
+		if (hilo.isPresent()) {
+			model.addAttribute("hilo", hilo.get());
+			return HILO_VISTA;
 		} else {
 			model.addAttribute("message", "We cannot find the thread you tried to edit!");
 			return listHilos(model);
