@@ -8,12 +8,13 @@
 
 <petclinic:layout pageName="hilos">
     <h2>
-        <c:if test="${hilo['new']}">New </c:if> Hilo
+        <c:if test="${hilo['new']}">Nuevo </c:if> hilo
     </h2>
     <form:form modelAttribute="hilo" class="form-horizontal" id="add-hilo-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Name" name="nombre"/>
+            <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Categoria" name="categoria"/>
+            <petclinic:inputField label="Contenido" name="contenido"/>
 			<div class="form-group">
             	<label class="col-sm-2 control-label">Creador</label>
             	<div class="col-sm-10">

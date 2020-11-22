@@ -18,6 +18,7 @@ public class Hilo extends BaseEntity {
 
 	private String nombre;
 	private String categoria;
+	private String contenido;
 
 	
 	@ManyToOne(optional = false)

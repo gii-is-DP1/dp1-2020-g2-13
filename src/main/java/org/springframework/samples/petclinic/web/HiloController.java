@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.io.Console;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -7,8 +8,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
+import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ public class HiloController {
 
 	@Autowired
 	HiloService hiloService;
+	@Autowired
+	ComentarioService comentarioService;
 	@Autowired
 	UsuarioService usuarioService;
 
@@ -56,6 +61,7 @@ public class HiloController {
 		Optional<Hilo> hilo = hiloService.findById(id);
 		if (hilo.isPresent()) {
 			model.addAttribute("hilo", hilo.get());
+			model.addAttribute("comentario", new Comentario());
 			return HILO_VISTA;
 		} else {
 			model.addAttribute("message", "We cannot find the thread you tried to edit!");
@@ -99,13 +105,25 @@ public class HiloController {
 	}
 	
 	@PostMapping("/new")
-	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding,ModelMap model) {
+	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
 		if(binding.hasErrors()) {			
 			return HILOS_FORM;
 		}else {
 			hiloService.save(hilo);
 			model.addAttribute("message", "The thread was created successfully!");			
 			return listHilos(model);
+		}
+	}
+
+	@PostMapping("/{id}")
+	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model,
+			@PathVariable("id") int id) {
+		if(binding.hasErrors()) {			
+			return HILOS_LISTING;
+		}else {
+			comentarioService.save(comentario);
+			model.addAttribute("message", "El comentario se ha publicado.");			
+			return HILOS_LISTING;
 		}
 	}
 	
