@@ -41,7 +41,7 @@ public class HiloController {
 		model.addAttribute("hilos", hiloService.findAll());
 		return HILOS_LISTING;
 	}
-
+	
 	@GetMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, ModelMap model) {
 		Optional<Hilo> hilo = hiloService.findById(id);
@@ -59,9 +59,11 @@ public class HiloController {
 	@GetMapping("/{id}")
 	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
 		Optional<Hilo> hilo = hiloService.findById(id);
+		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
 		if (hilo.isPresent()) {
 			model.addAttribute("hilo", hilo.get());
 			model.addAttribute("comentario", new Comentario());
+			model.addAttribute("comentarios", comentarios);
 			return HILO_VISTA;
 		} else {
 			model.addAttribute("message", "We cannot find the thread you tried to edit!");
@@ -115,15 +117,25 @@ public class HiloController {
 		}
 	}
 
-	@PostMapping("/{id}")
-	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model,
-			@PathVariable("id") int id) {
-		if(binding.hasErrors()) {			
-			return HILOS_LISTING;
+	@PostMapping("/{value}")
+	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
+		int id = comentario.getHilo().getId();
+		if(binding.hasErrors()) {
+			
 		}else {
 			comentarioService.save(comentario);
-			model.addAttribute("message", "El comentario se ha publicado.");			
-			return HILOS_LISTING;
+			model.addAttribute("message", "El comentario se ha publicado.");
+		}
+		Optional<Hilo> hilo = hiloService.findById(id);
+		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
+		if (hilo.isPresent()) {
+			model.addAttribute("hilo", hilo.get());
+			model.addAttribute("comentario", new Comentario());
+			model.addAttribute("comentarios", comentarios);
+			return HILO_VISTA;
+		} else {
+			model.addAttribute("message", "We cannot find the thread you tried to edit!");
+			return listHilos(model);
 		}
 	}
 	

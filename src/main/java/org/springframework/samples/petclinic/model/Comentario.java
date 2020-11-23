@@ -20,9 +20,9 @@ public class Comentario extends BaseEntity {
 //	private int likes;
 
 
-//	@ManyToOne(optional = true)
-//	private Usuario usuario;
-//	
-//	@ManyToOne(optional = true)
-//	private Hilo hilo;
+	@ManyToOne(optional = true)
+	private Usuario usuario;
+	
+	@ManyToOne(optional = true)
+	private Hilo hilo;
 }
