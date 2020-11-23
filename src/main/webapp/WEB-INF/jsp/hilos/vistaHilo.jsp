@@ -8,15 +8,24 @@
 
 
 <petclinic:layout pageName="hilo">
-	<h2>${hilo.nombre}</h2>
+	<h1>${hilo.nombre}</h1>
 	<p>${hilo.contenido}</p>
 	<c:forEach items="${comentarios}" var="comentarios">
+		<h4>${comentarios.usuario.nombre}</h4> 
 		<p>${comentarios.contenido}</p>
 	</c:forEach>
 
 	<form:form modelAttribute="comentario" class="form-horizontal"
 		id="add-comentario-form">
 		<div class="form-group has-feedback">
+			<div class="form-group">
+            	<label class="col-sm-2 control-label">Escritor</label>
+            	<div class="col-sm-10">
+				<form:select path="usuario">
+            		<form:options itemValue="id" itemLabel="nombre" items="${usuarios}" />
+            	</form:select>
+            	</div>                        
+            </div>          
 			<petclinic:inputField label="Contenido" name="contenido" />
 			<input value="${hilo.id}" hidden=true name="hilo"></input>
 		</div>
