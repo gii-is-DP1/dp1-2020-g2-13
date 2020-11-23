@@ -28,6 +28,7 @@ public class HiloController {
 	public static final String HILOS_FORM = "hilos/createOrUpdateHilosForm";
 	public static final String HILOS_LISTING = "hilos/HilosListing";
 	public static final String HILO_VISTA = "hilos/vistaHilo";
+
 	
 	private String auxViewHilo(int id, ModelMap model) {
 		Optional<Hilo> hilo = hiloService.findById(id);
@@ -44,6 +45,7 @@ public class HiloController {
 			return listHilos(model);
 		}
 	}
+
 
 	@Autowired
 	HiloService hiloService;
@@ -74,7 +76,18 @@ public class HiloController {
 
 	@GetMapping("/{id}")
 	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
+
 		return auxViewHilo(id, model);
+
+		Optional<Hilo> hilo = hiloService.findById(id);
+		if (hilo.isPresent()) {
+			model.addAttribute("hilo", hilo.get());
+			return HILO_VISTA;
+		} else {
+			model.addAttribute("message", "We cannot find the thread you tried to edit!");
+			return listHilos(model);
+		}
+
 	}
 
 	@PostMapping("/{id}/edit")
