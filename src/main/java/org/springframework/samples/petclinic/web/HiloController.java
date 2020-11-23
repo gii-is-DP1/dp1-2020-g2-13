@@ -28,6 +28,22 @@ public class HiloController {
 	public static final String HILOS_FORM = "hilos/createOrUpdateHilosForm";
 	public static final String HILOS_LISTING = "hilos/HilosListing";
 	public static final String HILO_VISTA = "hilos/vistaHilo";
+	
+	private String auxViewHilo(int id, ModelMap model) {
+		Optional<Hilo> hilo = hiloService.findById(id);
+		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
+		Collection<Usuario> usuarios = usuarioService.findAll();
+		if (hilo.isPresent()) {
+			model.addAttribute("hilo", hilo.get());
+			model.addAttribute("comentario", new Comentario());
+			model.addAttribute("comentarios", comentarios);
+			model.addAttribute("usuarios", usuarios);
+			return HILO_VISTA;
+		} else {
+			model.addAttribute("message", "We cannot find the thread you tried to edit!");
+			return listHilos(model);
+		}
+	}
 
 	@Autowired
 	HiloService hiloService;
@@ -58,17 +74,7 @@ public class HiloController {
 
 	@GetMapping("/{id}")
 	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
-		Optional<Hilo> hilo = hiloService.findById(id);
-		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
-		if (hilo.isPresent()) {
-			model.addAttribute("hilo", hilo.get());
-			model.addAttribute("comentario", new Comentario());
-			model.addAttribute("comentarios", comentarios);
-			return HILO_VISTA;
-		} else {
-			model.addAttribute("message", "We cannot find the thread you tried to edit!");
-			return listHilos(model);
-		}
+		return auxViewHilo(id, model);
 	}
 
 	@PostMapping("/{id}/edit")
@@ -126,17 +132,6 @@ public class HiloController {
 			comentarioService.save(comentario);
 			model.addAttribute("message", "El comentario se ha publicado.");
 		}
-		Optional<Hilo> hilo = hiloService.findById(id);
-		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
-		if (hilo.isPresent()) {
-			model.addAttribute("hilo", hilo.get());
-			model.addAttribute("comentario", new Comentario());
-			model.addAttribute("comentarios", comentarios);
-			return HILO_VISTA;
-		} else {
-			model.addAttribute("message", "We cannot find the thread you tried to edit!");
-			return listHilos(model);
-		}
+		return auxViewHilo(id, model);
 	}
-	
 }
