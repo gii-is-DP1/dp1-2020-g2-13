@@ -1,0 +1,26 @@
+R1 - Restricción nivel 1
+Al registrarse en Golden 5, un usuario tendrá nivel 1. Esto le dará acceso a los PDFs y vídeos de la aplicación. No podrá subir de nivel hasta que no haya llegado a un determinado tiempo de visualización del material formativo.
+
+R2 – Restricción nivel 2
+Un usuario de nivel 2, al tener más experiencia en la aplicación, tendrá los privilegios correspondientes al nivel 1 y, además, podrá acceder a las herramientas. Ej: el sociograma. Un usuario no podrá ascender de nivel hasta que no haya completado un número determinado de tests y haya usado las herramientas.
+
+R3 - Restricción nivel 3
+Un usuario de nivel 3 tiene acceso al contenido correspondiente a los niveles 1 y 2 y, además, a la parte social de la aplicación: los foros y los eventos. Es el máximo nivel, por lo que el usuario ya no puede ascender. 
+
+R4 – Borrado de usuarios
+Si un usuario no ha superado los requisitos para ascender al nivel 2 en un plazo de 15 días, su cuenta será borrada de la base de datos. De esta manera, conseguiremos evitar a los usuarios fantasma y a las cuentas cuyo propósito es hacer spam. No se borrarán usuarios de nivel 2 o más.
+
+R5 - Nombrar archivos
+Cuando se suba un archivo, la persona que lo sube tiene que ponerle un título de manera obligatoria, a fin de que los usuarios lo puedan consultar de forma más rápida. 
+
+R6 - Subida de pdf y vídeos
+Los pdfs y los vídeos de la aplicación sólo los podrán subir los usuarios con el rol de autor. Así no se sobrecargará. 
+
+R7 - Suscripción a foro
+Sólo los usuarios que estén suscritos a un foro concreto recibirán notificaciones en su correo electrónico cuando se publiquen mensajes en este. De esta forma, evitaremos que el usuario tenga un exceso de notificaciones para que se pueda centrar en los temas que le interesan.  
+
+R8 – Perfil de administrador
+El administrador de la página tendrá acceso a ciertas características exclusivas de este rol como la edición y eliminación de cualquier parte del contenido de la web y eliminar cuentas de usuarios.
+
+R9 – Rol de autor
+Sólo los usuarios que hayan alcanzado el nivel 3 podrán tener el rol de autor para subir vídeos. De esta forma, los usuarios spam no podrán crear contenido ajeno a la temática de la página.
