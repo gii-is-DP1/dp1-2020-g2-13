@@ -27,16 +27,16 @@ public class ComentarioController {
 
 	@Autowired
 	ComentarioService comentarioService;
-	
-	@PostMapping("/new")
-	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
-		if(binding.hasErrors()) {			
-			return "usuarios/UsuariosListing";
-		}else {
-			comentarioService.save(comentario);
-			model.addAttribute("message", "El comentario se ha publicado.");			
-			return "hilos/HilosListing";
-		}
-	}
+//	
+//	@PostMapping("/new")
+//	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
+//		if(binding.hasErrors()) {			
+//			return "usuarios/UsuariosListing";
+//		}else {
+//			comentarioService.save(comentario);
+//			model.addAttribute("message", "El comentario se ha publicado.");			
+//			return "hilos/HilosListing";
+//		}
+//	}
 	
 }
