@@ -4,9 +4,14 @@ import java.util.Collection;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
+import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
+import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleUsuarioException;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +33,14 @@ public class UsuarioService {
 		usuarioRepository.deleteById(usuario.getId());
 	}
 
-	public void save(Usuario usuario) {
+	public void save(Usuario usuario) throws ImpossibleUsuarioException {
+		validateUsuarioIsPossible(usuario);
 		usuarioRepository.save(usuario);
 	}
 	
+	private void validateUsuarioIsPossible(@Valid Usuario usuario) throws ImpossibleUsuarioException {
+		if(usuario.getNombre().trim().length() == 0)
+			throw new ImpossibleUsuarioException(usuario.getNombre());
+	}
 
 }
