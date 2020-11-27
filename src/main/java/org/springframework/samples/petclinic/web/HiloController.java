@@ -55,10 +55,12 @@ public class HiloController {
 	@Autowired
 	UsuarioService usuarioService;
 	
+
 	@InitBinder("hilo")
 	public void initHiloBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new HiloValidator());
 	}
+
 
 	@GetMapping
 	public String listHilos(ModelMap model) {
