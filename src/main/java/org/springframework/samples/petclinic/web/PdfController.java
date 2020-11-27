@@ -48,6 +48,7 @@ public class PdfController {
 			ModelMap model) {
 		Optional<Pdf> pdf = pdfService.findById(id);
 		if (binding.hasErrors()) {
+			model.addAttribute("message", "Documento inválido.");
 			return HILOS_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedPdf, pdf.get(), "id");
@@ -77,8 +78,9 @@ public class PdfController {
 	}
 	
 	@PostMapping("/new")
-	public String saveNewDisease(@Valid Pdf pdf, BindingResult binding,ModelMap model) {
-		if(binding.hasErrors()) {			
+	public String saveNewPdf(@Valid Pdf pdf, BindingResult binding,ModelMap model) {
+		if(binding.hasErrors()) {
+			model.addAttribute("message", "Documento inválido.");
 			return HILOS_FORM;
 		}else {
 			pdfService.save(pdf);

@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
@@ -29,7 +31,7 @@ public class HiloService {
 
 	}
 
-	public void save(Hilo hilo) {
+	public void save(@Valid Hilo hilo) {
 		hiloRepository.save(hilo);
 	}
 

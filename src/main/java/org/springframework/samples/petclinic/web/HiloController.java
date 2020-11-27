@@ -55,10 +55,12 @@ public class HiloController {
 	@Autowired
 	UsuarioService usuarioService;
 	
-//	@InitBinder("comentario")
-//	public void initPetBinder(WebDataBinder dataBinder) {
-//		dataBinder.setValidator(new ComentarioValidator());
-//	}
+
+	@InitBinder("hilo")
+	public void initHiloBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new HiloValidator());
+	}
+
 
 	@GetMapping
 	public String listHilos(ModelMap model) {
@@ -122,7 +124,10 @@ public class HiloController {
 	
 	@PostMapping("/new")
 	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
-		if(binding.hasErrors()) {			
+		if(binding.hasErrors()) {	
+			Collection<Usuario> usuarios = usuarioService.findAll();
+			model.addAttribute("hilo",new Hilo());
+			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {
 			hiloService.save(hilo);
