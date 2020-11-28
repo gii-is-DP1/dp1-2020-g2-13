@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.samples.petclinic.service.businessrules.ValidatePossibleComentario;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -29,5 +31,6 @@ public class Comentario extends BaseEntity {
 	private Usuario usuario;
 	
 	@ManyToOne(optional = true)
+	@NotNull
 	private Hilo hilo;
 }
