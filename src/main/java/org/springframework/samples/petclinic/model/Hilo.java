@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -20,8 +22,11 @@ public class Hilo extends BaseEntity {
 	}
 	
 
+	@NotNull
 	private String nombre;
+	@NotNull
 	private String categoria;
+	@NotNull
 	private String contenido;
 
 	

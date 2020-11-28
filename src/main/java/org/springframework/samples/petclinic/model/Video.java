@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,7 @@ import lombok.Data;
 @Table(name = "videos")
 public class Video extends BaseEntity{
 
+	@NotNull
 	private String link;
 	@Size(max = 250)
 	private String descripcion;

@@ -18,6 +18,7 @@ public class Evento extends BaseEntity{
 	private String nombre;
 	private LocalDate fecha;
 	@Size(max = 250)
+	@NotNull
 	private String descripcion;
 	private Integer unlockLevel;
 	private String tipoEvento;
