@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -12,7 +14,10 @@ import lombok.Data;
 @Table(name = "archivos")
 public class Archivo extends BaseEntity{
 
+	@NotNull
 	private LocalDate fechaUpload;
+	@NotNull
 	private  Integer UnlockLevel;
+	@NotNull
 	private String autor;
 }
