@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -16,18 +17,18 @@ import lombok.Data;
 @Table(name = "usuarios")
 public class Usuario extends BaseEntity{
 
+	@NotNull
 	@Size(max = 30)
 	private String nombre;
-	
+	@NotNull
 	@Size(max = 100)
 	private String apellidos;
-	
+	@NotNull
 	private String localidad;
-	
 	private String colegio;
-	
+	@NotNull
 	private String email;
-	
+	@NotNull
 	private String contrasena;
 
 	

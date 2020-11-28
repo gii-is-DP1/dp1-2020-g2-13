@@ -24,7 +24,6 @@ public class HiloServiceTest {
 	
 	private static int TEST_USUARIO_ID;
 	private static int TEST_HILO_ID;
-
 	
 	@BeforeEach
 	void setup(){
@@ -61,9 +60,7 @@ public class HiloServiceTest {
 		
 		assertEquals(TEST_HILO_ID, this.hiloService.findById(TEST_HILO_ID).get().getId());
 		
-
 	}
-	
 	
 	@DisplayName("Prueba de guardado de hilo")
 	@Test
@@ -76,7 +73,5 @@ public class HiloServiceTest {
 		this.hiloService.save(hilo);
 		assertThat(hilo.getId().longValue()).isNotEqualTo(0);
 		assertEquals(hilo, this.hiloService.findById(hilo.getId()).get());
-		
-
 	}
 }
