@@ -17,23 +17,23 @@ public class ExamenValidator implements Validator {
 		Double puntuacionMaxima = examen.getPuntuacionMaxima();
 		// titulos validation
 		if (!StringUtils.hasLength(titulos) || titulos.length() < 1 || titulos.length() > 50) {
-			errors.rejectValue("titulos", REQUIRED + " and between 1 character and 50 characters", REQUIRED
-					+ " and between 1 character and 50 characters");
+			errors.rejectValue("titulos", REQUIRED + " y entre 1 y 50 caracteres", REQUIRED
+					+ " y entre 1 y 50 caracteres");
 		}
 		if (titulos.trim().length() == 0) {
-			errors.rejectValue("titulos", REQUIRED + " and can't have only spaces",
-					REQUIRED + " and can't have only spaces");	
+			errors.rejectValue("titulos", REQUIRED + " y no puede estar vacío",
+					REQUIRED + " y no puede estar vacío");	
 		}
 		// puntuacionMinima validation
 		try {
 			if (puntuacionMinima>=puntuacionMaxima) {
 				errors.rejectValue("puntuacionMinima", REQUIRED +
-						" and can't be larger or equal than puntuacionMaxima", REQUIRED
-						+ " and can't be larger or equal than puntuacionMaxima");
+						" y no puede ser mayor o igual que la puntuación Máxima", REQUIRED
+						+ " y no puede ser mayor o igual que la puntuación Máxima");
 			}			
 		}catch(NullPointerException e) {
-			errors.rejectValue("puntuacionMinima", REQUIRED + " and can't be empty", REQUIRED
-					+ " and can't be empty");
+			errors.rejectValue("puntuacionMinima", REQUIRED + " y no puede estar vacía", REQUIRED
+					+ " y no puede estar vacía");
 		}
 		
 		
@@ -41,12 +41,12 @@ public class ExamenValidator implements Validator {
 		try {
 			if (puntuacionMinima>=puntuacionMaxima) {
 				errors.rejectValue("puntuacionMaxima", REQUIRED +
-						" and can't be lower or equal than puntuacionMinima", REQUIRED
-						+ " and can't be lower or equal than puntuacionMinima");
+						" y no puede ser mayor o igual que la puntuación Mínima", REQUIRED
+						+ " y no puede ser mayor o igual que la puntuación Mínima");
 			}
 		}catch(NullPointerException e) {
-			errors.rejectValue("puntuacionMaxima", REQUIRED + " and can't be empty", REQUIRED
-					+ " and can't be empty");
+			errors.rejectValue("puntuacionMaxima", REQUIRED + " y no puede estar vacía", REQUIRED
+					+ " y no puede estar vacía");
 		}
 		
 	}
