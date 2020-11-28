@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Usuario;
-
+import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleUsuarioException;
 import org.springframework.samples.petclinic.service.ExamenService;
 
 import org.springframework.samples.petclinic.service.HiloService;
@@ -71,7 +71,13 @@ public class UsuarioController {
 			return USUARIOS_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedUsuario, usuario.get(), "id");
-			usuarioService.save(usuario.get());
+			try {
+				usuarioService.save(usuario.get());
+			}
+			catch (ImpossibleUsuarioException e){
+				model.addAttribute("message", "A shuparla");
+				return USUARIOS_FORM;
+			}
 			model.addAttribute("message", "User updated succesfully!");
 			return listUsuarios(model);
 		}
@@ -101,7 +107,13 @@ public class UsuarioController {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
-			usuarioService.save(usuario);
+			try {
+				usuarioService.save(usuario);				
+			}
+			catch (ImpossibleUsuarioException e) {
+				model.addAttribute("message", "A shuparla");
+				return USUARIOS_FORM;
+			}
 			model.addAttribute("message", "The user was created successfully!");
 			return listUsuarios(model);
 		}
