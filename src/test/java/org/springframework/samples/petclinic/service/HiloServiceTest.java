@@ -2,6 +2,12 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +18,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.stereotype.Service;
+
+
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class HiloServiceTest {
@@ -78,5 +86,28 @@ public class HiloServiceTest {
 		assertEquals(hilo, this.hiloService.findById(hilo.getId()).get());
 		
 
+	}
+	
+	@DisplayName("Prueba de borrado de hilo")
+	@Test
+	void shouldDelete() {
+		
+		
+		this.hiloService.delete(this.hiloService.findById(TEST_HILO_ID).get());
+		assertThrows(NoSuchElementException.class, () -> this.hiloService.findById(TEST_HILO_ID).get().getNombre());
+		
+
+	}
+	
+	@DisplayName("Prueba de localización de hilos por usuario")
+	@Test
+	void shouldFindByUsuarioId() {
+		List<Hilo> list = new ArrayList<>();
+		Collection<Hilo> hilos = this.hiloService.findByUsuarioId(TEST_USUARIO_ID);
+		for(Hilo h :hilos ) {
+			list.add(h);
+		}
+		assertThat(hilos.size()).isEqualTo(1);
+		assertEquals(this.hiloService.findById(TEST_HILO_ID).get(), list.get(0));
 	}
 }
