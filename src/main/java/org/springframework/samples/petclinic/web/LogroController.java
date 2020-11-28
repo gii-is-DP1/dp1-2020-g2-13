@@ -11,7 +11,9 @@ import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,12 @@ public class LogroController {
 
 	@Autowired
 	LogroService logroService;
+	
+
+	@InitBinder("logro")
+	public void initLogroBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new LogroValidator());
+	}
 
 	@GetMapping
 	public String listLogros(ModelMap model) {

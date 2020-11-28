@@ -6,8 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleUsuarioException;
 import org.springframework.samples.petclinic.service.ExamenService;
 
 import org.springframework.samples.petclinic.service.HiloService;
@@ -16,7 +16,9 @@ import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -44,6 +46,12 @@ public class UsuarioController {
 
 	@Autowired
 	ExamenService examenService;
+	
+
+	@InitBinder("usuario")
+	public void initUsuarioBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new UsuarioValidator());
+	}
 
 	@GetMapping
 	public String listUsuarios(ModelMap model) {
@@ -64,27 +72,21 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String editPdf(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
+	public String editUsuario(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
 			ModelMap model) {
 		Optional<Usuario> usuario = usuarioService.findById(id);
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedUsuario, usuario.get(), "id");
-			try {
-				usuarioService.save(usuario.get());
-			}
-			catch (ImpossibleUsuarioException e){
-				model.addAttribute("message", "A shuparla");
-				return USUARIOS_FORM;
-			}
-			model.addAttribute("message", "User updated succesfully!");
+			usuarioService.save(usuario.get());
+			model.addAttribute("message", "Thread updated succesfully!");
 			return listUsuarios(model);
 		}
 	}
 
 	@GetMapping("/{id}/delete")
-	public String deletePdf(@PathVariable("id") int id, ModelMap model) {
+	public String deleteUsuario(@PathVariable("id") int id, ModelMap model) {
 		Optional<Usuario> usuario = usuarioService.findById(id);
 		if (usuario.isPresent()) {
 			usuarioService.delete(usuario.get());
@@ -97,23 +99,17 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/new")
-	public String editNewDisease(ModelMap model) {
+	public String editNewUsuario(ModelMap model) {
 		model.addAttribute("usuario", new Usuario());
 		return USUARIOS_FORM;
 	}
 
 	@PostMapping("/new")
-	public String saveNewDisease(@Valid Usuario usuario, BindingResult binding, ModelMap model) {
+	public String saveNewUsuario(@Valid Usuario usuario, BindingResult binding, ModelMap model) {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
-			try {
-				usuarioService.save(usuario);				
-			}
-			catch (ImpossibleUsuarioException e) {
-				model.addAttribute("message", "A shuparla");
-				return USUARIOS_FORM;
-			}
+			usuarioService.save(usuario);
 			model.addAttribute("message", "The user was created successfully!");
 			return listUsuarios(model);
 		}
