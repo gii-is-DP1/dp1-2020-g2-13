@@ -11,13 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
+import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +54,13 @@ public class HiloController {
 	ComentarioService comentarioService;
 	@Autowired
 	UsuarioService usuarioService;
+	
+
+	@InitBinder("hilo")
+	public void initHiloBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new HiloValidator());
+	}
+
 
 	@GetMapping
 	public String listHilos(ModelMap model) {
@@ -114,7 +124,10 @@ public class HiloController {
 	
 	@PostMapping("/new")
 	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
-		if(binding.hasErrors()) {			
+		if(binding.hasErrors()) {	
+			Collection<Usuario> usuarios = usuarioService.findAll();
+			model.addAttribute("hilo",new Hilo());
+			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {
 			hiloService.save(hilo);
@@ -127,10 +140,17 @@ public class HiloController {
 	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
 		int id = comentario.getHilo().getId();
 		if(binding.hasErrors()) {
-			
+			model.addAttribute("message", "El comentario no es válido.");
 		}else {
 			comentarioService.save(comentario);
 			model.addAttribute("message", "El comentario se ha publicado.");
+//			try {
+//				comentarioService.save(comentario);
+//				model.addAttribute("message", "El comentario se ha publicado.");
+//			}
+//			catch (ImpossibleComentarioException ex){
+//				model.addAttribute("message", "El comentario no es válido.");
+//			}
 		}
 		return auxViewHilo(id, model);
 	}

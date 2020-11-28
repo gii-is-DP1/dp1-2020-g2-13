@@ -16,7 +16,7 @@ public class Video extends BaseEntity{
 	private String link;
 	@Size(max = 250)
 	private String descripcion;
-	private LocalTime duracion;
-	private Double tiempoVisualizacionTotal;
+	private String duracion;
+	
 	
 }
