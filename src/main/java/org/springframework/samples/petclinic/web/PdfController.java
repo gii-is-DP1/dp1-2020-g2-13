@@ -7,7 +7,9 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pdf;
+import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PdfService;
+import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,9 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PdfController {
 	public static final String HILOS_FORM = "pdfs/createOrUpdatePdfsForm";
 	public static final String HILOS_LISTING = "pdfs/PdfsListing";
+	
+	private final PdfService pdfService;
 
 	@Autowired
-	PdfService pdfService;
+	public PdfController(PdfService pdfService) {
+		this.pdfService = pdfService;
+	}
 
 	@GetMapping
 	public String listPdfs(ModelMap model) {
@@ -33,26 +39,21 @@ public class PdfController {
 
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
-		Optional<Pdf> pdf = pdfService.findById(id);
-		if (pdf.isPresent()) {
-			model.addAttribute("pdf", pdf.get());
-			return HILOS_FORM;
-		} else {
-			model.addAttribute("message", "We cannot find the pdf you tried to edit!");
-			return listPdfs(model);
-		}
+		Pdf pdf = pdfService.findById(id);
+		model.addAttribute("pdf", pdf);
+		return HILOS_FORM;
 	}
 
 	@PostMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, @Valid Pdf modifiedPdf, BindingResult binding,
 			ModelMap model) {
-		Optional<Pdf> pdf = pdfService.findById(id);
+		Pdf pdf = pdfService.findById(id);
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Documento inválido.");
 			return HILOS_FORM;
 		} else {
-			BeanUtils.copyProperties(modifiedPdf, pdf.get(), "id");
-			pdfService.save(pdf.get());
+			BeanUtils.copyProperties(modifiedPdf, pdf, "id");
+			pdfService.save(pdf);
 			model.addAttribute("message", "Pdf updated succesfully!");
 			return listPdfs(model);
 		}
@@ -60,15 +61,10 @@ public class PdfController {
 
 	@GetMapping("/{id}/delete")
 	public String deletePdf(@PathVariable("id") int id,ModelMap model) {
-		Optional<Pdf> pdf=pdfService.findById(id);
-		if(pdf.isPresent()) {
-			pdfService.delete(pdf.get());
-			model.addAttribute("message","The thread was deleted successfully!");
-			return listPdfs(model);
-		}else {
-			model.addAttribute("message","We cannot find the thread you tried to delete!");
-			return listPdfs(model);
-		}
+		Pdf pdf=pdfService.findById(id);
+		pdfService.delete(pdf);
+		model.addAttribute("message","The thread was deleted successfully!");
+		return listPdfs(model);
 	}
 	
 	@GetMapping("/new")
