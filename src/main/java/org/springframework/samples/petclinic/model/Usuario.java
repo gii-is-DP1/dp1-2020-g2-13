@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
@@ -26,4 +29,12 @@ public class Usuario extends BaseEntity{
 	private String email;
 	
 	private String contrasena;
+
+	
+	@ManyToMany
+	Set<Logro> logros;
+
+	
+	@ManyToMany
+	Set<Examen> examenes;
 }

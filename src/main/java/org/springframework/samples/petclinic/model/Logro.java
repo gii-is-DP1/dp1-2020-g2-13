@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -15,5 +16,4 @@ public class Logro extends BaseEntity {
 	
 	@Size(max = 250)
 	private String descripcion;
-
 }

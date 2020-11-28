@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleUsuarioException;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -29,7 +27,7 @@ public class HiloServiceTest {
 
 	
 	@BeforeEach
-	void setup() throws ImpossibleUsuarioException {
+	void setup(){
 		
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Fran");
@@ -52,7 +50,7 @@ public class HiloServiceTest {
 
 	@DisplayName("Prueba de localización de hilo")
 	@Test
-	void shouldFindById() throws ImpossibleUsuarioException {
+	void shouldFindById(){
 
 //		Hilo hilo = new Hilo();
 //		hilo.setNombre("Profesorado maleducado");
@@ -69,7 +67,7 @@ public class HiloServiceTest {
 	
 	@DisplayName("Prueba de guardado de hilo")
 	@Test
-	void shouldSave() throws ImpossibleUsuarioException {
+	void shouldSave(){
 		Hilo hilo = new Hilo();
 		hilo.setNombre("Profesorado maleducado2");
 		hilo.setCategoria("maltrato psicológico2");

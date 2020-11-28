@@ -3,10 +3,8 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.BDDMockito.given;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,12 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleUsuarioException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class UsuarioServiceTests {
 	
@@ -33,7 +27,7 @@ public class UsuarioServiceTests {
 	
 	
 	@BeforeEach
-	void setup() throws ImpossibleUsuarioException {
+	void setup() {
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Fran");
 		usuario.setApellidos("Bel");
@@ -48,7 +42,7 @@ public class UsuarioServiceTests {
 	
 	@DisplayName("Prueba de localización de usuario")
 	@Test
-	void shouldFindById() throws ImpossibleUsuarioException {
+	void shouldFindById() {
 		
 		
 		assertEquals(TEST_USUARIO_ID, this.usuarioService.findById(TEST_USUARIO_ID).get().getId());
@@ -57,7 +51,7 @@ public class UsuarioServiceTests {
 	}
 	@DisplayName("Prueba de guardado de usuario")
 	@Test
-	void shouldSave() throws ImpossibleUsuarioException {
+	void shouldSave(){
 		Usuario usuario = new Usuario();
 		usuario.setNombre("Fran2");
 		usuario.setApellidos("Bel2");
@@ -73,7 +67,7 @@ public class UsuarioServiceTests {
 	
 	@DisplayName("Prueba de borrado de usuario")
 	@Test
-	void shouldDelete() throws ImpossibleUsuarioException {
+	void shouldDelete() {
 		
 		
 		this.usuarioService.delete(this.usuarioService.findById(TEST_USUARIO_ID).get());
