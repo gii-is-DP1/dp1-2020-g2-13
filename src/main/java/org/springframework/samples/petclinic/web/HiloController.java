@@ -126,7 +126,6 @@ public class HiloController {
 	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
 		if(binding.hasErrors()) {	
 			Collection<Usuario> usuarios = usuarioService.findAll();
-			model.addAttribute("hilo",new Hilo());
 			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {

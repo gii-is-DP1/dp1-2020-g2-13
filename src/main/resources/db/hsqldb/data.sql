@@ -42,9 +42,21 @@ INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,contrasena) VA
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,contrasena) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','Qwerty123');
 
 
+-- Insertar examenes
+INSERT INTO examenes(id, titulos, puntuacion_maxima, puntuacion_minima, usuario_id) VALUES (1, 'prueba', 10, 0, 1);
+
+-- Insertar usuarios_logros
+INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 1);
+INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 2);
+
+-- Insertar usuarios_examenes
+INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
 
 -- Insertar hilos
 INSERT INTO hilos(id, nombre,categoria, usuario_id) VALUES (1, 'Hola_mundo', 'General', 1);
+
+-- Insertar hilos_suscriptores
+INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
 --Insertar videos
 INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
