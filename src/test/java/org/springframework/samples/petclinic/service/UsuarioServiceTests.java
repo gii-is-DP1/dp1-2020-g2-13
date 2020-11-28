@@ -23,19 +23,25 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class UsuarioServiceTests {
 	
-	private static final int TEST_USUARIO_ID = 1;
+	
 	
 	@Autowired
 	protected UsuarioService usuarioService;
 	
-	private Usuario guille;
+	private static int TEST_USUARIO_ID;
 	
 	
 	
 	@BeforeEach
-	void setup() {
-		//Usuario 1
-		
+	void setup() throws ImpossibleUsuarioException {
+		Usuario usuario = new Usuario();
+		usuario.setNombre("Fran");
+		usuario.setApellidos("Bel");
+		usuario.setLocalidad("El piso");
+		usuario.setColegio("La etsii");
+		usuario.setEmail("99999999999");
+		this.usuarioService.save(usuario);
+		TEST_USUARIO_ID = usuario.getId();
 		
 	}
 	
@@ -43,15 +49,9 @@ public class UsuarioServiceTests {
 	@DisplayName("Prueba de localización de usuario")
 	@Test
 	void shouldFindById() throws ImpossibleUsuarioException {
-		Usuario usuario = new Usuario();
-		usuario.setNombre("Fran");
-		usuario.setApellidos("Bel");
-		usuario.setLocalidad("El piso");
-		usuario.setColegio("La etsii");
-		usuario.setEmail("99999999999");
-		this.usuarioService.save(usuario);
 		
-		assertEquals(usuario, this.usuarioService.findById(usuario.getId()).get());
+		
+		assertEquals(TEST_USUARIO_ID, this.usuarioService.findById(TEST_USUARIO_ID).get().getId());
 		
 
 	}
@@ -59,14 +59,14 @@ public class UsuarioServiceTests {
 	@Test
 	void shouldSave() throws ImpossibleUsuarioException {
 		Usuario usuario = new Usuario();
-		usuario.setNombre("Fran");
-		usuario.setApellidos("Bel");
-		usuario.setLocalidad("El piso");
-		usuario.setColegio("La etsii");
-		usuario.setEmail("99999999999");
+		usuario.setNombre("Fran2");
+		usuario.setApellidos("Bel2");
+		usuario.setLocalidad("El piso2");
+		usuario.setColegio("La etsii2");
+		usuario.setEmail("999999999992");
 		this.usuarioService.save(usuario);
 		assertThat(usuario.getId().longValue()).isNotEqualTo(0);
-		assertEquals("Fran", this.usuarioService.findById(usuario.getId()).get().getNombre());
+		assertEquals("Fran2", this.usuarioService.findById(usuario.getId()).get().getNombre());
 		
 
 	}
@@ -74,16 +74,10 @@ public class UsuarioServiceTests {
 	@DisplayName("Prueba de borrado de usuario")
 	@Test
 	void shouldDelete() throws ImpossibleUsuarioException {
-		Usuario usuario = new Usuario();
-		usuario.setNombre("Fran");
-		usuario.setApellidos("Bel");
-		usuario.setLocalidad("El piso");
-		usuario.setColegio("La etsii");
-		usuario.setEmail("99999999999");
-		this.usuarioService.save(usuario);
-		Integer id = usuario.getId();
-		this.usuarioService.delete(usuario);
-		assertThrows(NoSuchElementException.class, () -> this.usuarioService.findById(id).get().getNombre());
+		
+		
+		this.usuarioService.delete(this.usuarioService.findById(TEST_USUARIO_ID).get());
+		assertThrows(NoSuchElementException.class, () -> this.usuarioService.findById(TEST_USUARIO_ID).get().getNombre());
 		
 
 	}
