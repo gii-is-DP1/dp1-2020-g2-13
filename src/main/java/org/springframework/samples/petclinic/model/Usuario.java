@@ -30,11 +30,11 @@ public class Usuario extends BaseEntity{
 	
 	private String contrasena;
 
-	@NotEmpty
+	
 	@ManyToMany
 	Set<Logro> logros;
 
-	@NotEmpty
+	
 	@ManyToMany
 	Set<Examen> examenes;
 }

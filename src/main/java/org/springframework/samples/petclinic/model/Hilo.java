@@ -28,7 +28,7 @@ public class Hilo extends BaseEntity {
 	@ManyToOne(optional = false)
 	private Usuario usuario;
 
-	@NotEmpty
+	
 	@ManyToMany
 	Set<Usuario> suscriptores;
 }
