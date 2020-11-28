@@ -14,7 +14,9 @@ import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,11 @@ public class ExamenController {
 	ExamenService examenService;
 	@Autowired
 	UsuarioService usuarioService;
+	
+	@InitBinder("examen")
+	public void initExamenBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ExamenValidator());
+	}
 	
 	@GetMapping
 	public String listExamenes(ModelMap model) {
@@ -56,6 +63,8 @@ public class ExamenController {
 			ModelMap model) {
 		Optional<Examen> examen = examenService.findById(id);
 		if (binding.hasErrors()) {
+			Collection<Usuario> usuarios = usuarioService.findAll();
+			model.addAttribute("usuarios", usuarios);
 			return EXAMENES_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedExamen, examen.get(), "id");
@@ -88,7 +97,9 @@ public class ExamenController {
 	
 	@PostMapping("/new")
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding,ModelMap model) {
-		if(binding.hasErrors()) {			
+		if(binding.hasErrors()) {		
+			Collection<Usuario> usuarios = usuarioService.findAll();
+			model.addAttribute("usuarios", usuarios);
 			return EXAMENES_FORM;
 		}else {
 			examenService.save(examen);
