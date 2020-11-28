@@ -16,11 +16,13 @@ public class ComentarioValidator implements Validator {
 		Comentario comentario = (Comentario) obj;
 		String contenido = comentario.getContenido();
 		// contenido validation
-		if (!StringUtils.hasLength(contenido) || contenido.length()<1) {
-			errors.rejectValue("contenido", REQUIRED+" and above 1 characters", REQUIRED+" and above 1 characters");
+		if (!StringUtils.hasLength(contenido) || contenido.length() < 1) {
+			errors.rejectValue("contenido", REQUIRED + " y por encima de un caracter",
+					REQUIRED + " y por encima de un caracter");
 		}
 		if (contenido.trim().length() == 0) {
-			errors.rejectValue("contenido", REQUIRED+" and can't have only spaces", REQUIRED+" and can't have only spaces");
+			errors.rejectValue("contenido", REQUIRED + " y no puede estar vacío",
+					REQUIRED + " y no puede estar vacío");
 		}
 	}
 
