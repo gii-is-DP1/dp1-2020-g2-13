@@ -15,18 +15,22 @@ public class LogroValidator implements Validator {
 		String nombre = logro.getNombre();
 		String descripcion = logro.getDescripcion();
 		// nombre validation
-		if (!StringUtils.hasLength(nombre) || nombre.length()<1 || nombre.length()>30) {
-			errors.rejectValue("nombre", REQUIRED+" and between 1 and 30 characters", REQUIRED+" and between 1 and 30 characters");
+		if (!StringUtils.hasLength(nombre) || nombre.length() < 1 || nombre.length() > 30) {
+			errors.rejectValue("nombre", REQUIRED + " y entre 1 y 30 caracteres",
+					REQUIRED + " y entre 1 y 30 caracteres");
 		}
 		if (nombre.trim().length() == 0) {
-			errors.rejectValue("nombre", REQUIRED+" and can't have only spaces", REQUIRED+" and can't have only spaces");
+			errors.rejectValue("nombre", REQUIRED + " y no puede estar vacío",
+					REQUIRED + " y no puede estar vacío");
 		}
 		// descripcion validation
-		if (!StringUtils.hasLength(descripcion) || descripcion.length()<1 || descripcion.length()>250) {
-			errors.rejectValue("descripcion", REQUIRED+" and between 1 and 250 characters", REQUIRED+" and between 1 and 250 characters");
+		if (!StringUtils.hasLength(descripcion) || descripcion.length() < 1 || descripcion.length() > 250) {
+			errors.rejectValue("descripcion", REQUIRED + " y entre 1 y 250 caracteres",
+					REQUIRED + " y entre 1 y 250 caracteres");
 		}
 		if (descripcion.trim().length() == 0) {
-			errors.rejectValue("descripcion", REQUIRED+" and can't have only spaces", REQUIRED+" and can't have only spaces");
+			errors.rejectValue("descripcion", REQUIRED + " y no puede estar vacío",
+					REQUIRED + " y no puede estar vacío");
 		}
 	}
 
