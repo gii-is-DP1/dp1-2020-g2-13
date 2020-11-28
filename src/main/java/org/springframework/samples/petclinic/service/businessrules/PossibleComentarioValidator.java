@@ -9,7 +9,9 @@ public class PossibleComentarioValidator implements ConstraintValidator<Validate
 
 	@Override
 	public boolean isValid(Comentario value, ConstraintValidatorContext context) {
+
 		return value.getContenido().trim().length() > 0 && value.getContenido().length() <= 1024;
+
 	}
 
 }
