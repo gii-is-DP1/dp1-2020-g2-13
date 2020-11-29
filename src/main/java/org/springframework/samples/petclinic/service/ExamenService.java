@@ -18,7 +18,7 @@ public class ExamenService {
 		return examenRepository.findAll();
 	}
 
-	public Optional<Examen> findById(int id) {
+	public Examen findById(int id) {
 		return examenRepository.findById(id);
 	}
 
