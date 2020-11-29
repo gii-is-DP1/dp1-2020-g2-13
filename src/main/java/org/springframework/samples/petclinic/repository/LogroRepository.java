@@ -11,7 +11,7 @@ public interface LogroRepository extends  CrudRepository<Logro, Integer > {
 	
 	Collection<Logro> findAll();
 
-	Optional<Logro> findById(int id);
+	Logro findById(int id);
 	void delete(Logro logro);
 
 }
