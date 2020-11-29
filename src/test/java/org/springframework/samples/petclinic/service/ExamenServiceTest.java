@@ -61,7 +61,7 @@ public class ExamenServiceTest {
 		examen.setPuntuacionMinima(0.0);
 		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID));
 		this.examenService.save(examen);
-		assertEquals(TEST_EXAMEN_ID, this.examenService.findById(TEST_EXAMEN_ID).get().getId());
+		assertEquals(TEST_EXAMEN_ID, this.examenService.findById(TEST_EXAMEN_ID).getId());
 	}
 
 	@DisplayName("Prueba de guardado de examen")
@@ -74,29 +74,28 @@ public class ExamenServiceTest {
 		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID));
 		this.examenService.save(examen);
 		assertThat(examen.getId().longValue()).isNotEqualTo(0);
-		assertEquals(examen, this.examenService.findById(examen.getId()).get());
+		assertEquals(examen, this.examenService.findById(examen.getId()));
 	}
 
 	@DisplayName("Prueba de borrado de examen")
 	@Test
 	void shouldDelete() {
-		this.examenService.delete(this.examenService.findById(TEST_EXAMEN_ID).get());
-		assertThrows(NoSuchElementException.class,
-				() -> this.examenService.findById(TEST_EXAMEN_ID).get());
+		this.examenService.delete(this.examenService.findById(TEST_EXAMEN_ID));
+		assertThrows(NoSuchElementException.class, () -> this.examenService.findById(TEST_EXAMEN_ID));
 	}
-	
+
 	@DisplayName("Prueba de edición de examen")
 	@Test
 	@Transactional
 	void shouldUpdateExamen() {
-		Examen examen = this.examenService.findById(TEST_EXAMEN_ID).get();
+		Examen examen = this.examenService.findById(TEST_EXAMEN_ID);
 		String tituloAntiguo = examen.getTitulos();
 		String tituloNuevo = tituloAntiguo + "X";
 
 		examen.setTitulos(tituloNuevo);
 		this.examenService.save(examen);
 
-		examen = this.examenService.findById(TEST_EXAMEN_ID).get();
+		examen = this.examenService.findById(TEST_EXAMEN_ID);
 		assertThat(examen.getTitulos()).isEqualTo(tituloNuevo);
 	}
 }
