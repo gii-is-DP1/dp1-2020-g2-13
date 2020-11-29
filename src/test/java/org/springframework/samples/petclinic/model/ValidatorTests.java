@@ -40,5 +40,21 @@ class ValidatorTests {
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
+	
+	@Test
+	void shouldNotValidateWhenLogroDescripcionIsEmpty() {
 
+		
+		Examen examen = new Examen();
+		examen.setPuntuacionMaxima(10.0);
+		examen.setPuntuacionMinima(11.1);
+
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Examen>> constraintViolations = validator.validate(examen);
+
+		assertThat(constraintViolations.size()).isEqualTo(1);
+		ConstraintViolation<Examen> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("puntuacionMaxima");
+//		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+	}
 }

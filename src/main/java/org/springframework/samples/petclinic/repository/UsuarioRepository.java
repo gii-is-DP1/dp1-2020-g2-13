@@ -16,7 +16,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
 	Collection<Usuario> findAll();
 	
-	Optional<Usuario> findById(int id);
+	Usuario findById(int id);
 
 	void delete(Usuario usuario);
 	

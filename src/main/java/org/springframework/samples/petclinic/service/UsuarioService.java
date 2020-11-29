@@ -24,7 +24,7 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 
-	public Optional<Usuario> findById(int id) {
+	public Usuario findById(int id) {
 		return usuarioRepository.findById(id);
 	}
 

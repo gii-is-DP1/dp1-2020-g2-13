@@ -46,7 +46,7 @@ public class UsuarioServiceTests {
 	void shouldFindById() {
 		
 		
-		assertEquals(TEST_USUARIO_ID, this.usuarioService.findById(TEST_USUARIO_ID).get().getId());
+		assertEquals(TEST_USUARIO_ID, this.usuarioService.findById(TEST_USUARIO_ID).getId());
 		
 
 	}
@@ -62,7 +62,7 @@ public class UsuarioServiceTests {
 		usuario.setContrasena("qwerty123");
 		this.usuarioService.save(usuario);
 		assertThat(usuario.getId().longValue()).isNotEqualTo(0);
-		assertEquals("Fran2", this.usuarioService.findById(usuario.getId()).get().getNombre());
+		assertEquals("Fran2", this.usuarioService.findById(usuario.getId()).getNombre());
 		
 
 	}
@@ -72,8 +72,8 @@ public class UsuarioServiceTests {
 	void shouldDelete() {
 		
 		
-		this.usuarioService.delete(this.usuarioService.findById(TEST_USUARIO_ID).get());
-		assertThrows(NoSuchElementException.class, () -> this.usuarioService.findById(TEST_USUARIO_ID).get().getNombre());
+		this.usuarioService.delete(this.usuarioService.findById(TEST_USUARIO_ID));
+		assertThrows(NullPointerException.class, () -> this.usuarioService.findById(TEST_USUARIO_ID).getNombre());
 		
 
 	}
