@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -73,6 +74,7 @@ public class HiloControllerTests {
 	}
 
 	@WithMockUser(value = "spring")
+
     	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/hilos/new"))
