@@ -61,25 +61,22 @@ public class UsuarioController {
 
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
-		Optional<Usuario> usuario = usuarioService.findById(id);
-		if (usuario.isPresent()) {
-			model.addAttribute("usuario", usuario.get());
+		Usuario usuario = usuarioService.findById(id);
+		
+			model.addAttribute("usuario", usuario);
 			return USUARIOS_FORM;
-		} else {
-			model.addAttribute("message", "We cannot find the user you tried to edit!");
-			return listUsuarios(model);
-		}
+		
 	}
 
 	@PostMapping("/{id}/edit")
 	public String editUsuario(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
 			ModelMap model) {
-		Optional<Usuario> usuario = usuarioService.findById(id);
+		Usuario usuario = usuarioService.findById(id);
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
-			BeanUtils.copyProperties(modifiedUsuario, usuario.get(), "id");
-			usuarioService.save(usuario.get());
+			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
+			usuarioService.save(usuario);
 			model.addAttribute("message", "Thread updated succesfully!");
 			return listUsuarios(model);
 		}
@@ -87,15 +84,12 @@ public class UsuarioController {
 
 	@GetMapping("/{id}/delete")
 	public String deleteUsuario(@PathVariable("id") int id, ModelMap model) {
-		Optional<Usuario> usuario = usuarioService.findById(id);
-		if (usuario.isPresent()) {
-			usuarioService.delete(usuario.get());
+		Usuario usuario = usuarioService.findById(id);
+		
+			usuarioService.delete(usuario);
 			model.addAttribute("message", "The user was deleted successfully!");
 			return listUsuarios(model);
-		} else {
-			model.addAttribute("message", "We cannot find the user you tried to delete!");
-			return listUsuarios(model);
-		}
+		
 	}
 
 	@GetMapping("/new")
@@ -117,28 +111,25 @@ public class UsuarioController {
 
 	@GetMapping(value = "{usuarioId}/hilos")
 	public String getPetClinicHistory(@PathVariable("usuarioId") int usuarioId, ModelMap model) {
-		model.addAttribute("usuario", usuarioService.findById(usuarioId).get());
+		model.addAttribute("usuario", usuarioService.findById(usuarioId));
 		model.addAttribute("hilos", hiloService.findByUsuarioId(usuarioId));
 		return "usuarios/UsuarioHilos";
 	}
 
 	@GetMapping(value = "{usuarioId}/examenes")
 	public String getExamenAuthor(@PathVariable("usuarioId") int usuarioId, ModelMap model) {
-		model.addAttribute("usuario", usuarioService.findById(usuarioId).get());
+		model.addAttribute("usuario", usuarioService.findById(usuarioId));
 		model.addAttribute("examenes", examenService.findByUsuarioId(usuarioId));
 		return "usuarios/UsuarioHilos";
 	}
 
 	@GetMapping("/{id}/perfil")
 	public String perfil(@PathVariable("id") int id, ModelMap model) {
-		Optional<Usuario> usuario = usuarioService.findById(id);
-		if (usuario.isPresent()) {
-			model.addAttribute("usuario", usuario.get());
+		Usuario usuario = usuarioService.findById(id);
+		
+			model.addAttribute("usuario", usuario);
 			return PERFIL;
-		} else {
-			model.addAttribute("message", "We cannot show the profile of the user you have chosen!");
-			return listUsuarios(model);
-		}
+		
 	}
 
 }

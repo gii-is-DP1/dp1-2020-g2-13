@@ -77,7 +77,7 @@ public class HiloServiceTest {
 		hilo.setNombre("Profesorado maleducado2");
 		hilo.setCategoria("maltrato psicológico2");
 		hilo.setContenido("abro hilo:2");
-		hilo.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID).get());
+		hilo.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID));
 		this.hiloService.save(hilo);
 		assertThat(hilo.getId().longValue()).isNotEqualTo(0);
 		assertEquals(hilo, this.hiloService.findById(hilo.getId()).get());

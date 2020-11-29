@@ -59,7 +59,7 @@ public class ExamenServiceTest {
 		examen.setTitulos("Examen de DP1");
 		examen.setPuntuacionMaxima(10.0);
 		examen.setPuntuacionMinima(0.0);
-		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID).get());
+		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID));
 		this.examenService.save(examen);
 		assertEquals(TEST_EXAMEN_ID, this.examenService.findById(TEST_EXAMEN_ID).get().getId());
 	}
@@ -71,7 +71,7 @@ public class ExamenServiceTest {
 		examen.setTitulos("Examen de Convocatoria");
 		examen.setPuntuacionMaxima(10.0);
 		examen.setPuntuacionMinima(0.0);
-		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID).get());
+		examen.setUsuario(this.usuarioService.findById(TEST_USUARIO_ID));
 		this.examenService.save(examen);
 		assertThat(examen.getId().longValue()).isNotEqualTo(0);
 		assertEquals(examen, this.examenService.findById(examen.getId()).get());
