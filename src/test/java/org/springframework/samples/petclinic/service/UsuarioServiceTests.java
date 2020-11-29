@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
 
 import java.util.NoSuchElementException;
 
@@ -22,23 +23,23 @@ public class UsuarioServiceTests {
 	@Autowired
 	protected UsuarioService usuarioService;
 	
-	private static int TEST_USUARIO_ID;
+	private final static int TEST_USUARIO_ID = 1;
 	
 	
 	
-	@BeforeEach
-	void setup() {
-		Usuario usuario = new Usuario();
-		usuario.setNombre("Fran");
-		usuario.setApellidos("Bel");
-		usuario.setLocalidad("El piso");
-		usuario.setColegio("La etsii");
-		usuario.setEmail("99999999999");
-		usuario.setContrasena("qwerty123");
-		this.usuarioService.save(usuario);
-		TEST_USUARIO_ID = usuario.getId();
-		
-	}
+//	@BeforeEach
+//	void setup() {
+//		Usuario usuario = new Usuario();
+//		usuario.setNombre("Fran");
+//		usuario.setId(TEST_USUARIO_ID);
+//		usuario.setApellidos("Bel");
+//		usuario.setLocalidad("El piso");
+//		usuario.setColegio("La etsii");
+//		usuario.setEmail("99999999999");
+//		usuario.setContrasena("qwerty123");
+//		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(usuario);
+//		
+//	}
 	
 	
 	@DisplayName("Prueba de localización de usuario")
