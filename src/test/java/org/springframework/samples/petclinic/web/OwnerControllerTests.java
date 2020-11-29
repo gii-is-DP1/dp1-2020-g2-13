@@ -78,7 +78,7 @@ class OwnerControllerTests {
 		mockMvc.perform(get("/owners/new")).andExpect(status().isOk()).andExpect(model().attributeExists("owner"))
 				.andExpect(view().name("owners/createOrUpdateOwnerForm"));
 	}
-
+/*
 	@WithMockUser(value = "spring")
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
@@ -191,5 +191,5 @@ class OwnerControllerTests {
 				.andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
 				.andExpect(view().name("owners/ownerDetails"));
 	}
-
+*/
 }

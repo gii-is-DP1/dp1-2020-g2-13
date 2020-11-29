@@ -23,7 +23,7 @@ public class ComentarioService {
 		return comentarioRepository.findAll();
 	}
 
-	public Optional<Comentario> findById(int id) {
+	public Comentario findById(int id) {
 		return comentarioRepository.findById(id);
 	}
 
