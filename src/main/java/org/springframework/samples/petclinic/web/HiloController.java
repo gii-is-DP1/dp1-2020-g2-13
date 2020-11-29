@@ -55,6 +55,11 @@ public class HiloController {
 	public void initHiloBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new HiloValidator());
 	}
+	
+	@InitBinder("comentario")
+	public void initComentarioBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ComentarioValidator());
+	}
 
 
 	@GetMapping
