@@ -36,6 +36,8 @@ INSERT INTO types VALUES (6, 'hamster');
 INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Hola_mundo', 'primer logro conseguido por registro');
 INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con pizarra');
 
+-- Insertar pdfs
+INSERT INTO pdfs(id, archivo) VALUES (1, 'Documento');
 
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,contrasena) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','Qwerty123');
