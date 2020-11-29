@@ -47,6 +47,7 @@ public class VideoServiceTests {
 	@Test
 	void shouldFindById() {
 		assertEquals(TEST_VIDEO_ID, this.videoService.findById(TEST_VIDEO_ID).getId());
+
 	}
 	
 	
@@ -54,6 +55,7 @@ public class VideoServiceTests {
 	@Test
 	void shouldNotFindById() {
 		assertThrows(NoSuchElementException.class, () -> this.videoService.findById(56789).getLink());
+
 	}
 	
 	
@@ -67,6 +69,7 @@ public class VideoServiceTests {
 		this.videoService.save(video);
 		assertThat(video.getId().longValue()).isNotEqualTo(0);
 		assertEquals("www.youtube2.com", this.videoService.findById(video.getId()).getLink());
+
 	}
 	
 	
@@ -82,6 +85,7 @@ public class VideoServiceTests {
 	@Transactional
 	public void shouldUpdateDescripcion() throws Exception {
 		Video video = this.videoService.findById(TEST_VIDEO_ID);
+
 		String newDescripcion = "nueva descripcion";
 		video.setDescripcion(newDescripcion);
 		this.videoService.save(video);
