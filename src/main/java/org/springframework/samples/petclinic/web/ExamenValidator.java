@@ -22,28 +22,21 @@ public class ExamenValidator implements Validator {
 			errors.rejectValue("titulos", "El título no puede estar vacío", "El título no puede estar vacío");
 		}
 		// puntuacionMinima validation
-		try {
-			if (puntuacionMinima >= puntuacionMaxima) {
-				errors.rejectValue("puntuacionMinima",
-						"La puntuación mínima no puede ser mayor o igual que la puntuación máxima",
-						"La puntuación mínima no puede ser mayor o igual que la puntuación máxima");
-			}
-		} catch (NullPointerException e) {
-			errors.rejectValue("puntuacionMinima", "La puntuación mínima no puede estar vacía",
-					"La puntuación mínima no puede estar vacía");
+
+		if (puntuacionMinima == null || puntuacionMinima >= puntuacionMaxima) {
+			errors.rejectValue("puntuacionMinima",
+					"La puntuación mínima no puede estar vacía ni ser mayor o igual que la puntuación máxima",
+					"La puntuación mínima no puede estar vacía ni ser mayor o igual que la puntuación máxima");
 		}
 
 		// puntuacionMaxima validation
-		try {
-			if (puntuacionMinima >= puntuacionMaxima) {
-				errors.rejectValue("puntuacionMaxima",
-						"La puntuación máxima no puede ser mayor o igual que la puntuación mínima",
-						"La puntuación máxima no puede ser mayor o igual que la puntuación mínima");
-			}
-		} catch (NullPointerException e) {
-			errors.rejectValue("puntuacionMaxima", "La puntuación máxima no puede estar vacía",
-					"La puntuación máxima no puede estar vacía");
+
+		if (puntuacionMinima == null || puntuacionMaxima <= puntuacionMinima) {
+			errors.rejectValue("puntuacionMaxima",
+					"La puntuación máxima no puede estar vacía ni ser mayor o igual que la puntuación mínima",
+					"La puntuación máxima no puede estar vacía ni ser mayor o igual que la puntuación mínima");
 		}
+
 	}
 
 	@Override
