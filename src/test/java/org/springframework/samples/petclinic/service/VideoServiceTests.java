@@ -46,14 +46,16 @@ public class VideoServiceTests {
 	@DisplayName("Prueba de localización de video")
 	@Test
 	void shouldFindById() {
-		assertEquals(TEST_VIDEO_ID, this.videoService.findById(TEST_VIDEO_ID).get().getId());
+		assertEquals(TEST_VIDEO_ID, this.videoService.findById(TEST_VIDEO_ID).getId());
+
 	}
 	
 	
 	@DisplayName("Prueba de localización de video errónea")
 	@Test
 	void shouldNotFindById() {
-		assertThrows(NoSuchElementException.class, () -> this.videoService.findById(56789).get().getLink());
+		assertThrows(NoSuchElementException.class, () -> this.videoService.findById(56789).getLink());
+
 	}
 	
 	
@@ -66,27 +68,29 @@ public class VideoServiceTests {
 		video.setDuracion("8:02");
 		this.videoService.save(video);
 		assertThat(video.getId().longValue()).isNotEqualTo(0);
-		assertEquals("www.youtube2.com", this.videoService.findById(video.getId()).get().getLink());
+		assertEquals("www.youtube2.com", this.videoService.findById(video.getId()).getLink());
+
 	}
 	
 	
 	@DisplayName("Prueba de borrado de video")
 	@Test
 	void shouldDelete() {
-		this.videoService.delete(this.videoService.findById(TEST_VIDEO_ID).get());
-		assertThrows(NoSuchElementException.class, () -> this.videoService.findById(TEST_VIDEO_ID).get().getLink());
+		this.videoService.delete(this.videoService.findById(TEST_VIDEO_ID));
+		assertThrows(NoSuchElementException.class, () -> this.videoService.findById(TEST_VIDEO_ID).getLink());
 	}
 	
 	
 	@Test
 	@Transactional
 	public void shouldUpdateDescripcion() throws Exception {
-		Video video = this.videoService.findById(TEST_VIDEO_ID).get();
+		Video video = this.videoService.findById(TEST_VIDEO_ID);
+
 		String newDescripcion = "nueva descripcion";
 		video.setDescripcion(newDescripcion);
 		this.videoService.save(video);
 
-		video = this.videoService.findById(TEST_VIDEO_ID).get();
+		video = this.videoService.findById(TEST_VIDEO_ID);
 		assertThat(video.getDescripcion()).isEqualTo(newDescripcion);
 	}
 

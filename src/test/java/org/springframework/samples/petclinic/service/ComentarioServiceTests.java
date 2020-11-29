@@ -67,7 +67,7 @@ public class ComentarioServiceTests {
 	@Test
 	@Transactional
 	void shouldFindById() {
-		assertEquals(TEST_COMENTARIO_ID, this.comentarioService.findById(TEST_COMENTARIO_ID).get().getId());
+		assertEquals(TEST_COMENTARIO_ID, this.comentarioService.findById(TEST_COMENTARIO_ID).getId());
 	}
 	
 	
@@ -75,7 +75,7 @@ public class ComentarioServiceTests {
 	@Test
 	@Transactional
 	void shouldNotFindById() {
-		assertThrows(NoSuchElementException.class, () -> this.comentarioService.findById(56789).get().getContenido());
+		assertThrows(NoSuchElementException.class, () -> this.comentarioService.findById(56789).getContenido());
 	}
 	
 	
@@ -101,15 +101,15 @@ public class ComentarioServiceTests {
 		comentario.setHilo(hilo);
 		this.comentarioService.save(comentario);
 		assertThat(comentario.getId().longValue()).isNotEqualTo(0);
-		assertEquals("para k kieres saber eso jaja salu3", this.comentarioService.findById(comentario.getId()).get().getContenido());
+		assertEquals("para k kieres saber eso jaja salu3", this.comentarioService.findById(comentario.getId()).getContenido());
 	}
 	
 	@DisplayName("Prueba de borrado de comentario")
 	@Test
 	@Transactional
 	void shouldDelete() {
-		this.comentarioService.delete(this.comentarioService.findById(TEST_COMENTARIO_ID).get());
-		assertThrows(NoSuchElementException.class, () -> this.comentarioService.findById(TEST_COMENTARIO_ID).get().getContenido());
+		this.comentarioService.delete(this.comentarioService.findById(TEST_COMENTARIO_ID));
+		assertThrows(NoSuchElementException.class, () -> this.comentarioService.findById(TEST_COMENTARIO_ID).getContenido());
 	}
 
 }

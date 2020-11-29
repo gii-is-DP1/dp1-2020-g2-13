@@ -19,7 +19,7 @@ public class VideoService {
 		return videoRepository.findAll();
 	}
 	
-	public Optional<Video> findById(int id) {
+	public Video findById(int id) {
 		return videoRepository.findById(id);
 	}
 	

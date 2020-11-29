@@ -37,7 +37,7 @@ public class LogroServiceTests {
 	@DisplayName("Prueba de localización de logro")
 	@Test
 	void shouldFindById() {
-		assertEquals(TEST_LOGRO_ID, this.logroService.findById(TEST_LOGRO_ID).get().getId());
+		assertEquals(TEST_LOGRO_ID, this.logroService.findById(TEST_LOGRO_ID).getId());
 	}
 	
 	@DisplayName("Prueba de localización de logro errónea")
@@ -47,7 +47,7 @@ public class LogroServiceTests {
 		logro.setNombre("Logro del test");
 		logro.setDescripcion("Descripción adecuada para el test");
 		this.logroService.save(logro);
-		assertThrows(NoSuchElementException.class, () -> this.logroService.findById(56789).get().getNombre());
+		assertThrows(NoSuchElementException.class, () -> this.logroService.findById(56789).getNombre());
 	}
 	
 	
@@ -59,23 +59,23 @@ public class LogroServiceTests {
 		logro2.setDescripcion("Madonna maradona");
 		this.logroService.save(logro2);
 		assertThat(logro2.getId().longValue()).isNotEqualTo(0);
-		assertEquals("golasooo", this.logroService.findById(logro2.getId()).get().getNombre());	
+		assertEquals("golasooo", this.logroService.findById(logro2.getId()).getNombre());	
 	}
 	
 	
 	@DisplayName("Prueba de borrado de logro")
 	@Test
 	void shouldDelete() {
-		this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID).get());
-		assertThrows(NoSuchElementException.class, () -> this.logroService.findById(TEST_LOGRO_ID).get().getNombre());
+		this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID));
+		assertThrows(NoSuchElementException.class, () -> this.logroService.findById(TEST_LOGRO_ID).getNombre());
 	}
 	
 	@DisplayName("Prueba de borrado de logro errónea")
 	@Test
 	void shouldNotDelete() {
-		this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID).get());
+		this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID));
 		//Aquí da el fallo porque trataría de borrar 2 veces
-		assertThrows(NoSuchElementException.class, () -> this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID).get()));
+		assertThrows(NoSuchElementException.class, () -> this.logroService.delete(this.logroService.findById(TEST_LOGRO_ID)));
 	}
 	
 }
