@@ -66,6 +66,7 @@ INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
 --Insertar videos
 INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
+INSERT INTO videos(id,link,descripcion,duracion) VALUES (2,'abcdefghijklmnop','abcdefghijklmnop','23');
 
 
 
