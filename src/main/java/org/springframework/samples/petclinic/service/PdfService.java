@@ -5,29 +5,41 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.repository.PdfRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PdfService {
 
-	@Autowired
-	PdfRepository pdfRepository;
+	private PdfRepository pdfRepository;
 
-	public Collection<Pdf> findAll() {
+	@Autowired
+	public PdfService(PdfRepository pdfRepository) {
+		this.pdfRepository = pdfRepository;
+	}
+
+	@Transactional(readOnly = true)
+	public Collection<Pdf> findAll() throws DataAccessException {
 		return pdfRepository.findAll();
 	}
 
-	public Optional<Pdf> findById(int id) {
+	@Transactional(readOnly = true)
+	public Pdf findById(int id) throws DataAccessException {
 		return pdfRepository.findById(id);
 	}
 
+	@Transactional
 	public void delete(Pdf pdf) {
-		pdfRepository.deleteById(pdf.getId());
+		pdfRepository.delete(pdf);
 
 	}
 
+	@Transactional
 	public void save(Pdf pdf) {
 		pdfRepository.save(pdf);
 	}

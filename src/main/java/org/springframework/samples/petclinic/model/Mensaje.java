@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -16,6 +18,7 @@ public class Mensaje extends BaseEntity{
 	private LocalDate fecha;
 	private String tipoMensaje; //Hacer un tipo Enumerado o evaluarlo con String?
 	@Size(max = 350)
+	@NotNull
 	private String contenido;
 	private Integer likes;
 	//Comentario seria una relacion de mensaje con mensaje?

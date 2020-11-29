@@ -5,6 +5,8 @@ import javax.persistence.Table;
 
 import org.springframework.samples.petclinic.service.businessrules.ValidatePossiblePdf;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -13,5 +15,6 @@ import lombok.Data;
 @ValidatePossiblePdf
 public class Pdf extends BaseEntity{
 
+	@NotNull
 	private String archivo;
 }

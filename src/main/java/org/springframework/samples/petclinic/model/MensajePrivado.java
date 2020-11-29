@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,7 @@ import lombok.Data;
 public class MensajePrivado extends BaseEntity{
 	
 	private LocalDate fecha;
+	@NotNull
 	@Size(max = 250)
 	private String contenido;
 	

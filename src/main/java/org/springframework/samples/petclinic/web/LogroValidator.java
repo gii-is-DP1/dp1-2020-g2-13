@@ -7,8 +7,6 @@ import org.springframework.validation.Validator;
 
 public class LogroValidator implements Validator {
 
-	private static final String REQUIRED = "required";
-
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Logro logro = (Logro) obj;
@@ -16,21 +14,20 @@ public class LogroValidator implements Validator {
 		String descripcion = logro.getDescripcion();
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length() < 1 || nombre.length() > 30) {
-			errors.rejectValue("nombre", REQUIRED + " y entre 1 y 30 caracteres",
-					REQUIRED + " y entre 1 y 30 caracteres");
+			errors.rejectValue("nombre", "El nombre debe tener entre 1 y 30 caracteres",
+					"El nombre debe tener entre 1 y 30 caracteres");
 		}
 		if (nombre.trim().length() == 0) {
-			errors.rejectValue("nombre", REQUIRED + " y no puede estar vacío",
-					REQUIRED + " y no puede estar vacío");
+			errors.rejectValue("nombre", "El nombre no puede estar vacío", "El nombre no puede estar vacío");
 		}
 		// descripcion validation
 		if (!StringUtils.hasLength(descripcion) || descripcion.length() < 1 || descripcion.length() > 250) {
-			errors.rejectValue("descripcion", REQUIRED + " y entre 1 y 250 caracteres",
-					REQUIRED + " y entre 1 y 250 caracteres");
+			errors.rejectValue("descripcion", "La descripción debe tener entre 1 y 250 caracteres",
+					"La descripción debe tener entre 1 y 250 caracteres");
 		}
 		if (descripcion.trim().length() == 0) {
-			errors.rejectValue("descripcion", REQUIRED + " y no puede estar vacío",
-					REQUIRED + " y no puede estar vacío");
+			errors.rejectValue("descripcion", "La descripción no puede estar vacío",
+					"La descripción no puede estar vacío");
 		}
 	}
 

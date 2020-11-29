@@ -8,21 +8,19 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class ComentarioValidator implements Validator {
-
-	private static final String REQUIRED = "required";
-
+	
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Comentario comentario = (Comentario) obj;
 		String contenido = comentario.getContenido();
 		// contenido validation
 		if (!StringUtils.hasLength(contenido) || contenido.length() < 1) {
-			errors.rejectValue("contenido", REQUIRED + " y por encima de un caracter",
-					REQUIRED + " y por encima de un caracter");
+			errors.rejectValue("contenido", "Contenido debe tener más de un caracter",
+					"contenido debe tener más de un caracter");
 		}
 		if (contenido.trim().length() == 0) {
-			errors.rejectValue("contenido", REQUIRED + " y no puede estar vacío",
-					REQUIRED + " y no puede estar vacío");
+			errors.rejectValue("contenido", "Contenido no puede estar vacío",
+					 "contenido no puede estar vacío");
 		}
 	}
 
