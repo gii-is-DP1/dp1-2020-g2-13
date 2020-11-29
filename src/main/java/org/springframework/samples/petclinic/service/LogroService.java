@@ -22,7 +22,7 @@ public class LogroService {
 	}
 	
 
-	public Optional<Logro> findById(int id) {
+	public Logro findById(int id) {
 		return logroRepository.findById(id);
 	}
 	

@@ -11,20 +11,23 @@ import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
+import org.springframework.samples.petclinic.repository.PdfRepository;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
-
-	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	public UsuarioService(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
 
 	public Collection<Usuario> findAll() {
 		return usuarioRepository.findAll();
 	}
 
-	public Optional<Usuario> findById(int id) {
+	public Usuario findById(int id) {
 		return usuarioRepository.findById(id);
 	}
 

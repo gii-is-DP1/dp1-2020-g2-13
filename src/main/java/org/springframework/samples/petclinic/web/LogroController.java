@@ -41,25 +41,20 @@ public class LogroController {
 
 	@GetMapping("/{id}/edit")
 	public String editLogro(@PathVariable("id") int id, ModelMap model) {
-		Optional<Logro> logro = logroService.findById(id);
-		if (logro.isPresent()) {
-			model.addAttribute("logro", logro.get());
-			return LOGROS_FORM;
-		} else {
-			model.addAttribute("message", "We cannot find the goal you tried to edit!");
-			return listLogros(model);
-		}
+		Logro logro = logroService.findById(id);
+		model.addAttribute("logro", logro);
+		return LOGROS_FORM;
 	}
 
 	@PostMapping("/{id}/edit")
 	public String editLogro(@PathVariable("id") int id, @Valid Logro modifiedLogro, BindingResult binding,
 			ModelMap model) {
-		Optional<Logro> logro = logroService.findById(id);
+		Logro logro = logroService.findById(id);
 		if (binding.hasErrors()) {
 			return LOGROS_FORM;
 		} else {
-			BeanUtils.copyProperties(modifiedLogro, logro.get(), "id");
-			logroService.save(logro.get());
+			BeanUtils.copyProperties(modifiedLogro, logro, "id");
+			logroService.save(logro);
 			model.addAttribute("message", "Goal updated succesfully!");
 			return listLogros(model);
 		}
@@ -67,15 +62,10 @@ public class LogroController {
 
 	@GetMapping("/{id}/delete")
 	public String deleteLogro(@PathVariable("id") int id,ModelMap model) {
-		Optional<Logro> logro=logroService.findById(id);
-		if(logro.isPresent()) {
-			logroService.delete(logro.get());
-			model.addAttribute("message","The goal was deleted successfully!");
-			return listLogros(model);
-		}else {
-			model.addAttribute("message","We cannot find the logro you tried to delete!");
-			return listLogros(model);
-		}
+		Logro logro=logroService.findById(id);
+		logroService.delete(logro);
+		model.addAttribute("message","The goal was deleted successfully!");
+		return listLogros(model);
 	}
 	
 	@GetMapping("/new")
