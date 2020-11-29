@@ -34,38 +34,28 @@ public class VideoController {
 	
 	@GetMapping("/{id}/delete")
 	public String deleteVideo(@PathVariable("id") int id,ModelMap model) {
-		Optional<Video> video=videoService.findById(id);
-		if(video.isPresent()) {
-			videoService.delete(video.get());
+		Video video=videoService.findById(id);
+			videoService.delete(video);
 			model.addAttribute("message","The video was deleted successfully!");
 			return listVideos(model);
-		}else {
-			model.addAttribute("message","We cannot find the video you tried to delete!");
-			return listVideos(model);
-		}
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
-		Optional<Video> video = videoService.findById(id);
-		if (video.isPresent()) {
-			model.addAttribute("video", video.get());
+		Video video = videoService.findById(id);
+			model.addAttribute("video", video);
 			return VIDEOS_FORM;
-		} else {
-			model.addAttribute("message", "We cannot find the video you tried to edit!");
-			return listVideos(model);
-		}
 	}
 	
 	@PostMapping("/{id}/edit")
 	public String editVideo(@PathVariable("id") int id, @Valid Video modifiedVideo, BindingResult binding,
 			ModelMap model) {
-		Optional<Video> video = videoService.findById(id);
+		Video video = videoService.findById(id);
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
 		} else {
-			BeanUtils.copyProperties(modifiedVideo, video.get(), "id");
-			videoService.save(video.get());
+			BeanUtils.copyProperties(modifiedVideo, video, "id");
+			videoService.save(video);
 			model.addAttribute("message", "Thread updated succesfully!");
 			return listVideos(model);
 		}

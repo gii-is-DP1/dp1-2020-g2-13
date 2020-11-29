@@ -12,7 +12,7 @@ public interface VideoRepository extends CrudRepository<Video, Integer> {
 	
 	Collection<Video> findAll();
 	
-	Optional<Video> findById(int id);
+	Video findById(int id);
 	
 	void delete(Video video);
 
