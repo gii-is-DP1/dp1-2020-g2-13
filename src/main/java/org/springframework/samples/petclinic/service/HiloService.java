@@ -22,7 +22,7 @@ public class HiloService {
 		return hiloRepository.findAll();
 	}
 
-	public Optional<Hilo> findById(int id) {
+	public Hilo findById(int id) {
 		return hiloRepository.findById(id);
 	}
 
@@ -40,3 +40,4 @@ public class HiloService {
 	}
 
 }
+
