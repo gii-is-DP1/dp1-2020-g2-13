@@ -18,22 +18,27 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+
 import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
+
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(value = UsuarioController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+
+@WebMvcTest(controllers = UsuarioController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+
 public class UsuarioControllerTests {
 	private static final int TEST_USUARIO_ID = 1;
 
 	@Autowired
 	private UsuarioController usuarioController;
+
 	@MockBean
 	private UsuarioService usuarioService;
 
@@ -58,8 +63,8 @@ public class UsuarioControllerTests {
 		usuario.setEmail("99999999999");
 		usuario.setContrasena("qwerty123");
 		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(usuario);
-
 	}
+
 
 	@WithMockUser(value = "spring")
 	@Test
@@ -126,5 +131,6 @@ public class UsuarioControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("usuario"))
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
+
 	}
 }

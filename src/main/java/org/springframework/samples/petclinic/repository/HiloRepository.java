@@ -13,7 +13,7 @@ public interface HiloRepository extends CrudRepository<Hilo, Integer> {
 
 	Collection<Hilo> findAll();
 
-	Optional<Hilo> findById(int id);
+	Hilo findById(int id);
 	
 	@Query("SELECT h FROM Hilo h WHERE h.usuario.id = :usuarioId")
 	Collection<Hilo> findByUsuarioId(@Param("usuarioId")int usuarioId);
