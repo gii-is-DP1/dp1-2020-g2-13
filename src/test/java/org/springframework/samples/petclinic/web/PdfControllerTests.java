@@ -97,66 +97,33 @@ class PdfControllerTests {
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-	@WithMockUser(value = "spring")
-        @Test
-	void testInitFindForm() throws Exception {
-		mockMvc.perform(get("/pdfs")).andExpect(status().isOk()).andExpect(model().attributeExists("owner"))
-				.andExpect(view().name("owners/findOwners"));
-	}
-	/*
-
         @WithMockUser(value = "spring")
 	@Test
-	void testInitUpdateOwnerForm() throws Exception {
-		mockMvc.perform(get("/owners/{ownerId}/edit", TEST_OWNER_ID)).andExpect(status().isOk())
-				.andExpect(model().attributeExists("owner"))
-				.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
-				.andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
-				.andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
-				.andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
-				.andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
-				.andExpect(view().name("owners/createOrUpdateOwnerForm"));
+	void testInitUpdatePdfForm() throws Exception {
+		mockMvc.perform(get("/pdfs/{id}/edit", TEST_PDF_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("pdf"))
+				.andExpect(model().attribute("pdf", hasProperty("archivo", is("Documento"))))
+				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-        @WithMockUser(value = "spring")
+    @WithMockUser(value = "spring")
 	@Test
-	void testProcessUpdateOwnerFormSuccess() throws Exception {
-		mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
+	void testProcessUpdatePdfFormSuccess() throws Exception {
+		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID)
 							.with(csrf())
-							.param("firstName", "Joe")
-							.param("lastName", "Bloggs")
-							.param("address", "123 Caramel Street")
-							.param("city", "London")
-							.param("telephone", "01616291589"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(view().name("redirect:/owners/{ownerId}"));
-	}
-
-        @WithMockUser(value = "spring")
-	@Test
-	void testProcessUpdateOwnerFormHasErrors() throws Exception {
-		mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
-							.with(csrf())
-							.param("firstName", "Joe")
-							.param("lastName", "Bloggs")
-							.param("city", "London"))
+							.param("archivo", "Ejemplo"))
 				.andExpect(status().isOk())
-				.andExpect(model().attributeHasErrors("owner"))
-				.andExpect(model().attributeHasFieldErrors("owner", "address"))
-				.andExpect(model().attributeHasFieldErrors("owner", "telephone"))
-				.andExpect(view().name("owners/createOrUpdateOwnerForm"));
+				.andExpect(view().name("pdfs/PdfsListing"));
 	}
 
         @WithMockUser(value = "spring")
 	@Test
-	void testShowOwner() throws Exception {
-		mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID)).andExpect(status().isOk())
-				.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
-				.andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
-				.andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
-				.andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
-				.andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
-				.andExpect(view().name("owners/ownerDetails"));
+	void testProcessUpdatePdfFormHasErrors() throws Exception {
+		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID)
+							.with(csrf())
+							.param("archivo", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasErrors("pdf"))
+				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
-*/
 }
