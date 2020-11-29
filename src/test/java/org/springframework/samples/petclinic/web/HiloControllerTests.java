@@ -1,7 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
+
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -69,10 +74,81 @@ public class HiloControllerTests {
 	}
 
 	@WithMockUser(value = "spring")
-    @Test
+
+    	@Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/{id}/edit")).andExpect(status().isOk()).andExpect(model().attributeExists("hilo"))
-				.andExpect(view().name("hilos/createOrUpdateHiloForm"));
+		mockMvc.perform(get("/hilos/new"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("hilo"))
+				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testProcessCreationFormSuccess() throws Exception {
+		mockMvc.perform(post("/hilos/new")
+				.with(csrf())
+				.param("nombre", "Ejemplo")
+				.param("categoria", "Ejemplo2")
+				.param("contenido", "Ejemplo3"))
+				.andExpect(status().isOk());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/hilos/new")
+				.with(csrf())
+				.param("nombre", "")
+				.param("categoria", "")
+				.param("contenido", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasFieldErrors("hilo"))
+				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testInitUpdateHiloForm() throws Exception {
+		Usuario usuario = new Usuario();
+		usuario.setNombre("Fran");
+		usuario.setApellidos("Bel");
+		usuario.setLocalidad("El piso");
+		usuario.setColegio("La etsii");
+		usuario.setEmail("99999999999");
+		usuario.setContrasena("qwerty123");
+		mockMvc.perform(get("/hilos/{id}/edit", TEST_HILO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("hilo"))
+				.andExpect(model().attribute("hilo", hasProperty("nombre", is("George"))))
+				.andExpect(model().attribute("hilo", hasProperty("categoria", is("Franklin"))))
+				.andExpect(model().attribute("hilo", hasProperty("contenido", is("110 W. Liberty St."))))
+				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
+	}
+
+	@WithMockUser(value = "spring")
+		@Test
+		void testProcessUpdateHiloFormSuccess() throws Exception {
+			mockMvc.perform(post("/hilos/{id}/edit", TEST_HILO_ID)
+					.with(csrf())
+					.param("nombre", "George")
+					.param("categoria", "Franklin")
+					.param("contenido", "110 W. Liberty St."))
+					.andExpect(status().isOk())
+					.andExpect(view().name("hilos/HilosListing"));
+		}
+	
+    @WithMockUser(value = "spring")
+	@Test
+	void testProcessUpdateHiloFormHasErrors() throws Exception {
+		mockMvc.perform(post("/hilos/{id}/edit", TEST_HILO_ID)
+				.with(csrf())
+				.param("nombre", "")
+				.param("categoria", "")
+				.param("contenido", ""))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasFieldErrors("hilo"))
+				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
+
 	}
 	
 	
