@@ -57,6 +57,10 @@ INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
 -- Insertar hilos
 INSERT INTO hilos(id, nombre,categoria, usuario_id) VALUES (1, 'Hola_mundo', 'General', 1);
 
+-- Insertar comentario
+INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (1, 'Hola_mundo', 1, 1);
+INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mundo', 2, 1);
+
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
