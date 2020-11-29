@@ -33,19 +33,14 @@ public class HiloController {
 	public static final String HILO_VISTA = "hilos/vistaHilo";
 	
 	private String auxViewHilo(int id, ModelMap model) {
-		Optional<Hilo> hilo = hiloService.findById(id);
+		Hilo hilo = hiloService.findById(id);
 		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
 		Collection<Usuario> usuarios = usuarioService.findAll();
-		if (hilo.isPresent()) {
-			model.addAttribute("hilo", hilo.get());
-			model.addAttribute("comentario", new Comentario());
-			model.addAttribute("comentarios", comentarios);
-			model.addAttribute("usuarios", usuarios);
-			return HILO_VISTA;
-		} else {
-			model.addAttribute("message", "We cannot find the thread you tried to edit!");
-			return listHilos(model);
-		}
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("comentario", new Comentario());
+		model.addAttribute("comentarios", comentarios);
+		model.addAttribute("usuarios", usuarios);
+		return HILO_VISTA;
 	}
 
 	@Autowired
@@ -70,16 +65,11 @@ public class HiloController {
 	
 	@GetMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, ModelMap model) {
-		Optional<Hilo> hilo = hiloService.findById(id);
+		Hilo hilo = hiloService.findById(id);
 		Collection<Usuario> usuarios = usuarioService.findAll();
-		if (hilo.isPresent()) {
-			model.addAttribute("hilo", hilo.get());
-			model.addAttribute("usuarios", usuarios);
-			return HILOS_FORM;
-		} else {
-			model.addAttribute("message", "We cannot find the thread you tried to edit!");
-			return listHilos(model);
-		}
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("usuarios", usuarios);
+		return HILOS_FORM;
 	}
 
 	@GetMapping("/{id}")
@@ -90,12 +80,12 @@ public class HiloController {
 	@PostMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, @Valid Hilo modifiedHilo, BindingResult binding,
 			ModelMap model) {
-		Optional<Hilo> hilo = hiloService.findById(id);
+		Hilo hilo = hiloService.findById(id);
 		if (binding.hasErrors()) {
 			return HILOS_FORM;
 		} else {
-			BeanUtils.copyProperties(modifiedHilo, hilo.get(), "id");
-			hiloService.save(hilo.get());
+			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
+			hiloService.save(hilo);
 			model.addAttribute("message", "Thread updated succesfully!");
 			return listHilos(model);
 		}
@@ -103,15 +93,10 @@ public class HiloController {
 
 	@GetMapping("/{id}/delete")
 	public String deleteHilo(@PathVariable("id") int id,ModelMap model) {
-		Optional<Hilo> hilo=hiloService.findById(id);
-		if(hilo.isPresent()) {
-			hiloService.delete(hilo.get());
-			model.addAttribute("message","The thread was deleted successfully!");
-			return listHilos(model);
-		}else {
-			model.addAttribute("message","We cannot find the thread you tried to delete!");
-			return listHilos(model);
-		}
+		Hilo hilo=hiloService.findById(id);
+		hiloService.delete(hilo);
+		model.addAttribute("message","The thread was deleted successfully!");
+		return listHilos(model);
 	}
 	
 	@GetMapping("/new")
