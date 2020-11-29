@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "comentarios")
-@ValidatePossibleComentario
+//@ValidatePossibleComentario
 public class Comentario extends BaseEntity {
 	
 
@@ -27,10 +27,10 @@ public class Comentario extends BaseEntity {
 //	private int likes;
 
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	private Usuario usuario;
 	
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	@NotNull
 	private Hilo hilo;
 }
