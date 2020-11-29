@@ -2,10 +2,12 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 import org.assertj.core.util.Lists;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,7 @@ public class HiloServiceTest {
 	
 	
 	private static int TEST_HILO_ID = 1;
+
 
 	
 	@BeforeEach
@@ -63,6 +66,7 @@ public class HiloServiceTest {
 		this.hiloService.save(hilo);
 		assertThat(hilo.getId().longValue()).isNotEqualTo(0);
 		assertEquals(hilo, this.hiloService.findById(hilo.getId()));
+
 		
 
 	}
@@ -74,6 +78,7 @@ public class HiloServiceTest {
 		
 		this.hiloService.delete(this.hiloService.findById(TEST_HILO_ID));
 		assertThrows(NullPointerException.class, () -> this.hiloService.findById(TEST_HILO_ID).getNombre());
+
 		
 
 	}
