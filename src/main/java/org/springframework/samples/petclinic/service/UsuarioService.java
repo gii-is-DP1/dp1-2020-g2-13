@@ -19,6 +19,10 @@ import org.springframework.stereotype.Service;
 public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
+	private UserService userService;
+	@Autowired
+	private AuthoritiesService authoritiesService;
+	@Autowired
 	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
@@ -37,6 +41,8 @@ public class UsuarioService {
 
 	public void save(@Valid Usuario usuario) {
 		usuarioRepository.save(usuario);
+		userService.saveUser(usuario.getUser());
+		authoritiesService.saveAuthorities(usuario.getUser().getUsername(), "usuario");
 	}
 
 }

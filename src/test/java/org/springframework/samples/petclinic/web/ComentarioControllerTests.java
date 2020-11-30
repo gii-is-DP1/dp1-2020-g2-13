@@ -86,7 +86,7 @@ class ComentarioControllerTests {
 		usuario.setId(TEST_USUARIO_ID);
 		usuario.setNombre("Pablito");
 		usuario.setApellidos("Hola Adiós");
-		usuario.setContrasena("Hola");
+//		usuario.setContrasena("Hola");
 		usuario.setEmail("hola@us.exe");
 		usuario.setLocalidad("Valencina");;
 		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(usuario);

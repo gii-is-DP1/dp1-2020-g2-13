@@ -61,7 +61,7 @@ public class HiloControllerTests {
 		usuario.setLocalidad("El piso");
 		usuario.setColegio("La etsii");
 		usuario.setEmail("99999999999");
-		usuario.setContrasena("qwerty123");
+//		usuario.setContrasena("qwerty123");
 
 		hilo = new Hilo();
 		hilo.setId(TEST_HILO_ID);
@@ -116,7 +116,7 @@ public class HiloControllerTests {
 		usuario.setLocalidad("El piso");
 		usuario.setColegio("La etsii");
 		usuario.setEmail("99999999999");
-		usuario.setContrasena("qwerty123");
+//		usuario.setContrasena("qwerty123");
 		mockMvc.perform(get("/hilos/{id}/edit", TEST_HILO_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("hilo"))
 				.andExpect(model().attribute("hilo", hasProperty("nombre", is("George"))))
