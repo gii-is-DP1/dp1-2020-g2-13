@@ -15,7 +15,7 @@ public class UsuarioValidator implements Validator {
 		String localidad = usuario.getLocalidad();
 		String colegio = usuario.getColegio();
 		String email = usuario.getEmail();
-		String contrasena = usuario.getContrasena();
+//		String contrasena = usuario.getContrasena();
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length() < 1 || nombre.length() > 30) {
 			errors.rejectValue("nombre", "El nombre debe tener entre 1 y 30 caracteres",
@@ -54,14 +54,14 @@ public class UsuarioValidator implements Validator {
 			errors.rejectValue("email", "El correo no puede estar vacío", "El correo no puede estar vacío");
 		}
 		// contrasena validation
-		if (!StringUtils.hasLength(contrasena) || contrasena.length() < 1 || contrasena.length() > 100) {
-			errors.rejectValue("contrasena", "La contraseña debe tener entre 1 y 100 caracteres",
-					"La contraseña debe tener entre 1 y 100 caracteres");
-		}
-		if (contrasena.trim().length() == 0) {
-			errors.rejectValue("contrasena", "La contraseña no puede estar vacía",
-					"La contraseña no puede estar vacía");
-		}
+//		if (!StringUtils.hasLength(contrasena) || contrasena.length() < 1 || contrasena.length() > 100) {
+//			errors.rejectValue("contrasena", "La contraseña debe tener entre 1 y 100 caracteres",
+//					"La contraseña debe tener entre 1 y 100 caracteres");
+//		}
+//		if (contrasena.trim().length() == 0) {
+//			errors.rejectValue("contrasena", "La contraseña no puede estar vacía",
+//					"La contraseña no puede estar vacía");
+//		}
 	}
 
 	/**
