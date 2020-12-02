@@ -94,7 +94,7 @@ public class UsuarioController {
 
 	@GetMapping("/new")
 	public String editNewUsuario(ModelMap model) {
-		model.addAttribute("usuario", new Usuario());
+		model.put("usuario", new Usuario());
 		return USUARIOS_FORM;
 	}
 
