@@ -109,7 +109,9 @@ public class ComentarioServiceTests {
 		usuario.setLocalidad("El piso2");
 		usuario.setColegio("La etsii2");
 		usuario.setEmail("999999999992");
-		usuario.setContrasena("qwerty1232");
+
+//		usuario.setContrasena("qwerty1232");
+
 		usuarioService.save(usuario);
 		Hilo hilo = new Hilo();
 		hilo.setNombre("Profesorado maleducado2");
