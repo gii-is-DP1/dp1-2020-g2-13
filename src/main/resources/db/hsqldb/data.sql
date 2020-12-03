@@ -68,6 +68,9 @@ INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
 INSERT INTO videos(id,link,descripcion,duracion) VALUES (2,'abcdefghijklmnop','abcdefghijklmnop','23');
 
+-- Insertar mensajes privados
+INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);
+
 
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'chocapi');

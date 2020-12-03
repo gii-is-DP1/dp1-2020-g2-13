@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
@@ -34,6 +35,10 @@ public class UsuarioService {
 	public Usuario findById(int id) {
 		return usuarioRepository.findById(id);
 	}
+
+//	public Usuario findByUsername(String username) {
+//		return usuarioRepository.findByUsername(username);
+//	}
 
 	public void delete(Usuario usuario) {
 		usuarioRepository.deleteById(usuario.getId());
