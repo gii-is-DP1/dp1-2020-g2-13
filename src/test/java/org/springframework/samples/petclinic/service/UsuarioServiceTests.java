@@ -60,7 +60,7 @@ public class UsuarioServiceTests {
 		usuario.setLocalidad("El piso2");
 		usuario.setColegio("La etsii2");
 		usuario.setEmail("999999999992");
-		usuario.setContrasena("qwerty123");
+//		usuario.setContrasena("qwerty123");
 		this.usuarioService.save(usuario);
 		assertThat(usuario.getId().longValue()).isNotEqualTo(0);
 		assertEquals("Fran2", this.usuarioService.findById(usuario.getId()).getNombre());

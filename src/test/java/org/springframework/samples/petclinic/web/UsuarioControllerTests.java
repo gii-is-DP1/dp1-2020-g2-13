@@ -61,7 +61,7 @@ public class UsuarioControllerTests {
 		usuario.setLocalidad("El piso");
 		usuario.setColegio("La etsii");
 		usuario.setEmail("99999999999");
-		usuario.setContrasena("qwerty123");
+//		usuario.setContrasena("qwerty123");
 		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(usuario);
 	}
 
@@ -101,7 +101,7 @@ public class UsuarioControllerTests {
 				.andExpect(model().attribute("usuario", hasProperty("localidad", is("El piso"))))
 				.andExpect(model().attribute("usuario", hasProperty("colegio", is("La etsii"))))
 				.andExpect(model().attribute("usuario", hasProperty("email", is("99999999999"))))
-				.andExpect(model().attribute("usuario", hasProperty("contrasena", is("qwerty123"))))
+//				.andExpect(model().attribute("usuario", hasProperty("contrasena", is("qwerty123"))))
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
 	}
 
