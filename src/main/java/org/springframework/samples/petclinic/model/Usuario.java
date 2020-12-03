@@ -2,8 +2,11 @@ package org.springframework.samples.petclinic.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -28,9 +31,12 @@ public class Usuario extends BaseEntity{
 	private String colegio;
 	@NotNull
 	private String email;
-	@NotNull
-	private String contrasena;
+//	@NotNull
+//	private String contrasena;
 
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "username", referencedColumnName = "username")
+	private User user;
 	
 	@ManyToMany
 	Set<Logro> logros;
