@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.model;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -15,9 +16,17 @@ import lombok.Data;
 @Table(name = "mensajesPrivados")
 public class MensajePrivado extends BaseEntity{
 	
-	private LocalDate fecha;
+	//private LocalDate fecha;
 	@NotNull
 	@Size(max = 250)
 	private String contenido;
+
+
+	@ManyToOne(optional = false)
+	private Usuario emisor;
+	
+	@ManyToOne(optional = false)
+	private Usuario receptor;
+	
 	
 }
