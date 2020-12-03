@@ -26,26 +26,10 @@
             <th>Email</th>
             <td><c:out value="${usuario.email}"/></td>
         </tr>
-        <tr>
-            <th>Logros</th>
-            <td>
-            <ul>
-           	 <c:forEach items="${usuario.logros}" var="logro">
-           	 	<li>${logro.nombre}</li>
-           	 </c:forEach>
-            </ul>
-			</td>
-        </tr>
-        <tr>
-            <th>Exámenes realizados</th>
-            <td>
-            <ul>
-           	 <c:forEach items="${usuario.examenes}" var="examen">
-           	 	<li>${examen.titulos}</li>
-           	 </c:forEach>
-            </ul>
-			</td>
-        </tr>
     </table>
+    
+    <a href="/mensajesPrivados/${usuario.id}">
+    	<button class="btn btn-default">Mensaje privado</button>
+    </a>
 
 </petclinic:layout>
