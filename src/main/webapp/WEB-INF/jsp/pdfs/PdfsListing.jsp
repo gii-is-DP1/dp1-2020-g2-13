@@ -21,7 +21,7 @@
         <c:forEach items="${pdfs}" var="pdfs">
             <tr>
                 <td>
-                    <c:out value="${pdfs.archivo}"/>
+                    <a href= "${pdfs.archivo}" target="_blank">hola</a>
                 </td>
 
                 <td>

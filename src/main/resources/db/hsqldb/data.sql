@@ -39,6 +39,8 @@ INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con piz
 -- Insertar pdfs
 INSERT INTO pdfs(id, archivo) VALUES (1, 'Documento');
 
+
+
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','chocapi');

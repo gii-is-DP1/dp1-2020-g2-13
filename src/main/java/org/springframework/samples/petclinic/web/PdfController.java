@@ -1,15 +1,11 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pdf;
-import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PdfService;
-import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/pdfs")
 public class PdfController {
-	public static final String HILOS_FORM = "pdfs/createOrUpdatePdfsForm";
-	public static final String HILOS_LISTING = "pdfs/PdfsListing";
+	public static final String PDFs_FORM = "pdfs/createOrUpdatePdfsForm";
+	public static final String PDFs_LISTING = "pdfs/PdfsListing";
 	
 	private final PdfService pdfService;
 
@@ -34,14 +30,14 @@ public class PdfController {
 	@GetMapping
 	public String listPdfs(ModelMap model) {
 		model.addAttribute("pdfs", pdfService.findAll());
-		return HILOS_LISTING;
+		return PDFs_LISTING;
 	}
 
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
 		Pdf pdf = pdfService.findById(id);
 		model.addAttribute("pdf", pdf);
-		return HILOS_FORM;
+		return PDFs_FORM;
 	}
 
 	@PostMapping("/{id}/edit")
@@ -50,7 +46,7 @@ public class PdfController {
 		Pdf pdf = pdfService.findById(id);
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Documento inválido.");
-			return HILOS_FORM;
+			return PDFs_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedPdf, pdf, "id");
 			pdfService.save(pdf);
@@ -70,14 +66,14 @@ public class PdfController {
 	@GetMapping("/new")
 	public String editNewDisease(ModelMap model) {
 		model.addAttribute("pdf",new Pdf());
-		return HILOS_FORM;
+		return PDFs_FORM;
 	}
 	
 	@PostMapping("/new")
 	public String saveNewPdf(@Valid Pdf pdf, BindingResult binding,ModelMap model) {
 		if(binding.hasErrors()) {
 			model.addAttribute("message", "Documento inválido.");
-			return HILOS_FORM;
+			return PDFs_FORM;
 		}else {
 			pdfService.save(pdf);
 			model.addAttribute("message", "The thread was created successfully!");			
