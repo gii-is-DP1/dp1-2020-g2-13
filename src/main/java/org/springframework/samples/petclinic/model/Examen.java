@@ -1,7 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,4 +25,8 @@ public class Examen extends BaseEntity{
 	
 	@ManyToOne(optional = false)
 	private Usuario usuario;
+	
+	@OneToMany
+	private List<Pregunta> preguntas;
+	
 }
