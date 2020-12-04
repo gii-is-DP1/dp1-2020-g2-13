@@ -1,17 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
-
 import org.springframework.samples.petclinic.service.HiloService;
-
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,13 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.service.UsuarioService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -46,7 +34,6 @@ public class UsuarioController {
 
 	@Autowired
 	ExamenService examenService;
-	
 
 	@InitBinder("usuario")
 	public void initUsuarioBinder(WebDataBinder dataBinder) {
@@ -62,10 +49,9 @@ public class UsuarioController {
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
 		Usuario usuario = usuarioService.findById(id);
-		
-			model.addAttribute("usuario", usuario);
-			return USUARIOS_FORM;
-		
+		model.addAttribute("usuario", usuario);
+		return USUARIOS_FORM;
+
 	}
 
 	@PostMapping("/{id}/edit")
@@ -77,7 +63,7 @@ public class UsuarioController {
 		} else {
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
 			usuarioService.save(usuario);
-			model.addAttribute("message", "Thread updated succesfully!");
+			model.addAttribute("message", "User updated succesfully!");
 			return listUsuarios(model);
 		}
 	}
@@ -85,11 +71,11 @@ public class UsuarioController {
 	@GetMapping("/{id}/delete")
 	public String deleteUsuario(@PathVariable("id") int id, ModelMap model) {
 		Usuario usuario = usuarioService.findById(id);
-		
-			usuarioService.delete(usuario);
-			model.addAttribute("message", "The user was deleted successfully!");
-			return listUsuarios(model);
-		
+
+		usuarioService.delete(usuario);
+		model.addAttribute("message", "The user was deleted successfully!");
+		return listUsuarios(model);
+
 	}
 
 	@GetMapping("/new")
@@ -126,10 +112,10 @@ public class UsuarioController {
 	@GetMapping("/{id}/perfil")
 	public String perfil(@PathVariable("id") int id, ModelMap model) {
 		Usuario usuario = usuarioService.findById(id);
-		
-			model.addAttribute("usuario", usuario);
-			return PERFIL;
-		
+
+		model.addAttribute("usuario", usuario);
+		return PERFIL;
+
 	}
 
 }
