@@ -6,34 +6,39 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="documentos">
-    <h2>Documentos</h2>
-        <table id="pdfsTable" class="table table-striped">
+<petclinic:layout pageName="preguntas">
+    <h2>Preguntas</h2>
+        <table id="preguntasTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 100%;">Documento</th>
+            <th style="width: 20%;">Contenido</th>
+            <th style="width: 80%;">Tipo de contenido</th>
+
             <th></th>
             <th></th>
 
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${pdfs}" var="pdfs">
+        <c:forEach items="${preguntas}" var="preguntas">
             <tr>
                 <td>
-                    <a href= "${pdfs.archivo}" target="_blank">hola</a>
+                    <c:out value="${preguntas.contenido}"/>
+                </td>
+                <td>
+                    <c:out value="${preguntas.tipoContenido}"/>
                 </td>
 
                 <td>
 
-                	<a href="/pdfs/${pdfs.id}/edit">
+                	<a href="/preguntas/${preguntas.id}/edit">
 
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 	</a>
                 </td>
                 <td>
 
-                	<a href="/pdfs/${pdfs.id}/delete">
+                	<a href="/preguntas/${preguntas.id}/delete">
 
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
@@ -46,7 +51,7 @@
     </table>
     
     <p>
-    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Documento</a>
+    	<a href="/preguntas/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Question</a>
     </p>
 
 </petclinic:layout>
