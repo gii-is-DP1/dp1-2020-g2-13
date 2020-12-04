@@ -39,6 +39,8 @@ INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con piz
 -- Insertar pdfs
 INSERT INTO pdfs(id, archivo) VALUES (1, 'Documento');
 
+
+
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','chocapi');
@@ -67,6 +69,9 @@ INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 --Insertar videos
 INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
 INSERT INTO videos(id,link,descripcion,duracion) VALUES (2,'abcdefghijklmnop','abcdefghijklmnop','23');
+
+-- Insertar mensajes privados
+INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);
 
 
 
