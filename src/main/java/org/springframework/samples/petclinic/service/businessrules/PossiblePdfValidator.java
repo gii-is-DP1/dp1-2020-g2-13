@@ -10,7 +10,7 @@ public class PossiblePdfValidator implements ConstraintValidator<ValidatePossibl
 
 	@Override
 	public boolean isValid(Pdf value, ConstraintValidatorContext context) {
-		return value.getArchivo().trim().length() > 0 && value.getArchivo().length() <= 1024;
+		return value.getLink().trim().length() > 0 && value.getLink().length() <= 1024;
 	}
 
 }

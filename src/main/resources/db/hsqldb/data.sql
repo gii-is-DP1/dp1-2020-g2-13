@@ -37,9 +37,10 @@ INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Hola_mundo', 'primer logr
 INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con pizarra');
 
 -- Insertar pdfs
-INSERT INTO pdfs(id, archivo) VALUES (1, 'Documento');
+INSERT INTO pdfs(id, link, nombre) VALUES (1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
 
-
+-- Insertar videos
+INSERT INTO videos(id, nombre, link, duracion) VALUES (1, 'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
 
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
@@ -66,9 +67,7 @@ INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mu
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
---Insertar videos
-INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
-INSERT INTO videos(id,link,descripcion,duracion) VALUES (2,'abcdefghijklmnop','abcdefghijklmnop','23');
+
 
 -- Insertar mensajes privados
 INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);

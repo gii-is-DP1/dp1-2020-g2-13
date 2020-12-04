@@ -103,7 +103,7 @@ class PdfServiceTests {
 	public void shouldsavePdf() {
 
 		Pdf pdf = new Pdf();
-		pdf.setArchivo("ejemplo");
+		pdf.setLink("ejemplo");
 		this.pdfService.save(pdf);
 		assertEquals(pdf, this.pdfService.findById(pdf.getId()));
 	}
@@ -112,14 +112,14 @@ class PdfServiceTests {
 	@Transactional
 	public void shouldUpdatePdfName() throws Exception {
 		Pdf pdf = this.pdfService.findById(1);
-		String oldName = pdf.getArchivo();
+		String oldName = pdf.getLink();
 
 		String newName = oldName + "X";
-		pdf.setArchivo(newName);
+		pdf.setLink(newName);
 		this.pdfService.save(pdf);
 
 		pdf = this.pdfService.findById(1);
-		assertThat(pdf.getArchivo()).isEqualTo(newName);
+		assertThat(pdf.getLink()).isEqualTo(newName);
 	}
 
 	@DisplayName("Prueba de borrado de pdf")
@@ -128,7 +128,7 @@ class PdfServiceTests {
 		
 		
 		this.pdfService.delete(this.pdfService.findById(TEST_PDF_ID));
-		assertThrows(NullPointerException.class, () -> this.pdfService.findById(TEST_PDF_ID).getArchivo());
+		assertThrows(NullPointerException.class, () -> this.pdfService.findById(TEST_PDF_ID).getLink());
 		
 
 	}
