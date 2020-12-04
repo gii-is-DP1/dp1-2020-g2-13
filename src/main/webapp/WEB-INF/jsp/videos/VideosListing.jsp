@@ -11,7 +11,7 @@
 	<table id="usuariosTable" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 40%;">Link</th>
+				<th style="width: 40%;">Nombre</th>
 				<th style="width: 20%;">Descripcion</th>
 				<th style="width: 20%;">Duracion</th>
 				<th></th>
@@ -21,7 +21,7 @@
 		<tbody>
 			<c:forEach items="${videos}" var="videos">
 				<tr>
-					<td><c:out value="${videos.link}" /></td>
+					<td><a href="${videos.link}">${videos.nombre}</a></td>
 					<td><c:out value="${videos.descripcion}" /></td>
 					<td><c:out value="${videos.duracion}" /></td>
 					<td><a href="/videos/${videos.id}/delete"> <span

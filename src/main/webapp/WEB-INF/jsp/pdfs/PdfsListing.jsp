@@ -21,7 +21,8 @@
         <c:forEach items="${pdfs}" var="pdfs">
             <tr>
                 <td>
-                    <a href= "${pdfs.archivo}" target="_blank">hola</a>
+                      <a href= "/pdfs/${pdfs.id}/visualize">${pdfs.nombre}</a>
+                    <!--  <embed src="/pdfs/${pdfs.id}/visualize" width="300" height="300">-->
                 </td>
 
                 <td>
