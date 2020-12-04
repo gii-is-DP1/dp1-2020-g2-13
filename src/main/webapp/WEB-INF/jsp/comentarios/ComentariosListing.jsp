@@ -6,42 +6,39 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 
 
-<petclinic:layout pageName="hilos">
-	<h2>Hilos</h2>
+<petclinic:layout pageName="comentarios">
+	<h2>${hilo.nombre}</h2>
 	<table id="hilosTable" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 20%;">Nombre</th>
-				<th style="width: 80%;">Categoria</th>
+				<th style="width: 20%;">Usuario</th>
+				<th style="width: 80%;">Contenido</th>
 				<th></th>
 				<th></th>
 
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${hilos}" var="hilos">
+			<c:forEach items="${comentarios}" var="comentarios">
 				<tr>
-					<td><a href="/comentarios/${hilos.id}"> <c:out
-								value="${hilos.nombre}" />
-					</a></td>
-					<td><c:out value="${hilos.categoria}" /></td>
+					<td><c:out value="${comentarios.usuario.nombre}" /></td>
+					<td><c:out value="${comentarios.contenido}" /></td>
 
-					<td><a href="/hilos/${hilos.id}/edit"> <span
+					<td><a href="/comentarios/${hilo.id}/${comentarios.id}/edit"> <span
 							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a></td>
-					<td><a href="/hilos/${hilos.id}/delete"> <span
+					<td><a href="/comentarios/${hilo.id}/${comentarios.id}/delete"> <span
 							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					</a></td>
-
-
+					
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 
 	<p>
-		<a href="/hilos/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Thread</a>
+		<a href="/comentarios/${hilo.id}/new" class="btn  btn-success"><span
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Comment</a>
 	</p>
 
 </petclinic:layout>
