@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -16,4 +17,8 @@ public class Pregunta extends BaseEntity{
     @Size(max = 250)
 	private String contenido;
 	private String tipoContenido;
+	
+	@OneToOne
+	private TipoTest tipoTest;
+	
 }

@@ -13,6 +13,9 @@
 	<c:forEach items="${comentarios}" var="comentarios">
 		<h4>${comentarios.usuario.nombre}</h4> 
 		<p>${comentarios.contenido}</p>
+		<a href="/hilos/${hilo.id}/${comentarios.id}/delete"> <span
+							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</a>
 	</c:forEach>
 
 	<form:form modelAttribute="comentario" class="form-horizontal"

@@ -1,15 +1,19 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Examen;
+import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
+import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +31,7 @@ public class ExamenController {
 
 	public static final String EXAMENES_FORM = "examenes/createOrUpdateExamenesForm";
 	public static final String EXAMENES_LISTING = "examenes/ExamenesListing";
+	public static final String EXAMEN_DETAILS = "examenes/ExamenDetails";
 
 	@Autowired
 	ExamenService examenService;
@@ -97,5 +102,14 @@ public class ExamenController {
 			return listExamenes(model);
 		}
 	}
+	
+	@GetMapping("/{id}/details")
+	public String ExamenDetails(@PathVariable("id") int id, ModelMap model) {
+		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
+		model.addAttribute("examen", examenService.findById(id));
+		model.addAttribute("preguntas", preguntas);
+		return EXAMEN_DETAILS;
+	}
+
 
 }
