@@ -14,7 +14,7 @@
             <th style="width: 100%;">Documento</th>
             <th></th>
             <th></th>
-
+			<th></th>
         </tr>
         </thead>
         <tbody>
@@ -40,7 +40,13 @@
                 	</a>
                 </td>
 
+				<td>
 
+                	<a href="${pdfs.link}" target="_blank">
+
+                		<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                	</a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
