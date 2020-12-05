@@ -31,7 +31,7 @@ public class ExamenServiceTest {
 	@DisplayName("Prueba de localización de examen")
 	@Test
 	
-	void shouldFindPetWithCorrectId() {
+	void shouldFindExamen() {
 		Examen examen = this.examenService.findById(1);
 		assertThat(examen.getTitulos().equals("prueba"));
 		assertThat(examen.getPuntuacionMaxima().equals(10.0));
@@ -41,7 +41,7 @@ public class ExamenServiceTest {
 
 	@DisplayName("Prueba de guardado de examen")
 	@Test
-	void shouldSave() {
+	void shouldSaveExamen() {
 		Examen examen = new Examen();
 		examen.setTitulos("Examen de Convocatoria");
 		examen.setPuntuacionMaxima(10.0);
@@ -54,7 +54,7 @@ public class ExamenServiceTest {
 
 	@DisplayName("Prueba de borrado de examen")
 	@Test
-	void shouldDelete() {
+	void shouldDeleteExamen() {
 		this.examenService.delete(this.examenService.findById(1));
 		assertThrows(NoSuchElementException.class, () -> this.examenService.findById(1).getTitulos());
 	}
