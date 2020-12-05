@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Examen;
+import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
@@ -52,6 +54,7 @@ public class ExamenController {
 	@GetMapping("/{id}/edit")
 	public String editExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   " + examen.getId() + " " + examen.getTitulos());
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("examen", examen);
 		model.addAttribute("usuarios", usuarios);
@@ -106,8 +109,20 @@ public class ExamenController {
 	@GetMapping("/{id}/details")
 	public String ExamenDetails(@PathVariable("id") int id, ModelMap model) {
 		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
+
+		List<List<Opcion>> opciones= new ArrayList<List<Opcion>>();
+		for(int i=0;i<preguntas.size();i++){
+			if(preguntas.get(i).getTipoTest()!=null) {
+				opciones.add(preguntas.get(i).getTipoTest().getOpciones());	
+			}
+			else {
+				opciones.add(new ArrayList<Opcion>());
+			}
+		}
 		model.addAttribute("examen", examenService.findById(id));
 		model.addAttribute("preguntas", preguntas);
+		model.addAttribute("opciones", opciones);
+
 		return EXAMEN_DETAILS;
 	}
 
