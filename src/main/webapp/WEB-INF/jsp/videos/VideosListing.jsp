@@ -21,7 +21,8 @@
 		<tbody>
 			<c:forEach items="${videos}" var="videos">
 				<tr>
-					<td><a href="${videos.link}">${videos.nombre}</a></td>
+					<td><a href="/videos/${videos.id}/visualize">${videos.nombre}</a></td>
+					
 					<td><c:out value="${videos.descripcion}" /></td>
 					<td><c:out value="${videos.duracion}" /></td>
 					<td><a href="/videos/${videos.id}/delete"> <span
@@ -35,7 +36,9 @@
 		</tbody>
 	</table>
 	<p>
-    	<a href="/videos/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Video</a>
-    </p>
+		<a href="/videos/new" class="btn  btn-success"><span
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir
+			Video</a>
+	</p>
 
 </petclinic:layout>
