@@ -67,6 +67,7 @@ INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mu
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
+
 --Insertar opciones
 INSERT INTO opciones(id,texto) VALUES (1, 'Opción 1: las parejas promiscuas');
 INSERT INTO opciones(id,texto) VALUES (2, 'Opción 2: los parejos promiscuos');
@@ -93,6 +94,7 @@ INSERT INTO preguntas(id, contenido, tipo_contenido, tipo_test_id) VALUES (2, 'P
 -- Añadir pregunta a examen
 INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,1);
 INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,2);
+
 
 -- Insertar mensajes privados
 INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);

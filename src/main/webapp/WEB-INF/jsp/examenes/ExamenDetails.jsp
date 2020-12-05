@@ -11,17 +11,18 @@
 
     <table class="table table-striped">
         <tr>
-            <th>Títulos</th>
+            <th>TÃ­tulos</th>
             <td><b><c:out value="${examen.titulos}"/></b></td>
         </tr>
         <tr>
-            <th>Puntuación Máxima</th>
+            <th>PuntuaciÃ³n MÃ¡xima</th>
             <td><c:out value="${examen.puntuacionMaxima}"/></td>
         </tr>
         <tr>
-            <th>Puntuación Mínima</th>
+            <th>PuntuaciÃ³n MÃ­nima</th>
             <td><c:out value="${examen.puntuacionMinima}"/></td>
         </tr>
+
     </table>
     </br>
     </br>
@@ -41,6 +42,7 @@
         	 </tr>
      		 </c:forEach>
      </table>
+
    
 
 </petclinic:layout>

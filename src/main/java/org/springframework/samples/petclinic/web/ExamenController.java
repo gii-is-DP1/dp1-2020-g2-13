@@ -109,6 +109,7 @@ public class ExamenController {
 	@GetMapping("/{id}/details")
 	public String ExamenDetails(@PathVariable("id") int id, ModelMap model) {
 		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
+
 		List<List<Opcion>> opciones= new ArrayList<List<Opcion>>();
 		for(int i=0;i<preguntas.size();i++){
 			if(preguntas.get(i).getTipoTest()!=null) {
@@ -121,6 +122,7 @@ public class ExamenController {
 		model.addAttribute("examen", examenService.findById(id));
 		model.addAttribute("preguntas", preguntas);
 		model.addAttribute("opciones", opciones);
+
 		return EXAMEN_DETAILS;
 	}
 
