@@ -22,19 +22,25 @@
             <th>Puntuación Mínima</th>
             <td><c:out value="${examen.puntuacionMinima}"/></td>
         </tr>
-        <tr>
-            <th>Preguntas</th>
-             <c:forEach var="pregunta" items="${examen.preguntas}">
-    			<td>
-            		 <td>
-            		 <c:out value="${pregunta.contenido}"/>
-  					 <c:out value="${pregunta.tipoContenido}"/>
-            		 </td>
-            	</td>
-     		</c:forEach>
-        </tr>
     </table>
-    
+    </br>
+    </br>
+    </br>
+    <h3>Preguntas</h3>
+    <table class="table table-striped">
+   		
+            <c:forEach var="pregunta" items="${examen.preguntas}" varStatus="loop"> 
+            <tr> 
+            <th>Pregunta <c:out value="${loop.index + 1}"/></th>
+            <td><b><c:out value="${pregunta.contenido}"/></b></td>
+             <td>
+             <c:forEach var="opcion" items="${opciones[loop.index]}">
+             <c:out value="${opcion.texto}"/></br>
+        	 </c:forEach>
+        	 </td>
+        	 </tr>
+     		 </c:forEach>
+     </table>
    
 
 </petclinic:layout>

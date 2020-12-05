@@ -67,10 +67,37 @@ INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mu
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
+--Insertar opciones
+INSERT INTO opciones(id,texto) VALUES (1, 'Opción 1: las parejas promiscuas');
+INSERT INTO opciones(id,texto) VALUES (2, 'Opción 2: los parejos promiscuos');
+INSERT INTO opciones(id,texto) VALUES (3, 'Opción 3: el pareje promiscue');
+INSERT INTO opciones(id,texto) VALUES (4, 'Opción 4: las parejas promiscuaaas');
 
+--Insertar tipo test
+
+INSERT INTO tipo_tests(id,respuesta_correcta) VALUES (1,1);
+INSERT INTO tipo_tests(id,respuesta_correcta) VALUES (2,1);
+
+--Insertar opciones a tipotest
+
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (1,1);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (1,2);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (2,3);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (2,4);
+
+--Insertar preguntas
+
+INSERT INTO preguntas(id, contenido, tipo_contenido, tipo_test_id) VALUES (1, 'Pregunta de ejemplo nº 1','tipo_contenido',1);
+INSERT INTO preguntas(id, contenido, tipo_contenido, tipo_test_id) VALUES (2, 'Pregunta de ejemplo nº 2','tipo_contenido',2);
+
+-- Añadir pregunta a examen
+INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,1);
+INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,2);
 
 -- Insertar mensajes privados
 INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);
+
+
 
 
 
