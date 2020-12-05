@@ -12,6 +12,7 @@
     </h2>
     <form:form modelAttribute="video" class="form-horizontal" id="add-video-form">
         <div class="form-group has-feedback">
+        	<petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Link" name="link"/>
             <petclinic:inputField label="Descripcion" name="descripcion"/>     
             <petclinic:inputField label="Duracion" name="duracion"/>      

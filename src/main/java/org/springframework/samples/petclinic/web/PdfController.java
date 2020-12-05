@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PdfController {
 	public static final String PDFs_FORM = "pdfs/createOrUpdatePdfsForm";
 	public static final String PDFs_LISTING = "pdfs/PdfsListing";
+	public static final String PDFs_VISUALIZE = "pdfs/PdfVisualize";
+
 	
 	private final PdfService pdfService;
 
@@ -32,7 +34,14 @@ public class PdfController {
 		model.addAttribute("pdfs", pdfService.findAll());
 		return PDFs_LISTING;
 	}
-
+	
+	@GetMapping("/{id}/visualize")
+	public String visualizePdfs(@PathVariable("id") int id, ModelMap model) {
+		Pdf pdf = pdfService.findById(id);
+		model.addAttribute("pdf", pdf);
+		return PDFs_VISUALIZE;
+	}
+	
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
 		Pdf pdf = pdfService.findById(id);
