@@ -9,9 +9,8 @@ import lombok.Data;
 @Entity
 @Table(name = "opciones")
 public class Opcion extends BaseEntity {
-	
+
 	private String texto;
-	
 	private Boolean esCorrecta;
-	
+
 }

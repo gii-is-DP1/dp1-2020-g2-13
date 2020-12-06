@@ -19,8 +19,11 @@ public interface NotificacionRepository extends CrudRepository<Notificacion, Int
 	Notificacion findById(int id);
 
 	@Query("SELECT n FROM Notificacion n WHERE n.usuario.id = :usuarioId")
-	Collection<Notificacion> findByUserId(@Param("usuarioId")int usuarioId);
-	
+	Collection<Notificacion> findByUserId(@Param("usuarioId") int usuarioId);
+
+	@Query("SELECT n FROM Notificacion n WHERE n.mensajePrivado.id = :mensajePrivadoId")
+	Collection<Notificacion> findByMensajeId(@Param("mensajePrivadoId") int mensajePrivadoId);
+
 	void delete(Notificacion notificacion);
 
 }

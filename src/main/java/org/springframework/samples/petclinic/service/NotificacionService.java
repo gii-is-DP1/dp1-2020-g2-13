@@ -33,14 +33,17 @@ public class NotificacionService {
 
 	public void delete(Notificacion notificacion) {
 		notificacionRepository.deleteById(notificacion.getId());
-
+	}
+	
+	public void findByMensajeId(int id) {
+		notificacionRepository.findByMensajeId(id);
 	}
 
 //	public void save(@Valid Comentario comentario) throws ImpossibleComentarioException {
 //		validateComentarioIsPossible(comentario);
 //		comentarioRepository.save(comentario);
 //	}
-	
+
 	public void save(@Valid Notificacion notificacion) {
 		notificacionRepository.save(notificacion);
 	}

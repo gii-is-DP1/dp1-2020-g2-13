@@ -25,7 +25,7 @@ public class Comentario extends BaseEntity {
 //	private int likes;
 
 	@ManyToOne(optional = true)
-	private Comentario comentario;
+	private Comentario cita;
 
 	@ManyToOne(optional = false)
 	private Usuario usuario;
