@@ -12,4 +12,6 @@ public class Opcion extends BaseEntity {
 	
 	private String texto;
 	
+	private Boolean esCorrecta;
+	
 }

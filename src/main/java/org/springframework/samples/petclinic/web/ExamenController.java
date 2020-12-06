@@ -107,7 +107,7 @@ public class ExamenController {
 	}
 	
 	@GetMapping("/{id}/details")
-	public String ExamenDetails(@PathVariable("id") int id, ModelMap model) {
+	public String examenDetails(@PathVariable("id") int id, ModelMap model) {
 		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
 
 		List<List<Opcion>> opciones= new ArrayList<List<Opcion>>();
