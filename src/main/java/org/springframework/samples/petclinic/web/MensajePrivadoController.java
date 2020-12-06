@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.MensajePrivado;
 import org.springframework.samples.petclinic.model.User;
@@ -38,7 +39,7 @@ public class MensajePrivadoController {
 
 	@Autowired
 	UsuarioService usuarioService;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -48,7 +49,7 @@ public class MensajePrivadoController {
 		String username = authentication.getName();
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		Usuario emisor = null;
-		for (Usuario u:usuarios) {
+		for (Usuario u : usuarios) {
 			if (u.getUser().getUsername().equals(username)) {
 				emisor = u;
 			}
@@ -60,12 +61,12 @@ public class MensajePrivadoController {
 	}
 
 	@GetMapping("{value}/new")
-	public String editNewDisease(@PathVariable("value") int receptor, ModelMap model) {
+	public String editNewMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		Usuario emisor = null;
-		for (Usuario u:usuarios) {
+		for (Usuario u : usuarios) {
 			if (u.getUser().getUsername().equals(username)) {
 				emisor = u;
 			}
@@ -77,15 +78,14 @@ public class MensajePrivadoController {
 	}
 
 	@PostMapping("{value}/new")
-	public String saveNewDisease(@PathVariable("value") int receptor, 
-			@Valid MensajePrivado mensajePrivado, BindingResult binding, 
-			ModelMap model) {
+	public String saveNewMensajesPrivados(@PathVariable("value") int receptor, @Valid MensajePrivado mensajePrivado,
+			BindingResult binding, ModelMap model) {
 		if (binding.hasErrors()) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			Usuario emisor = null;
-			for (Usuario u:usuarios) {
+			for (Usuario u : usuarios) {
 				if (u.getUser().getUsername().equals(username)) {
 					emisor = u;
 				}
@@ -101,4 +101,29 @@ public class MensajePrivadoController {
 		}
 	}
 
+	@GetMapping("/{value}/delete")
+	public String deleteMensajesPrivados(@PathVariable("value") int id, ModelMap model) {
+		MensajePrivado mensajePrivado = mensajePrivadoService.findById(id);
+		mensajePrivadoService.delete(mensajePrivado);
+		model.addAttribute("message", "El mensaje ha sido eliminado");
+		return listMensajesPrivados(id, model);
+	}
+	
+	
+
+	@PostMapping("/{value}/edit")
+	public String editMensajesPrivados(@PathVariable("value") int id, @Valid Comentario modifiedMensajePrivado,
+			BindingResult binding, ModelMap model) {
+		MensajePrivado mensajePrivado = mensajePrivadoService.findById(id);
+		if (binding.hasErrors()) {
+			Collection<Usuario> usuarios = usuarioService.findAll();
+			model.addAttribute("usuarios", usuarios);
+			return MENSAJES_PRIVADOS_LISTING;
+		} else {
+			BeanUtils.copyProperties(modifiedMensajePrivado, mensajePrivado, "id");
+			mensajePrivadoService.save(mensajePrivado);
+			model.addAttribute("message", "The comentario was created successfully!");
+			return listMensajesPrivados(id, model);
+		}
+	}
 }

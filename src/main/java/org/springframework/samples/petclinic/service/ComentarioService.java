@@ -65,8 +65,8 @@ public class ComentarioService {
 		return comentarioRepository.findByHiloId(hiloid);
 	}
 	
-	public Collection<Comentario> findByComentarioId(int comentarioid) {
-		return comentarioRepository.findByComentarioId(comentarioid);
-	}
+//	public Collection<Comentario> findByComentarioId(int comentarioid) {
+//		return comentarioRepository.findByComentarioId(comentarioid);
+//	}
 
 }

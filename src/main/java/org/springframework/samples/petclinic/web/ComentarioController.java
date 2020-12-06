@@ -85,7 +85,6 @@ public class ComentarioController {
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
 		} else {
-			System.out.println(usuarioService.findById(1));
 			comentarioService.save(comentario);
 			model.addAttribute("message", "The comentario was created successfully!");
 			return viewHilo(id, model);
