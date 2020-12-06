@@ -16,7 +16,6 @@ public class Pregunta extends BaseEntity{
 	@NotNull
     @Size(max = 250)
 	private String contenido;
-	private String tipoContenido;
 	
 	@OneToOne
 	private TipoTest tipoTest;
