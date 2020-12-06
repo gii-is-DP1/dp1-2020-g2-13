@@ -16,5 +16,7 @@ import lombok.Data;
 public class Pdf extends BaseEntity{
 
 	@NotNull
-	private String archivo;
+	private String link;
+	@NotNull
+	private String nombre;
 }

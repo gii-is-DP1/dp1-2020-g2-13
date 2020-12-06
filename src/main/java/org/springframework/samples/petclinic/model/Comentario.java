@@ -7,8 +7,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.springframework.samples.petclinic.service.businessrules.ValidatePossibleComentario;
-
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -26,6 +24,8 @@ public class Comentario extends BaseEntity {
 	private String contenido;
 //	private int likes;
 
+	@ManyToOne(optional = true)
+	private Comentario comentario;
 
 	@ManyToOne(optional = false)
 	private Usuario usuario;

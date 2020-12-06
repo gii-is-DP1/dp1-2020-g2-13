@@ -46,6 +46,13 @@
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
                 </td>
+                <td>
+
+                	<a href="/examenes/${examenes.id}/details">
+
+                		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                	</a>
+                </td>
 
 
             </tr>

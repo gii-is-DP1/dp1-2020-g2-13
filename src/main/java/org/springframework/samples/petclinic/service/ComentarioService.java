@@ -49,5 +49,9 @@ public class ComentarioService {
 	public Collection<Comentario> findByHiloId(int hiloid) {
 		return comentarioRepository.findByHiloId(hiloid);
 	}
+	
+	public Collection<Comentario> findByComentarioId(int comentarioid) {
+		return comentarioRepository.findByComentarioId(comentarioid);
+	}
 
 }
