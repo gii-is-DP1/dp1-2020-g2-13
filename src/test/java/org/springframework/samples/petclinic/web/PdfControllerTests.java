@@ -64,7 +64,7 @@ class PdfControllerTests {
 
 		pdf = new Pdf();
 		pdf.setId(TEST_PDF_ID);
-		pdf.setArchivo("Documento");
+		pdf.setLink("Documento");
 		given(this.pdfService.findById(TEST_PDF_ID)).willReturn(pdf);
 
 

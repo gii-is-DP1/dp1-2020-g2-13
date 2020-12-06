@@ -14,14 +14,15 @@
             <th style="width: 100%;">Documento</th>
             <th></th>
             <th></th>
-
+			<th></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${pdfs}" var="pdfs">
             <tr>
                 <td>
-                    <a href= "${pdfs.archivo}" target="_blank">hola</a>
+                      <a href= "/pdfs/${pdfs.id}/visualize">${pdfs.nombre}</a>
+                    <!--  <embed src="/pdfs/${pdfs.id}/visualize" width="300" height="300">-->
                 </td>
 
                 <td>
@@ -39,7 +40,13 @@
                 	</a>
                 </td>
 
+				<td>
 
+                	<a href="${pdfs.link}" target="_blank">
+
+                		<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                	</a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

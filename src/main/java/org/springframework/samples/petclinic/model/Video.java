@@ -17,6 +17,8 @@ import lombok.Data;
 public class Video extends BaseEntity{
 
 	@NotEmpty
+	private String nombre;
+	@NotEmpty
 	private String link;
 	@Size(max = 250)
 	private String descripcion;

@@ -1,12 +1,12 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
+--INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
+--INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
 -- One vet user, named vet1 with passwor v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
+--INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -37,9 +37,10 @@ INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Hola_mundo', 'primer logr
 INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con pizarra');
 
 -- Insertar pdfs
-INSERT INTO pdfs(id, archivo) VALUES (1, 'Documento');
+INSERT INTO pdfs(id, link, nombre) VALUES (1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
 
-
+-- Insertar videos
+INSERT INTO videos(id, nombre, link, duracion) VALUES (1, 'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
 
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
@@ -66,12 +67,43 @@ INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mu
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
---Insertar videos
-INSERT INTO videos(link,descripcion,duracion) VALUES ('jfiowq jio','jjjjjjjjjgeop','20');
-INSERT INTO videos(id,link,descripcion,duracion) VALUES (2,'abcdefghijklmnop','abcdefghijklmnop','23');
+
+--Insertar opciones
+INSERT INTO opciones(id,texto) VALUES (1, 'Opción 1: las parejas promiscuas', FALSE);
+INSERT INTO opciones(id,texto) VALUES (2, 'Opción 2: los parejos promiscuos', TRUE);
+INSERT INTO opciones(id,texto) VALUES (3, 'Opción 3: el pareje promiscue', TRUE);
+INSERT INTO opciones(id,texto) VALUES (4, 'Opción 4: las parejas promiscuaaas', FALSE);
+
+--Insertar tipo test
+
+INSERT INTO tipo_tests(id) VALUES (1);
+INSERT INTO tipo_tests(id) VALUES (2);
+
+--Insertar opciones a tipotest
+
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (1,1);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (1,2);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (2,3);
+INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (2,4);
+
+--Insertar preguntas
+
+INSERT INTO preguntas(id, contenido, tipo_test_id) VALUES (1, 'Pregunta de ejemplo nº 1',1);
+INSERT INTO preguntas(id, contenido, tipo_test_id) VALUES (2, 'Pregunta de ejemplo nº 2',2);
+
+-- Añadir pregunta a examen
+INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,1);
+INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,2);
+
 
 -- Insertar mensajes privados
 INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);
+
+
+-- Insertar notificaciones
+INSERT INTO notificaciones(id, usuario_id, comentario_id, mensaje_privado_id) VALUES (1, 1, null, 1);
+
+
 
 
 

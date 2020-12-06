@@ -12,7 +12,7 @@ import org.springframework.samples.petclinic.model.Pdf;
 
 public interface PdfRepository extends Repository<Pdf, Integer> {
 
-	@Query("SELECT document FROM Pdf document ORDER BY document.archivo")
+	@Query("SELECT document FROM Pdf document ORDER BY document.nombre")
 	Collection<Pdf> findAll() throws DataAccessException;
 
 	Pdf findById(int id);

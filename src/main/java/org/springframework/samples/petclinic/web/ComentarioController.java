@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
+import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,6 +37,8 @@ public class ComentarioController {
 	HiloService hiloService;
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+	OwnerService ownerService;
 
 	@InitBinder("comentario")
 	public void initComentarioBinder(WebDataBinder dataBinder) {
@@ -82,6 +85,7 @@ public class ComentarioController {
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
 		} else {
+			System.out.println(usuarioService.findById(1));
 			comentarioService.save(comentario);
 			model.addAttribute("message", "The comentario was created successfully!");
 			return viewHilo(id, model);

@@ -25,9 +25,6 @@
                 <td>
                     <c:out value="${preguntas.contenido}"/>
                 </td>
-                <td>
-                    <c:out value="${preguntas.tipoContenido}"/>
-                </td>
 
                 <td>
 
