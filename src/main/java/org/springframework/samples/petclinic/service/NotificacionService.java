@@ -18,24 +18,21 @@ import org.springframework.samples.petclinic.repository.NotificacionRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MensajePrivadoService {
-
-	@Autowired
-	MensajePrivadoRepository mensajePrivadoRepository;
+public class NotificacionService {
 
 	@Autowired
 	NotificacionRepository notificacionRepository;
 
-	public Collection<MensajePrivado> findAll() {
-		return mensajePrivadoRepository.findAll();
+	public Collection<Notificacion> findAll() {
+		return notificacionRepository.findAll();
 	}
 
-	public MensajePrivado findById(int id) {
-		return mensajePrivadoRepository.findById(id);
+	public Notificacion findById(int id) {
+		return notificacionRepository.findById(id);
 	}
 
-	public void delete(MensajePrivado mensajePrivado) {
-		mensajePrivadoRepository.deleteById(mensajePrivado.getId());
+	public void delete(Notificacion notificacion) {
+		notificacionRepository.deleteById(notificacion.getId());
 
 	}
 
@@ -44,17 +41,12 @@ public class MensajePrivadoService {
 //		comentarioRepository.save(comentario);
 //	}
 	
-	public void save(@Valid MensajePrivado mensajePrivado) {
-		mensajePrivadoRepository.save(mensajePrivado);
-		Notificacion notificacion = new Notificacion();
-		notificacion.setUsuario(mensajePrivado.getReceptor());
-		notificacion.setMensajePrivado(mensajePrivado);
-		notificacion.setComentario(null);
+	public void save(@Valid Notificacion notificacion) {
 		notificacionRepository.save(notificacion);
 	}
 
-	public Collection<MensajePrivado> findByUsersId(int emisorid, int receptorid) {
-		return mensajePrivadoRepository.findByUsersId(emisorid, receptorid);
+	public Collection<Notificacion> findByUserId(int userid) {
+		return notificacionRepository.findByUserId(userid);
 	}
 
 }

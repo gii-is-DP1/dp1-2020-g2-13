@@ -17,6 +17,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
 	Collection<Usuario> findAll();
 	
+	@Query("SELECT usuario FROM Usuario usuario left join fetch usuario.examenes WHERE usuario.id =:id")
 	Usuario findById(int id);
 
 //	@Query("SELECT u FROM Usuario u WHERE u.user.password = :username")

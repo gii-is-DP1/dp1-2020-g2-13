@@ -33,15 +33,14 @@ public class Usuario extends BaseEntity{
 	private String email;
 //	@NotNull
 //	private String contrasena;
+	
+	@ManyToMany
+	Set<Logro> logros;
+	
+	@ManyToMany
+	Set<Examen> examenes;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
-	
-	@ManyToMany
-	Set<Logro> logros;
-
-	
-	@ManyToMany
-	Set<Examen> examenes;
 }
