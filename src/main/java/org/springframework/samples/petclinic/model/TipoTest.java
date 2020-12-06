@@ -17,6 +17,4 @@ public class TipoTest extends BaseEntity {
 	@OneToMany
 	private List<Opcion> opciones;
 	
-	private int respuestaCorrecta;
-	
 }

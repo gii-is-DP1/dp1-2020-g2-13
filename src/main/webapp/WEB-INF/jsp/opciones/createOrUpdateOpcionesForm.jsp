@@ -8,20 +8,21 @@
 
 <petclinic:layout pageName="preguntas">
     <h2>
-        <c:if test="${pregunta['new']}">New </c:if> Pregunta
+        <c:if test="${opcion['new']}">New </c:if> Nueva Opción
     </h2>
-    <form:form modelAttribute="pregunta" class="form-horizontal" id="add-pregunta-form">
+    <form:form modelAttribute="opcion" class="form-horizontal" id="add-opcion-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Contenido" name="contenido"/>          
+            <petclinic:inputField label="Texto" name="texto"/>      
+            <form:checkbox path="esCorrecta" label="Es la correcta" name="esCorrecta"/>  
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${pregunta['new']}">
-                        <button class="btn btn-default" type="submit">Add Question</button>
+                    <c:when test="${opcion['new']}">
+                        <button class="btn btn-default" type="submit">Add Option</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Question</button>
+                        <button class="btn btn-default" type="submit">Update Option</button>
                     </c:otherwise>
                 </c:choose>
             </div>
