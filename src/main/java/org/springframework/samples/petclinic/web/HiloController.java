@@ -118,23 +118,23 @@ public class HiloController {
 			return listHilos(model);
 		}
 	}
-
-	@PostMapping("/{value}")
-	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
-		int id = comentario.getHilo().getId();
-		if(binding.hasErrors()) {
-			model.addAttribute("message", "El comentario no es válido.");
-		}else {
-			comentarioService.save(comentario);
-			model.addAttribute("message", "El comentario se ha publicado.");
-//			try {
-//				comentarioService.save(comentario);
-//				model.addAttribute("message", "El comentario se ha publicado.");
-//			}
-//			catch (ImpossibleComentarioException ex){
-//				model.addAttribute("message", "El comentario no es válido.");
-//			}
-		}
-		return auxViewHilo(id, model);
-	}
+//
+//	@PostMapping("/{value}")
+//	public String saveNewComentario(@Valid Comentario comentario, BindingResult binding,ModelMap model) {
+//		int id = comentario.getHilo().getId();
+//		if(binding.hasErrors()) {
+//			model.addAttribute("message", "El comentario no es válido.");
+//		}else {
+//			comentarioService.save(comentario);
+//			model.addAttribute("message", "El comentario se ha publicado.");
+////			try {
+////				comentarioService.save(comentario);
+////				model.addAttribute("message", "El comentario se ha publicado.");
+////			}
+////			catch (ImpossibleComentarioException ex){
+////				model.addAttribute("message", "El comentario no es válido.");
+////			}
+//		}
+//		return auxViewHilo(id, model);
+//	}
 }
