@@ -35,15 +35,16 @@ public class MensajePrivadoService {
 	}
 
 	public void delete(MensajePrivado mensajePrivado) {
+		Notificacion notificacion = notificacionRepository.findByMensajeId(mensajePrivado.getId()).iterator().next();
+		notificacionRepository.delete(notificacion);
 		mensajePrivadoRepository.deleteById(mensajePrivado.getId());
-
 	}
 
 //	public void save(@Valid Comentario comentario) throws ImpossibleComentarioException {
 //		validateComentarioIsPossible(comentario);
 //		comentarioRepository.save(comentario);
 //	}
-	
+
 	public void save(@Valid MensajePrivado mensajePrivado) {
 		mensajePrivadoRepository.save(mensajePrivado);
 		Notificacion notificacion = new Notificacion();

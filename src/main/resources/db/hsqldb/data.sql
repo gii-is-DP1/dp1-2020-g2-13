@@ -1,12 +1,12 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
---INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
+INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
---INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
+INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
 -- One vet user, named vet1 with passwor v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
---INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
+INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
