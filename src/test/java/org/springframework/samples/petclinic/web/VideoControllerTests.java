@@ -49,6 +49,7 @@ public class VideoControllerTests {
 	void setup() {
 		video = new Video();
 		video.setId(TEST_VIDEO_ID);
+		video.setNombre("paquito");
 		video.setLink("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 		video.setDescripcion("Never gonna give you up, never gonna let you down");
 		video.setDuracion("21");
@@ -65,7 +66,7 @@ public class VideoControllerTests {
 	@WithMockUser(value = "spring")
     @Test
     void testProcessCreationFormSuccess() throws Exception {
-	mockMvc.perform(post("/videos/new").param("link", "https://www.youtube.com/watch?v=dQw4w9WgXcQ").param("descripcion", "Never gonna give you up, never gonna let you down")
+	mockMvc.perform(post("/videos/new").param("nombre", "paquito").param("link", "https://www.youtube.com/watch?v=dQw4w9WgXcQ").param("descripcion", "Never gonna give you up, never gonna let you down")
 						.with(csrf())
 						.param("duracion", "21"))
 			.andExpect(status().isOk());
@@ -76,6 +77,7 @@ public class VideoControllerTests {
     void testProcessCreationFormHasErrors() throws Exception {
 	mockMvc.perform(post("/videos/new")
 						.with(csrf())
+						.param("nombre", "")
 						.param("link", "")
 						.param("descripcion", "GuilleIsaFranMasiuPablitodnwqibdfhwebfhwebfhuwebfhwebfhuwbfuwebf"
 								+ "iwbfuhwvbfuwebfuwevbfuwebvfjwevfjwevfhguwevfhuwvfhugwvfuwvfndjqnidniwuqfiweufuiwehfuiwhfbuiwehfuiwfhuiweh"
@@ -97,6 +99,7 @@ public class VideoControllerTests {
 	void testInitUpdateVideoForm() throws Exception {
 		mockMvc.perform(get("/videos/{id}/edit", TEST_VIDEO_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("video"))
+				.andExpect(model().attribute("video", hasProperty("nombre", is("paquito"))))
 				.andExpect(model().attribute("video", hasProperty("link", is("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))))
 				.andExpect(model().attribute("video", hasProperty("descripcion", is("Never gonna give you up, never gonna let you down"))))
 				.andExpect(model().attribute("video", hasProperty("duracion", is("21"))))
@@ -108,6 +111,7 @@ public class VideoControllerTests {
 	void testProcessUpdateVideoFormSuccess() throws Exception {
 		mockMvc.perform(post("/videos/{id}/edit", TEST_VIDEO_ID)
 							.with(csrf())
+							.param("nombre", "paquito2")
 							.param("link", "https://www.youtube.com/watch?v=cFqYtipAl7g")
 							.param("descripcion", "El temaso")
 							.param("duracion", "5:20")
@@ -121,6 +125,7 @@ public class VideoControllerTests {
 	void testProcessUpdateVideoFormHasErrors() throws Exception {
 		mockMvc.perform(post("/videos/{id}/edit", TEST_VIDEO_ID)
 							.with(csrf())
+							.param("nombre", "")
 							.param("link", "")
 							.param("descripcion", "GuilleIsaFranMasiuPablitodnwqibdfhwebfhwebfhuwebfhwebfhuwbfuwebfGuilleIsaFranMasiuPablito"
 									+ "dnwqibdfhwebfhwebfhuwebfhwebfhuwbfuwebfGuilleIsaFranMasiuPablitodnwqibdfhwebfhwebfhuwebfhwebfhuwbfuwebfGuilleIsa"
@@ -136,6 +141,13 @@ public class VideoControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasErrors("video"))
 				.andExpect(view().name("videos/CreateOrUpdateVideoForm"));
+	}
+    
+    @WithMockUser(value = "spring")
+	@Test
+	void testVideoVisualizer() throws Exception {
+		mockMvc.perform(get("/videos/{id}/visualize", TEST_VIDEO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("video")).andExpect(view().name("videos/VideoVisualize"));
 	}
 
 }

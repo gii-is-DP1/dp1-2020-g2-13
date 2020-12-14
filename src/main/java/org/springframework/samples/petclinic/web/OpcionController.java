@@ -72,5 +72,19 @@ public class OpcionController {
 			return examenController.examenDetails(id_examen, model);
 		}
 	}
+	
+	@GetMapping("/{id_examen}/{id_pregunta}/{id}/delete")
+	public String deleteOpcion(@PathVariable("id") int id, @PathVariable("id_examen") int id_examen, @PathVariable("id_pregunta") int id_pregunta, ModelMap model) {
+		Pregunta pregunta = preguntaService.findById(id_pregunta);
+		TipoTest tipoTest = pregunta.getTipoTest();
+		List<Opcion> opciones = tipoTest.getOpciones();
+		Opcion opcion = opcionService.findById(id);
+		opciones.remove(opcion);
+		tipoTest.setOpciones(opciones);
+		tipoTestService.save(tipoTest);
+		opcionService.delete(opcion);
+		model.addAttribute("message", "The option was deleted successfully!");
+		return examenController.examenDetails(id_examen, model);
+	}
 
 }
