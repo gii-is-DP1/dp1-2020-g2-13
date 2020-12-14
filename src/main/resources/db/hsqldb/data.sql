@@ -69,6 +69,7 @@ INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);
 
 
 --Insertar opciones
+
 INSERT INTO opciones(id,texto, es_Correcta) VALUES (1, 'Opción 1: las parejas promiscuas', FALSE);
 INSERT INTO opciones(id,texto, es_Correcta) VALUES (2, 'Opción 2: los parejos promiscuos', TRUE);
 INSERT INTO opciones(id,texto, es_Correcta) VALUES (3, 'Opción 3: el pareje promiscue', TRUE);
@@ -79,6 +80,7 @@ INSERT INTO opciones(id,texto, es_Correcta) VALUES (4, 'Opción 4: las parejas p
 INSERT INTO tipo_tests(id) VALUES (1);
 INSERT INTO tipo_tests(id) VALUES (2);
 
+
 --Insertar opciones a tipotest
 
 INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (1,1);
@@ -88,8 +90,10 @@ INSERT INTO tipo_tests_opciones(tipo_test_id, opciones_id) VALUES (2,4);
 
 --Insertar preguntas
 
+
 INSERT INTO preguntas(id, contenido, tipo_test_id) VALUES (1, 'Pregunta de ejemplo nº 1',1);
 INSERT INTO preguntas(id, contenido, tipo_test_id) VALUES (2, 'Pregunta de ejemplo nº 2',2);
+
 
 -- Añadir pregunta a examen
 INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,1);
@@ -102,6 +106,8 @@ INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 
 
 -- Insertar notificaciones
 INSERT INTO notificaciones(id, usuario_id, comentario_id, mensaje_privado_id) VALUES (1, 1, null, 1);
+
+
 
 
 
