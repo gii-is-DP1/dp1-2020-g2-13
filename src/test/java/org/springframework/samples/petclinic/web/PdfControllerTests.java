@@ -39,9 +39,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
  * @author Colin But
  */
 
-@WebMvcTest(value = PdfController.class,
-		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
-		excludeAutoConfiguration= SecurityConfiguration.class)
+@WebMvcTest(value = PdfController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 class PdfControllerTests {
 
 	private static final int TEST_PDF_ID = 1;
@@ -49,10 +47,8 @@ class PdfControllerTests {
 	@Autowired
 	private PdfController pdfController;
 
-
 	@MockBean
 	private PdfService pdfService;
-        
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -65,65 +61,66 @@ class PdfControllerTests {
 		pdf = new Pdf();
 		pdf.setId(TEST_PDF_ID);
 		pdf.setLink("Documento");
+		pdf.setNombre("paquito");
 		given(this.pdfService.findById(TEST_PDF_ID)).willReturn(pdf);
 
-
 	}
 
 	@WithMockUser(value = "spring")
-        @Test
+	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/pdfs/new")).andExpect(status().isOk()).andExpect(model().attributeExists("pdf"))
-		.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
+				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
 	@WithMockUser(value = "spring")
-        @Test
+	@Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/pdfs/new")
-							.with(csrf())
-							.param("archivo", "Ejemplo"))
+		mockMvc.perform(post("/pdfs/new").with(csrf()).param("link", "Ejemplo").param("nombre", "paquito2"))
+
 				.andExpect(status().isOk());
 	}
-	
+
 	@WithMockUser(value = "spring")
-        @Test
+	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/pdfs/new")
-							.with(csrf())
-							.param("archivo", ""))
-				.andExpect(status().isOk())
+		mockMvc.perform(post("/pdfs/new").with(csrf()).param("link", "").param("nombre", "")).andExpect(status().isOk())
 				.andExpect(model().attributeHasFieldErrors("pdf"))
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-        @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
 	@Test
 	void testInitUpdatePdfForm() throws Exception {
 		mockMvc.perform(get("/pdfs/{id}/edit", TEST_PDF_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("pdf"))
-				.andExpect(model().attribute("pdf", hasProperty("archivo", is("Documento"))))
+				.andExpect(model().attribute("pdf", hasProperty("link", is("Documento"))))
+				.andExpect(model().attribute("pdf", hasProperty("nombre", is("paquito"))))
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdatePdfFormSuccess() throws Exception {
-		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID)
-							.with(csrf())
-							.param("archivo", "Ejemplo"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("pdfs/PdfsListing"));
+		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID).with(csrf()).param("link", "Ejemplo")
+				.param("nombre", "paquito12"))
+		
+				.andExpect(status().isOk()).andExpect(view().name("pdfs/PdfsListing"));
 	}
 
-        @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdatePdfFormHasErrors() throws Exception {
-		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID)
-							.with(csrf())
-							.param("archivo", ""))
-				.andExpect(status().isOk())
-				.andExpect(model().attributeHasErrors("pdf"))
+		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID).with(csrf()).param("link", "")
+				.param("nombre", ""))
+				.andExpect(status().isOk()).andExpect(model().attributeHasErrors("pdf"))
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testPdfVisualizer() throws Exception {
+		mockMvc.perform(get("/pdfs/{id}/visualize", TEST_PDF_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("pdf")).andExpect(view().name("pdfs/PdfVisualize"));
 	}
 }
