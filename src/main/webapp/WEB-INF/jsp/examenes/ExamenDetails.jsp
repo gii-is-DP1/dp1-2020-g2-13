@@ -33,12 +33,15 @@
             <c:forEach var="pregunta" items="${examen.preguntas}" varStatus="loop"> 
             <tr> 
             <th>Pregunta <c:out value="${loop.index + 1}"/></th>
+
             <td><b href="preguntas/${pregunta.id}"><c:out value="${pregunta.contenido}"/></b></td>
+
              <td>
              <c:forEach var="opcion" items="${opciones[loop.index]}">
              <c:out value="${opcion.texto}"/></br>
         	 </c:forEach>
         	 </td>
+
         	 <td><a href="/opciones/${examen.id}/${pregunta.id}/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Option</a></td>
         	 </tr>
      		 </c:forEach>
@@ -47,6 +50,7 @@
      <p>
     	<a href="/preguntas/${examen.id}/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Question</a>
     </p>
+
 
    
 
