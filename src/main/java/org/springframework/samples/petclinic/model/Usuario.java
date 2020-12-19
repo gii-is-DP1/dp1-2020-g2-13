@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.model;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -69,6 +70,7 @@ public class Usuario extends Person {
 	Set<Logro> logros;
 	
 	@ManyToMany
+
 	Set<Examen> examenes;
 	
 	@Column(name = "address")

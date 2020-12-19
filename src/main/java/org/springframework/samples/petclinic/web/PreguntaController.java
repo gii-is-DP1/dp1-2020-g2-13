@@ -92,7 +92,6 @@ public class PreguntaController {
 			preguntaService.save(pregunta);
 			tipoTestService.delete(tipoTest);
 		}
-		
 		preguntas.remove(pregunta);
 		examen.setPreguntas(preguntas);
 		examenService.save(examen);
