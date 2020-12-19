@@ -10,11 +10,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
+import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UsuarioService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -38,11 +42,35 @@ public class ComentarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	@Autowired
+	NotificacionService notificacionService;
+	@Autowired
 	OwnerService ownerService;
 
 	@InitBinder("comentario")
 	public void initComentarioBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new ComentarioValidator());
+	}
+
+	private String auxViewHilo(int id, ModelMap model) {
+		Hilo hilo = hiloService.findById(id);
+		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("comentarios", comentarios);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
+		List<Notificacion> notificaciones = new ArrayList<>();
+		notificaciones.addAll(notificacionService.findByUserId(usuario.getId()));
+		for(Notificacion n : notificaciones) {
+			try {
+				if (n.getComentario().getHilo().equals(hilo)) {
+					notificacionService.delete(n);
+				}
+			} catch (Exception e) {
+				
+			}
+		}
+		return COMENTARIOS_LISTING;
 	}
 
 	@GetMapping("/{value}")
@@ -58,14 +86,6 @@ public class ComentarioController {
 		model.addAttribute("comentario", new Comentario());
 		model.addAttribute("usuarios", usuarios);
 		return COMENTARIOS_FORM;
-	}
-
-	private String auxViewHilo(int id, ModelMap model) {
-		Hilo hilo = hiloService.findById(id);
-		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
-		model.addAttribute("hilo", hilo);
-		model.addAttribute("comentarios", comentarios);
-		return COMENTARIOS_LISTING;
 	}
 
 	@GetMapping("/{value}/delete/{comment}")

@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,10 +13,12 @@ import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.MensajePrivado;
+import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.MensajePrivadoService;
+import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -44,22 +48,30 @@ public class MensajePrivadoController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	NotificacionService notificacionService;
 
 	@GetMapping("/{value}")
 	public String listMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		System.out.println(username);
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		Usuario emisor = null;
-		for (Usuario u : usuarios) {
-			if (u.getUser().getUsername().equals(username)) {
-				emisor = u;
-			}
-		}
+		Usuario r = usuarioService.findById(receptor);
+		Usuario emisor = usuarioService.findByUsername(username);
 		model.addAttribute("mensajesPrivados", mensajePrivadoService.findByUsersId(emisor.getId(), receptor));
 		model.addAttribute("emisor", emisor);
-		model.addAttribute("receptor", usuarioService.findById(receptor));
+		model.addAttribute("receptor", r);
+		List<Notificacion> notificaciones = new ArrayList<>();
+		notificaciones.addAll(notificacionService.findByUserId(emisor.getId()));
+		for(Notificacion n : notificaciones) {
+			try {
+				if (n.getMensajePrivado().getEmisor().equals(r)) {
+					notificacionService.delete(n);
+				}
+			} catch (Exception e) {
+				
+			}
+		}
 		return MENSAJES_PRIVADOS_LISTING;
 	}
 
