@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.model;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -69,10 +70,12 @@ public class Usuario extends Person {
 	Set<Logro> logros;
 	
 	@ManyToMany
+
 	Set<Examen> examenes;
 	
+	@OneToMany
+	List<Intento> intentos;
 	
-
 	@Column(name = "address")
 	
 	private String address;
@@ -240,6 +243,22 @@ public class Usuario extends Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Set<Examen> getExamenes() {
+		return examenes;
+	}
+
+	public void setExamenes(Set<Examen> examenes) {
+		this.examenes = examenes;
+	}
+	
+	public List<Intento> getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(List<Intento> intentos) {
+		this.intentos = intentos;
 	}
 
 }
