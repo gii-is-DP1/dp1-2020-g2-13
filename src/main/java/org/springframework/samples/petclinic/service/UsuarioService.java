@@ -36,9 +36,9 @@ public class UsuarioService {
 		return usuarioRepository.findById(id);
 	}
 
-//	public Usuario findByUsername(String username) {
-//		return usuarioRepository.findByUsername(username);
-//	}
+	public Usuario findByUsername(String username) {
+		return usuarioRepository.findByUsername(username);
+	}
 
 	public void delete(Usuario usuario) {
 		usuarioRepository.deleteById(usuario.getId());

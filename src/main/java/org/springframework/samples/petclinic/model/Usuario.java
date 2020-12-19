@@ -73,6 +73,8 @@ public class Usuario extends Person {
 
 	Set<Examen> examenes;
 	
+	
+
 	@Column(name = "address")
 	
 	private String address;
