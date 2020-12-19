@@ -35,6 +35,7 @@ public class ExamenController {
 	public static final String EXAMENES_FORM = "examenes/createOrUpdateExamenesForm";
 	public static final String EXAMENES_LISTING = "examenes/ExamenesListing";
 	public static final String EXAMEN_DETAILS = "examenes/ExamenDetails";
+	public static final String EXAMEN_TRY = "examenes/examenTry";
 
 	@Autowired
 	ExamenService examenService;
@@ -82,9 +83,9 @@ public class ExamenController {
 	public String deleteExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
 		Usuario usuario = examen.getUsuario();
-		List<Examen> examenes = usuario.getExamenes();
+		List<Examen> examenes = new ArrayList<>(usuario.getExamenes());
 		examenes.remove(examen);
-		usuario.setExamenes(examenes);
+		usuario.setExamenes(new HashSet<>(examenes));
 		examenService.delete(examen);
 		usuarioService.save(usuario);
 		model.addAttribute("message", "The exam was deleted successfully!");
@@ -131,6 +132,27 @@ public class ExamenController {
 
 		return EXAMEN_DETAILS;
 	}
+	
+	@GetMapping("/{id}/try")
+	public String examenTry(@PathVariable("id") int id, ModelMap model) {
+		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
+
+		List<List<Opcion>> opciones= new ArrayList<List<Opcion>>();
+		for(int i=0;i<preguntas.size();i++){
+			if(preguntas.get(i).getTipoTest()!=null) {
+				opciones.add(preguntas.get(i).getTipoTest().getOpciones());	
+			}
+			else {
+				opciones.add(new ArrayList<Opcion>());
+			}
+			model.addAttribute("respuesta" + preguntas.get(i).getId(), "");
+		}
+		model.addAttribute("examen", examenService.findById(id));
+		model.addAttribute("preguntas", preguntas);
+		model.addAttribute("opciones", opciones);
+		return EXAMEN_TRY;
+	}
+	
 
 
 }
