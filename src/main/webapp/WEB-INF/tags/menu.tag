@@ -11,7 +11,7 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div id="a">
 		<script>
-		$.get("cogerNotificaciones", function( data ) {
+		$.get("/cogerNotificaciones", function( data ) {
 			if (data == 0){
 				  $( ".result" ).html("");
 			}
@@ -20,7 +20,7 @@
 			}
 			});
 		window.setInterval(function(){
-			$.get("cogerNotificaciones", function( data ) {
+			$.get("/cogerNotificaciones", function( data ) {
 				if (data == 0){
 					  $( ".result" ).html("");
 				}
@@ -198,6 +198,10 @@
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
 													class="btn btn-primary btn-block btn-sm">Logout</a>
+											</p>
+											<p class="text-left">
+												<a href="<c:url value="/notificaciones" />"
+													class="btn btn-primary btn-block btn-sm">Notificaciones</a>
 											</p>
 										</div>
 									</div>
