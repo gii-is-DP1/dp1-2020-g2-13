@@ -71,6 +71,8 @@ public class Usuario extends Person {
 	@ManyToMany
 	Set<Examen> examenes;
 	
+	
+
 	@Column(name = "address")
 	
 	private String address;

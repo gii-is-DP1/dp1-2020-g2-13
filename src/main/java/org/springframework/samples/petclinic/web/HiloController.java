@@ -32,16 +32,16 @@ public class HiloController {
 	public static final String HILOS_LISTING = "hilos/HilosListing";
 	public static final String HILO_VISTA = "hilos/vistaHilo";
 	
-	private String auxViewHilo(int id, ModelMap model) {
-		Hilo hilo = hiloService.findById(id);
-		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		model.addAttribute("hilo", hilo);
-		model.addAttribute("comentario", new Comentario());
-		model.addAttribute("comentarios", comentarios);
-		model.addAttribute("usuarios", usuarios);
-		return HILO_VISTA;
-	}
+//	private String auxViewHilo(int id, ModelMap model) {
+//		Hilo hilo = hiloService.findById(id);
+//		Collection<Comentario> comentarios = comentarioService.findByHiloId(id);
+//		Collection<Usuario> usuarios = usuarioService.findAll();
+//		model.addAttribute("hilo", hilo);
+//		model.addAttribute("comentario", new Comentario());
+//		model.addAttribute("comentarios", comentarios);
+//		model.addAttribute("usuarios", usuarios);
+//		return HILO_VISTA;
+//	}
 
 	@Autowired
 	HiloService hiloService;
@@ -71,10 +71,10 @@ public class HiloController {
 		return HILOS_FORM;
 	}
 
-	@GetMapping("/{id}")
-	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
-		return auxViewHilo(id, model);
-	}
+//	@GetMapping("/{id}")
+//	public String viewHilo(@PathVariable("id") int id, ModelMap model) {
+//		return auxViewHilo(id, model);
+//	}
 
 	@PostMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, @Valid Hilo modifiedHilo, BindingResult binding,

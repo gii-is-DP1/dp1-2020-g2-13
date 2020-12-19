@@ -21,7 +21,7 @@
 		<tbody>
 			<c:forEach items="${hilos}" var="hilos">
 				<tr>
-					<td><a href="/comentarios/${hilos.id}"> <c:out
+					<td><a href="/hilos/${hilos.id}"> <c:out
 								value="${hilos.nombre}" />
 					</a></td>
 					<td><c:out value="${hilos.categoria}" /></td>

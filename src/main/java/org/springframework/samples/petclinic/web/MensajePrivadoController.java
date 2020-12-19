@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
+import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.MensajePrivado;
 import org.springframework.samples.petclinic.model.User;
@@ -16,6 +17,7 @@ import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.MensajePrivadoService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.UsuarioService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,7 @@ public class MensajePrivadoController {
 	public String listMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
+		System.out.println(username);
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		Usuario emisor = null;
 		for (Usuario u : usuarios) {
@@ -108,8 +111,29 @@ public class MensajePrivadoController {
 		model.addAttribute("message", "El mensaje ha sido eliminado");
 		return listMensajesPrivados(id, model);
 	}
-	
-	
+
+	@GetMapping("/{value}/edit")
+	public String editComentario(@PathVariable("value") int value, ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Collection<Usuario> usuarios = usuarioService.findAll();
+		Usuario emisor = null;
+		for (Usuario u : usuarios) {
+			if (u.getUser().getUsername().equals(username)) {
+				emisor = u;
+			}
+		}
+		MensajePrivado mensajePrivado = mensajePrivadoService.findById(value);
+//		if (emisor.equals(mensajePrivado.getEmisor())) {
+			model.addAttribute("mensajePrivado", mensajePrivado);
+			model.addAttribute("emisor", mensajePrivado.getEmisor());
+			model.addAttribute("receptor", mensajePrivado.getReceptor());
+			return MENSAJES_PRIVADOS_FORM;
+//		}
+//		else {
+//			return "error";
+//		}
+	}
 
 	@PostMapping("/{value}/edit")
 	public String editMensajesPrivados(@PathVariable("value") int id, @Valid Comentario modifiedMensajePrivado,
