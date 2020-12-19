@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/comentarios")
+@RequestMapping("/hilos")
 public class ComentarioController {
 	public static final String COMENTARIOS_FORM = "comentarios/createOrUpdateComentariosForm";
 	public static final String COMENTARIOS_LISTING = "comentarios/ComentariosListing";
@@ -68,7 +68,7 @@ public class ComentarioController {
 		return COMENTARIOS_LISTING;
 	}
 
-	@GetMapping("/{value}/{comment}/delete")
+	@GetMapping("/{value}/delete/{comment}")
 	public String deleteComentario(@PathVariable("value") int id, @PathVariable("comment") int comment,
 			ModelMap model) {
 		Comentario comentario = comentarioService.findById(comment);
@@ -91,18 +91,18 @@ public class ComentarioController {
 		}
 	}
 
-	@GetMapping("/{value}/{comment}/edit")
+	@GetMapping("/{value}/edit/{comment}")
 	public String editComentario(@PathVariable("value") int value, @PathVariable("comment") int comment, ModelMap model) {
-//		Hilo hilo = hiloService.findById(value);
+		Hilo hilo = hiloService.findById(value);
 		Comentario comentario = comentarioService.findById(comment);
-//		Collection<Usuario> usuarios = usuarioService.findAll();
-//		model.addAttribute("hilo", hilo);
-//		model.addAttribute("usuarios", usuarios);
+		Collection<Usuario> usuarios = usuarioService.findAll();
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("usuarios", usuarios);
 		model.addAttribute("comentario", comentario);
 		return COMENTARIOS_FORM;
 	}
 
-	@PostMapping("/{value}/{id}/edit")
+	@PostMapping("/{value}/edit/{id}")
 	public String editComentario(@PathVariable("id") int id, @Valid Comentario modifiedComentario,
 			BindingResult binding, ModelMap model) {
 		Comentario comentario = comentarioService.findById(id);

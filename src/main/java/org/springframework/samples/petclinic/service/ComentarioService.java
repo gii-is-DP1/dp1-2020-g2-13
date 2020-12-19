@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -45,15 +46,16 @@ public class ComentarioService {
 	
 	public void save(@Valid Comentario comentario) {
 		comentarioRepository.save(comentario);
-//		for (Usuario u : usuarios) {
-//			if (!u.equals(comentario.getUsuario())) {
-//				Notificacion notificacion = new Notificacion();
-//				notificacion.setUsuario(u);
-//				notificacion.setComentario(comentario);
-//				notificacion.setMensajePrivado(null);
-//				notificacionRepository.save(notificacion);
-//			}
-//		}
+		List<Usuario> suscriptores = new ArrayList<>(comentario.getHilo().getSuscriptores());
+		for (Usuario u : suscriptores) {
+			if (!u.equals(comentario.getUsuario())) {
+				Notificacion notificacion = new Notificacion();
+				notificacion.setUsuario(u);
+				notificacion.setComentario(comentario);
+				notificacion.setMensajePrivado(null);
+				notificacionRepository.save(notificacion);
+			}
+		}
 	}
 	
 	private void validateComentarioIsPossible(@Valid Comentario comentario) throws ImpossibleComentarioException {
