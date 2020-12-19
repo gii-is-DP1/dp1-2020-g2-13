@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -38,7 +39,7 @@ public class Usuario extends BaseEntity{
 	Set<Logro> logros;
 	
 	@ManyToMany
-	Set<Examen> examenes;
+	List<Examen> examenes;
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")

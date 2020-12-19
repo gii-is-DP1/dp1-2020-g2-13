@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +81,12 @@ public class ExamenController {
 	@GetMapping("/{id}/delete")
 	public String deleteExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
+		Usuario usuario = examen.getUsuario();
+		List<Examen> examenes = usuario.getExamenes();
+		examenes.remove(examen);
+		usuario.setExamenes(examenes);
 		examenService.delete(examen);
+		usuarioService.save(usuario);
 		model.addAttribute("message", "The exam was deleted successfully!");
 		return listExamenes(model);
 	}
