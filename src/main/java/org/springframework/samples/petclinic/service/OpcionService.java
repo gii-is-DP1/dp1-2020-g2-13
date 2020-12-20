@@ -24,8 +24,8 @@ public class OpcionService {
 	}
 
 	public void delete(Opcion opcion) {
+		
 		opcionRepository.deleteById(opcion.getId());
-
 	}
 
 	public void save(@Valid Opcion opcion) {

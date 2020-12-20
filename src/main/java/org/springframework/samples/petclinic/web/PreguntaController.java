@@ -8,9 +8,13 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Examen;
+import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
+import org.springframework.samples.petclinic.model.TipoTest;
 import org.springframework.samples.petclinic.service.ExamenService;
+import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
+import org.springframework.samples.petclinic.service.TipoTestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,6 +37,12 @@ public class PreguntaController {
 	
 	@Autowired
 	ExamenService examenService;
+	
+	@Autowired
+	OpcionService opcionService;
+	
+	@Autowired
+	TipoTestService tipoTestService;
 	
 	@Autowired
 	ExamenController examenController;
@@ -64,12 +74,30 @@ public class PreguntaController {
 		}
 	}
 
-	@GetMapping("/{id}/delete")
-	public String deletePregunta(@PathVariable("id") int id, ModelMap model) {
+	@GetMapping("/{id_examen}/{id}/delete")
+	public String deletePregunta(@PathVariable("id") int id, @PathVariable("id_examen") int id_examen, ModelMap model) {
+		Examen examen = examenService.findById(id_examen);
+		List<Pregunta> preguntas = examen.getPreguntas();
 		Pregunta pregunta = preguntaService.findById(id);
+		TipoTest tipoTest = pregunta.getTipoTest();
+		if(tipoTest!=null) {
+			List<Opcion> opciones = tipoTest.getOpciones();
+			for(int i=opciones.size()-1;i>=0;i--) {
+				Opcion opcion = opciones.get(i);
+				opciones.remove(i);
+				tipoTest.setOpciones(opciones);
+				opcionService.delete(opcion);
+			}
+			pregunta.setTipoTest(null);
+			preguntaService.save(pregunta);
+			tipoTestService.delete(tipoTest);
+		}
+		preguntas.remove(pregunta);
+		examen.setPreguntas(preguntas);
+		examenService.save(examen);
 		preguntaService.delete(pregunta);
 		model.addAttribute("message", "The question was deleted successfully!");
-		return listPreguntas(model);
+		return examenController.examenDetails(id_examen, model);
 	}
 
 	@GetMapping("/new")
