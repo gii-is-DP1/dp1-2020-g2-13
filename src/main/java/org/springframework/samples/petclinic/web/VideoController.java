@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Video;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.samples.petclinic.service.VideoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,10 +29,15 @@ public class VideoController {
 
 	@Autowired
 	VideoService videoService;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	@GetMapping
 	public String listVideos(ModelMap model) {
 		model.addAttribute("videos", videoService.findAll());
+		model.addAttribute("usuarios", usuarioService.findAll());
+
 		return VIDEOS_LISTING;
 	}
 
