@@ -36,15 +36,15 @@ INSERT INTO types VALUES (6, 'hamster');
 INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Hola_mundo', 'primer logro conseguido por registro');
 INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con pizarra');
 
--- Insertar pdfs
-INSERT INTO pdfs(id, link, nombre) VALUES (1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
-
--- Insertar videos
-INSERT INTO videos(id, nombre, link, duracion) VALUES (1, 'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
-
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','chocapi');
+
+-- Insertar pdfs
+INSERT INTO pdfs(id, usuario_id, link, nombre) VALUES (1,1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
+
+-- Insertar videos
+INSERT INTO videos(id, usuario_id, nombre, link, duracion) VALUES (1,1,'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
 
 
 -- Insertar examenes
