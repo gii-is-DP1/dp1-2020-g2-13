@@ -43,4 +43,6 @@ public class Comentario extends BaseEntity {
 	@ManyToOne(optional = false)
 	@NotNull
 	private Hilo hilo;
+	
+	private int nivel;
 }

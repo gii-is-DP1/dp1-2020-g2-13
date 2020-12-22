@@ -65,6 +65,12 @@ public class ComentarioService {
 //	}
 	
 	public void save(@Valid Comentario comentario) {
+		try {
+			comentario.setNivel(comentario.getCita().getNivel() + 1);
+		}
+		catch (Exception e) {
+			comentario.setNivel(0);
+		}
 		comentarioRepository.save(comentario);
 		Collection<Comentario> comentarios = findAll();
 		for (Comentario c : comentarios) {
