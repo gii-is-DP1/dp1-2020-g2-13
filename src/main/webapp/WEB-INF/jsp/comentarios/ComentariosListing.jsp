@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<c:set var="comentarios" value="${comentarios}" scope="request"/>
-					<c:set var="arrows" value="->" scope="request"/>
+					<c:set var="arrows" value="" scope="request"/>
     				<jsp:include page="RecursividadComentario.jsp"/>
 				</tr>
 			</c:forEach>
