@@ -69,8 +69,7 @@ public class Usuario extends Person {
 	@ManyToMany
 	Set<Logro> logros;
 	
-	@ManyToMany
-
+	@OneToMany
 	Set<Examen> examenes;
 	
 	@OneToMany
