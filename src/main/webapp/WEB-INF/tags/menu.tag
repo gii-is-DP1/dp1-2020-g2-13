@@ -9,7 +9,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <nav class="navbar navbar-default" role="navigation">
-	<div id="a">
+	<!-- 
 		<script>
 		$.get("/cogerNotificaciones", function( data ) {
 			if (data == 0){
@@ -30,7 +30,7 @@
 				});
 		}, 5000);
 		</script>
-	</div>
+	-->
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand"

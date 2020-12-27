@@ -15,7 +15,9 @@
 		id="add-comentario-form">
 		<div class="form-group has-feedback">
 			<petclinic:inputField label="Contenido" name="contenido" />
-			<petclinic:inputField label="Citar Comentario" name="cita" />
+			<c:if test="${not empty cita}">
+				<input value="${cita}" name="cita" type=hidden>
+			</c:if>
 			<input value="${hilo.id}" name="hilo" type=hidden>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Creador</label>

@@ -21,9 +21,12 @@
 		<tbody>
 			<c:forEach items="${comentarios}" var="comentarios">
 				<tr>
-					<td><c:out value="${comentarios.usuario.nombre}" /></td>
-					<td><c:out value="${comentarios.contenido}" /></td>
+    				<td>${comentarios.usuario.nombre}</td>
+    				<td>${comentarios.contenido}</td>
 
+					<td><a href="/hilos/${hilo.id}/${comentarios.id}/new"> <span
+							class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</a></td>
 					<td><a href="/hilos/${hilo.id}/edit/${comentarios.id}"> <span
 							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a></td>
@@ -31,6 +34,11 @@
 							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					</a></td>
 					
+				</tr>
+				<tr>
+					<c:set var="comentarios" value="${comentarios}" scope="request"/>
+					<c:set var="arrows" value="" scope="request"/>
+    				<jsp:include page="RecursividadComentario.jsp"/>
 				</tr>
 			</c:forEach>
 		</tbody>
