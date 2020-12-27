@@ -6,24 +6,22 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="examenTry">
-    <h2>Examen <c:out value="${examen.titulos}"/></h2>
+    <h2>Pregunta <c:out value="${numero+1}"/>:</h2>
+    </br>
+    <p style="font-size:18px"><c:out value="${pregunta}"/></p>
     </br>
     <table class="table table-striped">
-            <c:forEach var="pregunta" items="${examen.preguntas}" varStatus="loop">
-            <tr> 
-            <th>Pregunta <c:out value="${loop.index + 1}"/></th>
-
-            <td><b href="preguntas/${pregunta.id}"><c:out value="${pregunta.contenido}"/></b></td>
-
-            <td>
-        	<form:select path="respuesta<c:out value="${pregunta.id}"/>">
-            	<form:options itemValue="id" itemLabel="texto" items="${opciones[loop.index]}" />
-            </form:select>
-        	</td>
-        	</tr>
-     		</c:forEach>
-     </table>
-     <p>
-    	<a href="/examenes/${examen.id}/newTry" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Send Answers</a>
-    </p>
+   	<form:form modelAttribute="respuesta" class="form-horizontal" id="add-opcion-form">
+        <div class="form-group has-feedback">
+        	<c:forEach items="${opciones}" var="opcion">
+            <form:radiobutton path="textoRespuesta" value="${opcion.texto}"/>  <c:out value="${opcion.texto}"/>
+            </br>
+        </c:forEach>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+				<button class="btn btn-default" type="submit">Send Answer</button>
+            </div>
+        </div>
+    </form:form>
 </petclinic:layout>

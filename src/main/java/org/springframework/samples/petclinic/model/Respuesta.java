@@ -13,5 +13,5 @@ import lombok.Data;
 public class Respuesta extends BaseEntity{
 	
 	@NotNull
-	private String respuesta;
+	private String textoRespuesta;
 }

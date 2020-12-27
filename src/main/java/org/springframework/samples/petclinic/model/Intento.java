@@ -17,8 +17,8 @@ import lombok.Data;
 @Table(name = "intentos")
 public class Intento extends BaseEntity{
 
-	@NotNull
 	private Double puntuacion;
+	@NotNull
 	private LocalDate fecha;
 	
 	@OneToOne
