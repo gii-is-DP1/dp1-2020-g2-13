@@ -2,8 +2,10 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -35,6 +37,24 @@ public class ComentarioService {
 	}
 
 	public void delete(Comentario comentario) {
+		Collection<Comentario> comentarios = findAll();
+		for (Comentario c : comentario.getCitas()) {
+			delete(c);
+		}
+		for (Comentario c : comentarios) {
+			try {
+				Set<Comentario> s = c.getCitas();
+				if (s.contains(comentario)) {
+					s.remove(comentario);
+					c.setCitas(s);
+					comentarioRepository.save(c);
+				}
+			}
+			catch (Exception e) {
+				
+			}
+		}
+		
 		comentarioRepository.deleteById(comentario.getId());
 
 	}
@@ -45,7 +65,25 @@ public class ComentarioService {
 //	}
 	
 	public void save(@Valid Comentario comentario) {
+		try {
+			comentario.setNivel(comentario.getCita().getNivel() + 1);
+		}
+		catch (Exception e) {
+			comentario.setNivel(0);
+		}
 		comentarioRepository.save(comentario);
+		Collection<Comentario> comentarios = findAll();
+		for (Comentario c : comentarios) {
+			try {
+				Set<Comentario> s = new HashSet<>();
+				s.addAll(findByCita(c.getId()));
+				c.setCitas(s);
+				comentarioRepository.save(c);
+			}
+			catch (Exception e) {
+				
+			}
+		}
 		List<Usuario> suscriptores = new ArrayList<>(comentario.getHilo().getSuscriptores());
 		for (Usuario u : suscriptores) {
 			if (!u.equals(comentario.getUsuario())) {
@@ -65,6 +103,10 @@ public class ComentarioService {
 
 	public Collection<Comentario> findByHiloId(int hiloid) {
 		return comentarioRepository.findByHiloId(hiloid);
+	}
+
+	public Collection<Comentario> findByCita(int cita) {
+		return comentarioRepository.findByCita(cita);
 	}
 	
 //	public Collection<Comentario> findByComentarioId(int comentarioid) {
