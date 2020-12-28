@@ -55,7 +55,7 @@ INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 1);
 INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 2);
 
 -- Insertar usuarios_examenes
-INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
+--INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
 
 -- Insertar hilos
 INSERT INTO hilos(id, nombre,categoria, usuario_id) VALUES (1, 'Hola_mundo', 'General', 1);

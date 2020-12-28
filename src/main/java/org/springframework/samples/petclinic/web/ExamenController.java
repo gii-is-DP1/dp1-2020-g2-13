@@ -18,11 +18,14 @@ import org.springframework.samples.petclinic.model.Intento;
 import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.model.Respuesta;
+import org.springframework.samples.petclinic.model.TipoTest;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.IntentoService;
+import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.RespuestaService;
+import org.springframework.samples.petclinic.service.TipoTestService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,6 +58,12 @@ public class ExamenController {
 	IntentoService intentoService;
 	@Autowired
 	RespuestaService respuestaService;
+	@Autowired
+	PreguntaService preguntaService;
+	@Autowired
+	OpcionService opcionService;
+	@Autowired
+	TipoTestService tipoTestService;
 
 	@InitBinder("examen")
 	public void initExamenBinder(WebDataBinder dataBinder) {
@@ -96,14 +105,32 @@ public class ExamenController {
 	@GetMapping("/{id}/delete")
 	public String deleteExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
-		Integer usuario_id = examen.getUsuario().getId();
-		examenService.delete(examen);
-		Usuario usuario = usuarioService.findById(usuario_id);
+		List<Pregunta> preguntas = new ArrayList<>(examen.getPreguntas());
+		Usuario usuario = examen.getUsuario();
 		List<Examen> examenes = new ArrayList<>(usuario.getExamenes());
 		examenes.remove(examen);
 		usuario.setExamenes(new HashSet<>(examenes));
+		for(Pregunta pregunta: preguntas) {
+			TipoTest tipoTest = pregunta.getTipoTest();
+			if(tipoTest!=null) {
+				List<Opcion> opciones = tipoTest.getOpciones();
+				for(int i=opciones.size()-1;i>=0;i--) {
+					Opcion opcion = opciones.get(i);
+					opciones.remove(i);
+					tipoTest.setOpciones(opciones);
+					opcionService.delete(opcion);
+				}
+				pregunta.setTipoTest(null);
+				preguntaService.save(pregunta);
+				tipoTestService.delete(tipoTest);
+			}
+			preguntas.remove(pregunta);
+			examen.setPreguntas(preguntas);
+			examenService.save(examen);
+			preguntaService.delete(pregunta);
+		}
+		examenService.delete(examen);
 		usuarioService.save(usuario);
-		
 		model.addAttribute("message", "The exam was deleted successfully!");
 		return listExamenes(model);
 	}
