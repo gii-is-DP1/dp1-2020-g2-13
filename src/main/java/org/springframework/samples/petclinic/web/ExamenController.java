@@ -108,7 +108,7 @@ public class ExamenController {
 		List<Pregunta> preguntas = new ArrayList<>(examen.getPreguntas());
 		Usuario usuario = examen.getUsuario();
 		List<Examen> examenes = new ArrayList<>(usuario.getExamenes());
-		examenes.remove(examen);
+		
 		usuario.setExamenes(new HashSet<>(examenes));
 		for(Pregunta pregunta: preguntas) {
 			TipoTest tipoTest = pregunta.getTipoTest();
@@ -129,6 +129,7 @@ public class ExamenController {
 			examenService.save(examen);
 			preguntaService.delete(pregunta);
 		}
+		examenes.remove(examen);
 		examenService.delete(examen);
 		usuarioService.save(usuario);
 		model.addAttribute("message", "The exam was deleted successfully!");
