@@ -14,4 +14,5 @@ public class Respuesta extends BaseEntity{
 	
 	@NotNull
 	private String textoRespuesta;
+	private Integer numeroPregunta;
 }
