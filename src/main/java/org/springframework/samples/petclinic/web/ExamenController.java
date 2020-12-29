@@ -142,12 +142,7 @@ public class ExamenController {
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario usuario = null;
-		for (Usuario u : usuarios) {
-			if (u.getUser().getUsername().equals(username)) {
-				usuario = u;
-			}
-		}
+		Usuario usuario = usuarioService.findByUsername(username);
 		model.addAttribute("examen", new Examen());
 		model.addAttribute("usuario", usuario);
 		return EXAMENES_FORM;
@@ -158,13 +153,7 @@ public class ExamenController {
 		if (binding.hasErrors()) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			Collection<Usuario> usuarios = usuarioService.findAll();
-			Usuario usuario = null;
-			for (Usuario u : usuarios) {
-				if (u.getUser().getUsername().equals(username)) {
-					usuario = u;
-				}
-			}
+			Usuario usuario = usuarioService.findByUsername(username);
 			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
