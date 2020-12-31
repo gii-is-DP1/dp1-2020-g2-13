@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ComentarioController {
 	public static final String COMENTARIOS_FORM = "comentarios/createOrUpdateComentariosForm";
 	public static final String COMENTARIOS_LISTING = "comentarios/ComentariosListing";
+	public static final String LOGIN = "login";
 
 	@Autowired
 	ComentarioService comentarioService;
@@ -75,11 +76,18 @@ public class ComentarioController {
 
 	@GetMapping("/{value}")
 	public String viewHilo(@PathVariable("value") int id, ModelMap model) {
-		return auxViewHilo(id, model);
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + LOGIN;
+		}
+		System.out.println(AuthController.isAuthenticated());
+		return auxViewHilo(id, model);	
 	}
 
 	@GetMapping("/{value}/new")
 	public String editNewComentario(ModelMap model, @PathVariable("value") int id) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Hilo hilo = hiloService.findById(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -93,6 +101,9 @@ public class ComentarioController {
 	@GetMapping("/{value}/{cita}/new")
 	public String editNewComentarioConCita(ModelMap model, 
 			@PathVariable("value") int id, @PathVariable("cita") int cita) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Hilo hilo = hiloService.findById(id);
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo", hilo);
@@ -105,6 +116,9 @@ public class ComentarioController {
 	@GetMapping("/{value}/delete/{comment}")
 	public String deleteComentario(@PathVariable("value") int id, @PathVariable("comment") int comment,
 			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Comentario comentario = comentarioService.findById(comment);
 		comentarioService.delete(comentario);
 		model.addAttribute("message", "El comentario ha sido eliminado");
@@ -114,6 +128,9 @@ public class ComentarioController {
 	@PostMapping("/{value}/new")
 	public String saveNewComentario(@PathVariable("value") int id, @Valid Comentario comentario, BindingResult binding,
 			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
@@ -128,6 +145,9 @@ public class ComentarioController {
 	@PostMapping("/{value}/{cita}/new")
 	public String saveNewComentarioConCita(@PathVariable("value") int id, @Valid Comentario comentario, BindingResult binding,
 			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
@@ -141,6 +161,9 @@ public class ComentarioController {
 
 	@GetMapping("/{value}/edit/{comment}")
 	public String editComentario(@PathVariable("value") int value, @PathVariable("comment") int comment, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Hilo hilo = hiloService.findById(value);
 		Comentario comentario = comentarioService.findById(comment);
 		Collection<Usuario> usuarios = usuarioService.findAll();
@@ -153,6 +176,9 @@ public class ComentarioController {
 	@PostMapping("/{value}/edit/{id}")
 	public String editComentario(@PathVariable("id") int id, @Valid Comentario modifiedComentario,
 			BindingResult binding, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Comentario comentario = comentarioService.findById(id);
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
