@@ -81,10 +81,12 @@ public class ComentarioController {
 	@GetMapping("/{value}/new")
 	public String editNewComentario(ModelMap model, @PathVariable("value") int id) {
 		Hilo hilo = hiloService.findById(id);
-		Collection<Usuario> usuarios = usuarioService.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("comentario", new Comentario());
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuario);
 		return COMENTARIOS_FORM;
 	}
 

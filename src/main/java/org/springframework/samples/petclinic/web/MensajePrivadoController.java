@@ -56,8 +56,8 @@ public class MensajePrivadoController {
 	public String listMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario r = usuarioService.findById(receptor);
 		Usuario emisor = usuarioService.findByUsername(username);
+		Usuario r = usuarioService.findById(receptor);
 		model.addAttribute("mensajesPrivados", mensajePrivadoService.findByUsersId(emisor.getId(), receptor));
 		model.addAttribute("emisor", emisor);
 		model.addAttribute("receptor", r);

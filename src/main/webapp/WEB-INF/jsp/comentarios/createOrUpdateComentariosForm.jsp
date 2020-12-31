@@ -19,15 +19,7 @@
 				<input value="${cita}" name="cita" type=hidden>
 			</c:if>
 			<input value="${hilo.id}" name="hilo" type=hidden>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Creador</label>
-				<div class="col-sm-10">
-					<form:select path="usuario">
-						<form:options itemValue="id" itemLabel="nombre"
-							items="${usuarios}" />
-					</form:select>
-				</div>
-			</div>
+            <input name="usuario" type=hidden value="${usuario.id}">
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
