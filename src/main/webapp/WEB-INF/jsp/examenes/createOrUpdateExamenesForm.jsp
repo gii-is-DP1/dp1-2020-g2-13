@@ -16,11 +16,8 @@
             <petclinic:inputField label="Puntuacion Maxima" name="puntuacionMaxima"/>
             <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>
 			<div class="form-group">
-            	<label class="col-sm-2 control-label">Creador</label>
             	<div class="col-sm-10">
-				<form:select path="usuario">
-            		<form:options itemValue="id" itemLabel="nombre" items="${usuarios}" />
-            	</form:select>
+            	<input name="usuario" type=hidden value="${usuario.id}">
             	</div>                        
             </div>          
         </div>
