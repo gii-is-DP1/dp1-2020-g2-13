@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,45 @@ public class AuthoritiesService {
 			authority.setUser(user.get());
 			authority.setAuthority(role);
 			//user.get().getAuthorities().add(authority);
-			authoritiesRepository.save(authority);
+			Iterable<Authorities> authorities = authoritiesRepository.findAll();
+			boolean b = true;
+			for (Authorities a : authorities) {
+				if (a.getUser().equals(authority.getUser()) && 
+						a.getAuthority().equals(authority.getAuthority())) {
+					b = false;
+					break;
+				}
+			}
+			if (b) {
+				authoritiesRepository.save(authority);
+			}
+		}else
+			throw new DataAccessException("User '"+username+"' not found!") {};
+	}
+	
+	@Transactional
+	public void deleteAuthorities(String username, String role) throws DataAccessException {
+		Authorities authority = new Authorities();
+		Optional<User> user = userService.findUser(username);
+		Collection<Authorities> authorities = authoritiesRepository.findByUsername(username);
+		if(user.isPresent()) {
+			for (Authorities a : authorities) {
+				if (a.getAuthority().equals(role)) {
+					authority = a;
+					break;
+				}
+			}
+			authoritiesRepository.delete(authority);
 		}else
 			throw new DataAccessException("User '"+username+"' not found!") {};
 	}
 
+	public Iterable<Authorities> findAll(){
+		return authoritiesRepository.findAll();
+	}
+	
+	public Collection<Authorities> findByUsername(String username){
+		return authoritiesRepository.findByUsername(username);
+	}
 
 }

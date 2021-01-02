@@ -37,15 +37,15 @@
 					<td><a href="/usuarios/${usuarios.id}/edit"> <span
 							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a></td>
-					<td><a href="/usuarios/${usuarios.id}/delete"> <span
+					<c:if test="${usuarios.equals(usuario) || authority.equals('admin')}">
+						<td><a href="/usuarios/${usuarios.id}/delete"> <span
 							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</a></td>
+						</a></td>
 
-					<td><a href="usuarios/${usuarios.id}/perfil"> <span
+						<td><a href="usuarios/${usuarios.id}/perfil"> <span
 							class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					</a></td>
-
-
+						</a></td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

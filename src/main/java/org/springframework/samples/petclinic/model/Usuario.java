@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.model;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -74,6 +75,10 @@ public class Usuario extends Person {
 	
 	@OneToMany
 	List<Intento> intentos;
+	
+	LocalDate fechaPago; 
+	
+	
 	
 	@Column(name = "address")
 	
