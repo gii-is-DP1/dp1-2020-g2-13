@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LogroController {
 	public static final String LOGROS_FORM = "logros/createOrUpdateLogrosForm";
 	public static final String LOGROS_LISTING = "logros/LogrosListing";
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 
 	@Autowired
 	LogroService logroService;
@@ -35,12 +38,23 @@ public class LogroController {
 
 	@GetMapping
 	public String listLogros(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		String authority = AuthController.highestLevel();
+		model.addAttribute("authority", authority);
 		model.addAttribute("logros", logroService.findAll());
 		return LOGROS_LISTING;
 	}
 
 	@GetMapping("/{id}/edit")
 	public String editLogro(@PathVariable("id") int id, ModelMap model) {
+		if (!AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		Logro logro = logroService.findById(id);
 		model.addAttribute("logro", logro);
 		return LOGROS_FORM;
@@ -62,6 +76,9 @@ public class LogroController {
 
 	@GetMapping("/{id}/delete")
 	public String deleteLogro(@PathVariable("id") int id,ModelMap model) {
+		if (!AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		Logro logro=logroService.findById(id);
 		logroService.delete(logro);
 		model.addAttribute("message","The goal was deleted successfully!");
@@ -69,13 +86,16 @@ public class LogroController {
 	}
 	
 	@GetMapping("/new")
-	public String editNewDisease(ModelMap model) {
+	public String editNewLogro(ModelMap model) {
+		if (!AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		model.addAttribute("logro",new Logro());
 		return LOGROS_FORM;
 	}
 	
 	@PostMapping("/new")
-	public String saveNewDisease(@Valid Logro logro, BindingResult binding,ModelMap model) {
+	public String saveNewLogro(@Valid Logro logro, BindingResult binding,ModelMap model) {
 		if(binding.hasErrors()) {			
 			return LOGROS_FORM;
 		}else {

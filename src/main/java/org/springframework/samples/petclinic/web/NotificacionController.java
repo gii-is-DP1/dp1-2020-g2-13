@@ -33,6 +33,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NotificacionController {
 	//public static final String NOTIFICACIONES_FORM = "mensajesPrivados/createOrUpdateMensajePrivadoForm";
 	public static final String NOTIFICACIONES_LISTING = "notificaciones/NotificacionesListing";
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 
 	@Autowired
 	NotificacionService notificacionService;
@@ -45,6 +48,9 @@ public class NotificacionController {
 
 	@GetMapping
 	public String listNotificaciones(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Collection<Usuario> usuarios = usuarioService.findAll();

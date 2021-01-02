@@ -26,12 +26,18 @@
 					</a></td>
 					<td><c:out value="${hilos.categoria}" /></td>
 
-					<td><a href="/hilos/${hilos.id}/edit"> <span
+
+					<c:if test="${hilos.usuario.equals(usuario) || 
+					authority.equals('admin')}">
+						<td><a href="/hilos/${hilos.id}/edit"> <span
 							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					</a></td>
-					<td><a href="/hilos/${hilos.id}/delete"> <span
-							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</a></td>
+						</a></td>
+						<td><a href="/hilos/${hilos.id}/delete"> <span
+								class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</a></td>
+					</c:if>
+
+					
 
 
 				</tr>

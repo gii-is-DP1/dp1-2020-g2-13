@@ -1,12 +1,14 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
+INSERT INTO authorities(id,username,authority) VALUES (2,'mjLera','registrado');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','pagado');
+INSERT INTO authorities(id,username,authority) VALUES (3,'chocapi','pagado');
+INSERT INTO authorities(id,username,authority) VALUES (4,'chocapi','registrado');
 -- One vet user, named vet1 with passwor v3t
 INSERT INTO users(username,password,enabled) VALUES ('guille','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'guille','registrado');
+INSERT INTO authorities(id,username,authority) VALUES (5,'guille','registrado');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -39,6 +41,7 @@ INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con piz
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','chocapi');
+INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (3, 'Guillermo','Cañete','Cádiz','Colegio de prueba 3','email3@us.es','guille');
 
 -- Insertar pdfs
 INSERT INTO pdfs(id, usuario_id, link, nombre) VALUES (1,1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
