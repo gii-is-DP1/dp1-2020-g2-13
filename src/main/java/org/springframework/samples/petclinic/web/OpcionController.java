@@ -83,6 +83,12 @@ public class OpcionController {
 		tipoTest.setOpciones(opciones);
 		tipoTestService.save(tipoTest);
 		opcionService.delete(opcion);
+		TipoTest tipoTest2 = tipoTestService.findById(tipoTest.getId());
+		if(tipoTest2.getOpciones().size()==0) {
+			pregunta.setTipoTest(null);
+			preguntaService.save(pregunta);
+			tipoTestService.delete(tipoTest2);
+		}
 		model.addAttribute("message", "The option was deleted successfully!");
 		return examenController.examenDetails(id_examen, model);
 	}

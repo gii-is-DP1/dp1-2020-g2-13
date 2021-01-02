@@ -24,11 +24,15 @@
 					<td>
 					<c:if test="${not empty notificacion.mensajePrivado}">
 						Mensaje privado de  
-						<c:out value="${notificacion.mensajePrivado.emisor.nombre}" /> 
+						<a href="/mensajesPrivados/${notificacion.mensajePrivado.emisor.id}">
+						<c:out value="${notificacion.mensajePrivado.emisor.nombre}" />
+						</a> 
 					</c:if>
 					<c:if test="${not empty notificacion.comentario}">
-						Comentario en 
+						Comentario en
+						<a href="/hilos/${notificacion.comentario.hilo.id}"> 
 						<c:out value="${notificacion.comentario.hilo.nombre}" /> 
+						</a>
 					</c:if>
 					</td>
 					<td>

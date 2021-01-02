@@ -3,10 +3,10 @@ INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
+INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','pagado');
 -- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
+INSERT INTO users(username,password,enabled) VALUES ('guille','Qwerty123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (3,'guille','registrado');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -36,15 +36,15 @@ INSERT INTO types VALUES (6, 'hamster');
 INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Hola_mundo', 'primer logro conseguido por registro');
 INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Chocapi', 'Choque con pizarra');
 
--- Insertar pdfs
-INSERT INTO pdfs(id, link, nombre) VALUES (1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
-
--- Insertar videos
-INSERT INTO videos(id, nombre, link, duracion) VALUES (1, 'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
-
 -- Insertar usuarios
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
 INSERT INTO usuarios(id, nombre,apellidos,localidad,colegio,email,username) VALUES (2, 'Jose Miguel','Pizarro','Huelva','Colegio de prueba 2','email2@us.es','chocapi');
+
+-- Insertar pdfs
+INSERT INTO pdfs(id, usuario_id, link, nombre) VALUES (1,1, 'http://www.africau.edu/images/default/sample.pdf', 'documento1');
+
+-- Insertar videos
+INSERT INTO videos(id, usuario_id, nombre, link, duracion) VALUES (1,1,'cancion', 'https://www.youtube.com/watch?v=HEydV4B6mRQ','3.14');
 
 
 -- Insertar examenes
@@ -55,14 +55,14 @@ INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 1);
 INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 2);
 
 -- Insertar usuarios_examenes
-INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
+--INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
 
 -- Insertar hilos
 INSERT INTO hilos(id, nombre,categoria, usuario_id) VALUES (1, 'Hola_mundo', 'General', 1);
 
 -- Insertar comentario
-INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (1, 'Hola_mundo', 1, 1);
-INSERT INTO comentarios(id, contenido, usuario_id, hilo_id) VALUES (2, 'Adios_mundo', 2, 1);
+INSERT INTO comentarios(id, contenido, usuario_id, hilo_id, nivel) VALUES (1, 'Hola_mundo', 1, 1, 0);
+INSERT INTO comentarios(id, contenido, usuario_id, hilo_id, nivel) VALUES (2, 'Adios_mundo', 2, 1, 0);
 
 -- Insertar hilos_suscriptores
 INSERT INTO hilos_suscriptores(hilo_id, suscriptores_id) VALUES (1, 1);

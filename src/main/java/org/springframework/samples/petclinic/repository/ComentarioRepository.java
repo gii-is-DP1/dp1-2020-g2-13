@@ -16,8 +16,11 @@ public interface ComentarioRepository extends CrudRepository<Comentario, Integer
 
 	Comentario findById(int id);
 
-	@Query("SELECT c FROM Comentario c WHERE c.hilo.id = :hiloId")
+	@Query("SELECT c FROM Comentario c WHERE c.hilo.id = :hiloId AND c.cita = NULL")
 	Collection<Comentario> findByHiloId(@Param("hiloId")int hiloId);
+
+	@Query("SELECT c FROM Comentario c WHERE c.cita.id = :cita")
+	Collection<Comentario> findByCita(@Param("cita")int cita);
 	
 //	@Query("SELECT c FROM Comentario c WHERE c.comentario.id = :comentarioId")
 //	Collection<Comentario> findByComentarioId(@Param("comentarioId")int comentraioId);

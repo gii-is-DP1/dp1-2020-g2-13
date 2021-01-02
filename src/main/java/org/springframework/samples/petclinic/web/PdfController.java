@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.service.PdfService;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,15 +24,18 @@ public class PdfController {
 
 	
 	private final PdfService pdfService;
+	private final UsuarioService usuarioService;
 
 	@Autowired
-	public PdfController(PdfService pdfService) {
+	public PdfController(PdfService pdfService, UsuarioService usuarioService) {
 		this.pdfService = pdfService;
+		this.usuarioService = usuarioService;
 	}
 
 	@GetMapping
 	public String listPdfs(ModelMap model) {
 		model.addAttribute("pdfs", pdfService.findAll());
+		model.addAttribute("usuarios", usuarioService.findAll());
 		return PDFs_LISTING;
 	}
 	
