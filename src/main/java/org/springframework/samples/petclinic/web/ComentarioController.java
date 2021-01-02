@@ -109,18 +109,8 @@ public class ComentarioController {
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("comentario", new Comentario());
 		model.addAttribute("cita", cita);
-		model.addAttribute("usuarios", usuarios);
-		return COMENTARIOS_FORM;
-	}
 
-	@GetMapping("/{value}/{cita}/new")
-	public String editNewComentarioConCita(ModelMap model, 
-			@PathVariable("value") int id, @PathVariable("cita") int cita) {
-		Hilo hilo = hiloService.findById(id);
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		model.addAttribute("hilo", hilo);
-		model.addAttribute("comentario", new Comentario());
-		model.addAttribute("cita", cita);
+
 		model.addAttribute("usuarios", usuarios);
 		return COMENTARIOS_FORM;
 	}
@@ -160,20 +150,8 @@ public class ComentarioController {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
-		if (binding.hasErrors()) {
-			Collection<Usuario> usuarios = usuarioService.findAll();
-			model.addAttribute("usuarios", usuarios);
-			return COMENTARIOS_FORM;
-		} else {
-			comentarioService.save(comentario);
-			model.addAttribute("message", "The comentario was created successfully!");
-			return viewHilo(id, model);
-		}
-	}
 
-	@PostMapping("/{value}/{cita}/new")
-	public String saveNewComentarioConCita(@PathVariable("value") int id, @Valid Comentario comentario, BindingResult binding,
-			ModelMap model) {
+
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
