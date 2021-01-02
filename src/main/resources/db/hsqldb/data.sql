@@ -3,10 +3,10 @@ INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','owner');
+INSERT INTO authorities(id,username,authority) VALUES (2,'chocapi','pagado');
 -- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
+INSERT INTO users(username,password,enabled) VALUES ('guille','Qwerty123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (3,'guille','registrado');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -55,7 +55,7 @@ INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 1);
 INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 2);
 
 -- Insertar usuarios_examenes
-INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
+--INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);
 
 -- Insertar hilos
 INSERT INTO hilos(id, nombre,categoria, usuario_id) VALUES (1, 'Hola_mundo', 'General', 1);
