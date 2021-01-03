@@ -27,6 +27,8 @@ import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.RespuestaService;
 import org.springframework.samples.petclinic.service.TipoTestService;
 import org.springframework.samples.petclinic.service.UsuarioService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -79,10 +81,9 @@ public class ExamenController {
 	@GetMapping("/{id}/edit")
 	public String editExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   " + examen.getId() + " " + examen.getTitulos());
-		Collection<Usuario> usuarios = usuarioService.findAll();
+		Usuario usuario = examen.getUsuario();
 		model.addAttribute("examen", examen);
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuario);
 		return EXAMENES_FORM;
 	}
 
@@ -91,8 +92,8 @@ public class ExamenController {
 			ModelMap model) {
 		Examen examen = examenService.findById(id);
 		if (binding.hasErrors()) {
-			Collection<Usuario> usuarios = usuarioService.findAll();
-			model.addAttribute("usuarios", usuarios);
+			Usuario usuario = examen.getUsuario();
+			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedExamen, examen, "id");
@@ -139,16 +140,21 @@ public class ExamenController {
 	@GetMapping("/new")
 	public String editNewExamen(ModelMap model) {
 		Collection<Usuario> usuarios = usuarioService.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
 		model.addAttribute("examen", new Examen());
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuario);
 		return EXAMENES_FORM;
 	}
 
 	@PostMapping("/new")
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding, ModelMap model) {
 		if (binding.hasErrors()) {
-			Collection<Usuario> usuarios = usuarioService.findAll();
-			model.addAttribute("usuarios", usuarios);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			Usuario usuario = usuarioService.findByUsername(username);
+			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
 			examenService.save(examen);
@@ -177,92 +183,66 @@ public class ExamenController {
 		return EXAMEN_DETAILS;
 	}
 	
-	@GetMapping("/{id}/{intento_id}/{numero_pregunta}/newTry")
-	public String examenTry(@PathVariable("id") int id, @PathVariable("intento_id") int intento_id, @PathVariable("numero_pregunta") int numero_pregunta, ModelMap model) {
+	@GetMapping("/{examen_id}/{intento_id}/newTry")
+	public String examenTry(@PathVariable("examen_id") int examen_id, @PathVariable("intento_id") int intento_id, ModelMap model) {
+		int numero_pregunta;
+		if(model.getAttribute("numero_pregunta")==null) {
+			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
+			numero_pregunta = 0;
+		}else {
+			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
+			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
+		}
 		Intento intento = new Intento();
 		Respuesta respuesta = new Respuesta();
-		List<Pregunta> preguntas = examenService.findById(id).getPreguntas();
+		List<Pregunta> preguntas = examenService.findById(examen_id).getPreguntas();
 		if(numero_pregunta!=0) {
 			intento = intentoService.findById(intento_id);
 		}else if(numero_pregunta==0) {
 			intento.setPuntuacion(null);
 			intento.setFecha(LocalDate.now());
-			intento.setExamen(examenService.findById(id));
+			intento.setExamen(examenService.findById(examen_id));
 			intento.setRespuestas(new ArrayList<Respuesta>());
 			intentoService.save(intento);
 		}
 		respuesta.setTextoRespuesta("");
-		respuestaService.save(respuesta);
 		Pregunta pregunta = preguntas.get(numero_pregunta);
 		List<Opcion> opciones = new ArrayList<Opcion>();
 		if(pregunta.getTipoTest()!=null) {
 			opciones = pregunta.getTipoTest().getOpciones();
 		}
-		model.addAttribute("examen", examenService.findById(id));
+		Examen examen = examenService.findById(examen_id);
+		int size = examen.getPreguntas().size();
+		model.addAttribute("examen", examen);
 		model.addAttribute("pregunta", pregunta.getContenido());
 		model.addAttribute("intento", intento);
 		model.addAttribute("opciones", opciones);
 		model.addAttribute("respuesta", respuesta);
-		model.addAttribute("numero", numero_pregunta);
+		model.addAttribute("numero_pregunta", numero_pregunta);
+		model.addAttribute("size", size);
 		return EXAMEN_TRY;
 	}
 	
-	@PostMapping("/{id}/{intento_id}/{numero_pregunta}/newTry")
-	public String examenTry(@PathVariable("id") int id, @PathVariable("intento_id") int intento_id, @PathVariable("numero_pregunta") int numero_pregunta, Respuesta respuesta, ModelMap model) {
-		
+	@PostMapping("/{examen_id}/{intento_id}/newTry")
+	public String examenTry(@PathVariable("examen_id") int examen_id, @PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
+		Integer numero_pregunta = respuesta.getNumeroPregunta();
+		respuestaService.save(respuesta);
         Intento intento = intentoService.findById(intento_id);
         List<Respuesta> respuestas = intento.getRespuestas();
         respuestas.add(respuesta);
         intento.setRespuestas(respuestas);
 		intentoService.save(intento);
-		Examen examen = examenService.findById(id);
+		Examen examen = examenService.findById(examen_id);
 		log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			model.addAttribute("message", "You finished the exam!");
 			return listExamenes(model);
 		}else {
 			numero_pregunta++;
-			return examenTry(id, intento_id, numero_pregunta, model);
+			model.addAttribute("numero_pregunta", numero_pregunta);
+			log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
+			return examenTry(examen_id, intento_id, model);
 		}
 	}
-	
-//	@GetMapping("/{id}/{intento_id}/{numero_pregunta}/try")
-//	public String examenTryGet(@PathVariable("id") int id, @PathVariable("intento_id") int intento_id, @PathVariable("numero_pregunta") int numero_pregunta, ModelMap model) {
-//		numero_pregunta++;
-//		Intento intento = intentoService.findById(intento_id);
-//		Examen examen = examenService.findById(id);
-//		Pregunta pregunta = examen.getPreguntas().get(numero_pregunta);
-//		List<Opcion> opciones = new ArrayList<Opcion>();
-//		if(pregunta.getTipoTest()!=null) {
-//			opciones = pregunta.getTipoTest().getOpciones();
-//		}
-//
-//		Respuesta respuesta = new Respuesta();
-//		model.addAttribute("examen", examen);
-//		model.addAttribute("pregunta", pregunta.getContenido());
-//		model.addAttribute("intento", intento);
-//		model.addAttribute("opciones", opciones);
-//		model.addAttribute("respuesta", respuesta);
-//		model.addAttribute("numero", numero_pregunta);
-//		return EXAMEN_TRY;
-//	}
-//	
-//	@PostMapping("/{id}/{intento_id}/{numero_pregunta}/try")
-//	public String examenTryPost(@PathVariable("id") int id, @PathVariable("intento_id") int intento_id, @PathVariable("numero_pregunta") int numero_pregunta, Respuesta respuesta, ModelMap model) {
-//
-//        Intento intento = intentoService.findById(intento_id);
-//        List<Respuesta> respuestas = intento.getRespuestas();
-//        respuestas.add(respuesta);
-//        intento.setRespuestas(respuestas);
-//		intentoService.save(intento);
-//		Examen examen = examenService.findById(id);
-//		log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
-//		if(numero_pregunta>=examen.getPreguntas().size()-1) {
-//			model.addAttribute("message", "You finished the exam!");
-//			return listExamenes(model);
-//		}else {
-//			return examenTryGet(id, intento_id, numero_pregunta, model);
-//		}
-//	}
 
 }

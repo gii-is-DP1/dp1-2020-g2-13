@@ -39,6 +39,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MensajePrivadoController {
 	public static final String MENSAJES_PRIVADOS_FORM = "mensajesPrivados/createOrUpdateMensajePrivadoForm";
 	public static final String MENSAJES_PRIVADOS_LISTING = "mensajesPrivados/mensajesPrivadosListing";
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 
 	@Autowired
 	MensajePrivadoService mensajePrivadoService;
@@ -54,12 +57,20 @@ public class MensajePrivadoController {
 
 	@GetMapping("/{value}")
 	public String listMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario r = usuarioService.findById(receptor);
 		Usuario emisor = usuarioService.findByUsername(username);
+		Usuario r = usuarioService.findById(receptor);
 		model.addAttribute("mensajesPrivados", mensajePrivadoService.findByUsersId(emisor.getId(), receptor));
 		model.addAttribute("emisor", emisor);
+		String authority = AuthController.highestLevel();
+		model.addAttribute("authority", authority);
 		model.addAttribute("receptor", r);
 		List<Notificacion> notificaciones = new ArrayList<>();
 		notificaciones.addAll(notificacionService.findByUserId(emisor.getId()));
@@ -77,15 +88,15 @@ public class MensajePrivadoController {
 
 	@GetMapping("{value}/new")
 	public String editNewMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		Usuario emisor = null;
-		for (Usuario u : usuarios) {
-			if (u.getUser().getUsername().equals(username)) {
-				emisor = u;
-			}
-		}
+		Usuario emisor = usuarioService.findByUsername(username);
 		model.addAttribute("mensajePrivado", new MensajePrivado());
 		model.addAttribute("emisor", emisor);
 		model.addAttribute("receptor", usuarioService.findById(receptor));
@@ -98,13 +109,7 @@ public class MensajePrivadoController {
 		if (binding.hasErrors()) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			Collection<Usuario> usuarios = usuarioService.findAll();
-			Usuario emisor = null;
-			for (Usuario u : usuarios) {
-				if (u.getUser().getUsername().equals(username)) {
-					emisor = u;
-				}
-			}
+			Usuario emisor = usuarioService.findByUsername(username);
 			model.addAttribute("mensajePrivado", new MensajePrivado());
 			model.addAttribute("emisor", emisor);
 			model.addAttribute("receptor", usuarioService.findById(receptor));
@@ -118,7 +123,19 @@ public class MensajePrivadoController {
 
 	@GetMapping("/{value}/delete")
 	public String deleteMensajesPrivados(@PathVariable("value") int id, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		MensajePrivado mensajePrivado = mensajePrivadoService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!mensajePrivado.getEmisor().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		mensajePrivadoService.delete(mensajePrivado);
 		model.addAttribute("message", "El mensaje ha sido eliminado");
 		return listMensajesPrivados(id, model);
@@ -126,25 +143,23 @@ public class MensajePrivadoController {
 
 	@GetMapping("/{value}/edit")
 	public String editComentario(@PathVariable("value") int value, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		Usuario emisor = null;
-		for (Usuario u : usuarios) {
-			if (u.getUser().getUsername().equals(username)) {
-				emisor = u;
-			}
-		}
+		Usuario emisor = usuarioService.findByUsername(username);
 		MensajePrivado mensajePrivado = mensajePrivadoService.findById(value);
-//		if (emisor.equals(mensajePrivado.getEmisor())) {
-			model.addAttribute("mensajePrivado", mensajePrivado);
-			model.addAttribute("emisor", mensajePrivado.getEmisor());
-			model.addAttribute("receptor", mensajePrivado.getReceptor());
-			return MENSAJES_PRIVADOS_FORM;
-//		}
-//		else {
-//			return "error";
-//		}
+		if (!mensajePrivado.getEmisor().equals(emisor) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
+		model.addAttribute("mensajePrivado", mensajePrivado);
+		model.addAttribute("emisor", mensajePrivado.getEmisor());
+		model.addAttribute("receptor", mensajePrivado.getReceptor());
+		return MENSAJES_PRIVADOS_FORM;
 	}
 
 	@PostMapping("/{value}/edit")
