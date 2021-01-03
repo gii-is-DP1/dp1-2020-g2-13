@@ -45,7 +45,6 @@ public class VideoController {
 			return "redirect:/" + LOGIN;
 		}
 		model.addAttribute("videos", videoService.findAll());
-		model.addAttribute("usuarios", usuarioService.findAll());
 		String authority = AuthController.highestLevel();
 		model.addAttribute("authority", authority);
 		return VIDEOS_LISTING;
@@ -129,6 +128,10 @@ public class VideoController {
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
 		} else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+			video.setUsuario(usuarioLoggeado);
 			videoService.save(video);
 			model.addAttribute("message", "The video was uploaded successfully!");
 			return listVideos(model);
