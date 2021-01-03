@@ -24,29 +24,23 @@
                       <a href= "/pdfs/${pdfs.id}/visualize">${pdfs.nombre}</a>
                     <!--  <embed src="/pdfs/${pdfs.id}/visualize" width="300" height="300">-->
                 </td>
-
-                <td>
-
-                	<a href="/pdfs/${pdfs.id}/edit">
-
-                	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                
+                
+				<td>
+                	<a href="${pdfs.link}" target="_blank">
+					<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
                 	</a>
                 </td>
-                <td>
-
-                	<a href="/pdfs/${pdfs.id}/delete">
-
+				<c:if test="${pdfs.usuario.user.username.equals(usuario.user.username) 
+				|| authority.equals('admin')}">
+					 <td><a href="/pdfs/${pdfs.id}/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                	</a>
+                </td>
+                <td><a href="/pdfs/${pdfs.id}/delete">
                 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 	</a>
                 </td>
-
-				<td>
-
-                	<a href="${pdfs.link}" target="_blank">
-
-                		<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                	</a>
-                </td>
+				</c:if>
             </tr>
         </c:forEach>
         </tbody>
