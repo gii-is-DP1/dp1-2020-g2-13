@@ -1,16 +1,13 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.samples.petclinic.model.Examen;
+
 import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.model.TipoTest;
-import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.TipoTestService;
