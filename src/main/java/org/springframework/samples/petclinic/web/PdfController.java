@@ -41,7 +41,6 @@ public class PdfController {
 	@GetMapping
 	public String listPdfs(ModelMap model) {
 		model.addAttribute("pdfs", pdfService.findAll());
-		model.addAttribute("usuarios", usuarioService.findAll());
 		String authority = "";
 		if (AuthController.isAuthenticated()) {
 			authority = AuthController.highestLevel();
@@ -117,6 +116,10 @@ public class PdfController {
 			model.addAttribute("message", "Documento inválido.");
 			return PDFs_FORM;
 		}else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+			pdf.setUsuario(usuarioLoggeado);
 			pdfService.save(pdf);
 			model.addAttribute("message", "The thread was created successfully!");			
 			return listPdfs(model);

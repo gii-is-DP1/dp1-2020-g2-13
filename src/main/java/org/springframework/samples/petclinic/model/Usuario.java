@@ -76,6 +76,7 @@ public class Usuario extends Person {
 	@OneToMany
 	List<Intento> intentos;
 	
+
 	private LocalDate fechaPago; 
 	
 	
@@ -87,6 +88,7 @@ public class Usuario extends Person {
 	public void setFechaPago(LocalDate fechaPago) {
 		this.fechaPago = fechaPago;
 	}
+
 
 	@Column(name = "address")
 	

@@ -138,20 +138,21 @@ public class HiloController {
 		model.addAttribute("message","The thread was deleted successfully!");
 		return listHilos(model);
 	}
-	
+	 
 	@GetMapping("/new")
 	public String editNewHilo(ModelMap model) {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
-		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo",new Hilo());
-		model.addAttribute("usuarios", usuarios);
 		return HILOS_FORM;
 	}
 	
 	@PostMapping("/new")
 	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
@@ -163,6 +164,7 @@ public class HiloController {
 			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {
+			hilo.setUsuario(usuarioLoggeado); 
 			hiloService.save(hilo);
 			model.addAttribute("message", "The thread was created successfully!");			
 			return listHilos(model);

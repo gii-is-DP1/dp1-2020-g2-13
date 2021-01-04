@@ -122,6 +122,8 @@ public class ComentarioController {
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("comentario", new Comentario());
 		model.addAttribute("cita", cita);
+
+
 		model.addAttribute("usuarios", usuarios);
 		return COMENTARIOS_FORM;
 	}
@@ -167,6 +169,8 @@ public class ComentarioController {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+
+
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
