@@ -72,6 +72,11 @@ public class ExamenController {
 
 	@GetMapping
 	public String listExamenes(ModelMap model) {
+		Collection<Usuario> usuarios = usuarioService.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
+		model.addAttribute("usuario", usuario);
 		model.addAttribute("examenes", examenService.findAll());
 		return EXAMENES_LISTING;
 	}
@@ -152,9 +157,17 @@ public class ExamenController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			Usuario usuario = usuarioService.findByUsername(username);
+			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
+			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
 			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			Usuario usuario = usuarioService.findByUsername(username);
+			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
+			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
+			examen.setUsuario(usuario);
 			examenService.save(examen);
 			model.addAttribute("message", "The exam was created successfully!");
 			return listExamenes(model);

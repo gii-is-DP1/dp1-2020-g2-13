@@ -25,12 +25,17 @@
 					
 					<td><c:out value="${videos.descripcion}" /></td>
 					<td><c:out value="${videos.duracion}" /></td>
+					<c:if test="${videos.usuario.user.username.equals(usuario.user.username) 
+					|| authority.equals('admin')}">
 					<td><a href="/videos/${videos.id}/delete"> <span
 							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					</a></td>
 					<td><a href="/videos/${videos.id}/edit"> <span
 							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					</a></td>
+					</c:if>
+					
+					
 				</tr>
 			</c:forEach>
 		</tbody>

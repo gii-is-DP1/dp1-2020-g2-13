@@ -28,23 +28,20 @@
                 <td>
                     <c:out value="${logros.descripcion}"/>
                 </td>
-
-                <td>
-
-                	<a href="/logros/${logros.id}/edit">
-
-                	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                	</a>
-                </td>
-                <td>
-
-                	<a href="/logros/${logros.id}/delete">
-
-                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                	</a>
-                </td>
-
-
+                
+                <c:if test="${logros.usuario.equals(usuario) || 
+					authority.equals('admin')}">
+						<td>
+		                	<a href="/logros/${logros.id}/edit">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+		                	</a>
+		                </td>
+		                <td>
+		                	<a href="/logros/${logros.id}/delete">
+		                	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		                	</a>
+		                </td>
+					</c:if>
             </tr>
         </c:forEach>
         </tbody>
