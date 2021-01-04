@@ -32,8 +32,10 @@
                     <c:out value="${examenes.puntuacionMinima}"/>
                 </td>
 
-                <td>
 
+				<c:if test="${examenes.usuario.equals(usuario) || 
+					authority.equals('admin')}">
+                <td>
                 	<a href="/examenes/${examenes.id}/edit">
 
                 	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -52,7 +54,9 @@
 
                 		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 	</a>
-                </td>
+                </td>         
+                </c:if> 
+                
 
 
             </tr>
