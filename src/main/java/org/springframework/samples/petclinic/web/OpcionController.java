@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
@@ -53,8 +55,11 @@ public class OpcionController {
 	}
 	
 	@PostMapping("/{id_examen}/{id_pregunta}/new")
-	public String saveNewOpcion(@PathVariable("id_examen") int id_examen, @PathVariable("id_pregunta") int id_pregunta, Opcion opcion, BindingResult binding, ModelMap model) {
+	public String saveNewOpcion(@PathVariable("id_examen") int id_examen, @PathVariable("id_pregunta") int id_pregunta,@Valid Opcion opcion, BindingResult binding, ModelMap model) {
 		if (binding.hasErrors()) {
+			Pregunta pregunta = preguntaService.findById(id_pregunta);
+			model.addAttribute("pregunta", pregunta);
+			model.addAttribute("id_examen", id_examen);
 			return OPCION_FORM;
 		} else {
 			Pregunta pregunta = preguntaService.findById(id_pregunta);

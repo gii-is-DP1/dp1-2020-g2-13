@@ -14,12 +14,7 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Titulos" name="titulos"/>
             <petclinic:inputField label="Puntuacion Maxima" name="puntuacionMaxima"/>
-            <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>
-			<div class="form-group">
-            	<div class="col-sm-10">
-            	<input name="usuario" type=hidden value="${usuario.id}">
-            	</div>                        
-            </div>          
+            <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>        
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
