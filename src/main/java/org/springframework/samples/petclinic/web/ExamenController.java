@@ -49,6 +49,8 @@ public class ExamenController {
 	public static final String EXAMENES_LISTING = "examenes/ExamenesListing";
 	public static final String EXAMEN_DETAILS = "examenes/ExamenDetails";
 	public static final String EXAMEN_TRY = "examenes/examenTry";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 
 	@Autowired
 	ExamenService examenService;
@@ -72,6 +74,9 @@ public class ExamenController {
 
 	@GetMapping
 	public String listExamenes(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -85,6 +90,12 @@ public class ExamenController {
 	public String editExamen(@PathVariable("id") int id, ModelMap model) {
 		Examen examen = examenService.findById(id);
 		Usuario usuario = examen.getUsuario();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if(usuario!=usuarioLoggeado) {
+			return "redirect:/" + ERROR;
+		}
 		model.addAttribute("examen", examen);
 		model.addAttribute("usuario", usuario);
 		return EXAMENES_FORM;
@@ -142,29 +153,23 @@ public class ExamenController {
 
 	@GetMapping("/new")
 	public String editNewExamen(ModelMap model) {
-		Collection<Usuario> usuarios = usuarioService.findAll();
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		Usuario usuario = usuarioService.findByUsername(username);
+		log.info("------------------------------------------------------------------------------LLEGO AL GET NEW");
 		model.addAttribute("examen", new Examen());
-		model.addAttribute("usuario", usuario);
 		return EXAMENES_FORM;
 	}
 
 	@PostMapping("/new")
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding, ModelMap model) {
+		log.info("------------------------------------------------------------------------------LLEGO AL POST");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
+	
 		if (binding.hasErrors()) {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String username = authentication.getName();
-			Usuario usuario = usuarioService.findByUsername(username);
 			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
 			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
-			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String username = authentication.getName();
-			Usuario usuario = usuarioService.findByUsername(username);
 			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
 			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
 			examen.setUsuario(usuario);
@@ -187,6 +192,14 @@ public class ExamenController {
 				opciones.add(new ArrayList<Opcion>());
 			}
 		}
+		Examen examen = examenService.findById(id);
+		Usuario usuario = examen.getUsuario();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if(usuario!=usuarioLoggeado) {
+			return "redirect:/" + ERROR;
+		}
 		model.addAttribute("examen", examenService.findById(id));
 		model.addAttribute("preguntas", preguntas);
 		model.addAttribute("opciones", opciones);
@@ -196,6 +209,9 @@ public class ExamenController {
 	
 	@GetMapping("/{examen_id}/{intento_id}/newTry")
 	public String examenTry(@PathVariable("examen_id") int examen_id, @PathVariable("intento_id") int intento_id, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		int numero_pregunta;
 		if(model.getAttribute("numero_pregunta")==null) {
 			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));

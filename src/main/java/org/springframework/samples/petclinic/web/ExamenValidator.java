@@ -39,15 +39,13 @@ public class ExamenValidator implements Validator {
 					"La puntuación máxima no puede estar vacía ni ser mayor o igual que la puntuación mínima",
 					"La puntuación máxima no puede estar vacía ni ser mayor o igual que la puntuación mínima");
 		}
-		// usuario validation
-		if (usuario == null) {
-			errors.rejectValue("usuario", "Usuario no puede estar vacío", "Usuario no puede estar vacío");
-		}
-		// pregunta validation
-		if (preguntas.size() == 0) {
-			errors.rejectValue("preguntas", "No pueden haber 0 preguntas en un examen",
-					"No pueden haber 0 preguntas en un examen");
-		}
+		//Un examen inicialemnte se queda vacío
+
+//		// pregunta validation
+//		if (preguntas.size() == 0) {
+//			errors.rejectValue("preguntas", "No pueden haber 0 preguntas en un examen",
+//					"No pueden haber 0 preguntas en un examen");
+//		}
 	}
 
 	@Override
