@@ -8,9 +8,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.model.Video;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.samples.petclinic.service.VideoService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,6 +29,9 @@ public class VideoController {
 	public static final String VIDEOS_LISTING = "videos/VideosListing";
 	public static final String VIDEOS_FORM = "videos/CreateOrUpdateVideoForm";
 	public static final String VIDEOS_VISUALIZE = "videos/VideoVisualize";
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 
 	@Autowired
 	VideoService videoService;
@@ -35,15 +41,24 @@ public class VideoController {
 
 	@GetMapping
 	public String listVideos(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		model.addAttribute("videos", videoService.findAll());
-		model.addAttribute("usuarios", usuarioService.findAll());
-
+		String authority = AuthController.highestLevel();
+		model.addAttribute("authority", authority);
 		return VIDEOS_LISTING;
 	}
 
 	@GetMapping("/{id}/delete")
 	public String deleteVideo(@PathVariable("id") int id, ModelMap model) {
 		Video video = videoService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!video.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		videoService.delete(video);
 		model.addAttribute("message", "The video was deleted successfully!");
 		return listVideos(model);
@@ -51,10 +66,11 @@ public class VideoController {
 
 	@GetMapping("/{id}/visualize")
 	public String visualizeVideo(@PathVariable("id") int id, ModelMap model) {
-
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		Video video = videoService.findById(id);
 		String enlace = video.getLink();
-
 		String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";
 		Pattern compiledPattern = Pattern.compile(pattern);
 		Matcher matcher = compiledPattern.matcher(enlace);
@@ -71,6 +87,12 @@ public class VideoController {
 	@GetMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, ModelMap model) {
 		Video video = videoService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!video.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		model.addAttribute("video", video);
 		return VIDEOS_FORM;
 	}
@@ -91,6 +113,12 @@ public class VideoController {
 
 	@GetMapping("/new")
 	public String editNewVideo(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		model.addAttribute("video", new Video());
 		return VIDEOS_FORM;
 	}
@@ -100,6 +128,10 @@ public class VideoController {
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
 		} else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+			video.setUsuario(usuarioLoggeado);
 			videoService.save(video);
 			model.addAttribute("message", "The video was uploaded successfully!");
 			return listVideos(model);

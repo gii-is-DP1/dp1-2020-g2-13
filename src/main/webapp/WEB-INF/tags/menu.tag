@@ -96,6 +96,11 @@
                                                 <a href="<c:url value="/pdfs" />">Documentos</a>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="text-center">
+                                                <a href="<c:url value="/videos" />">Vídeos</a>
+                                        </div>
+                                    </div>
                             </li>
                         </ul>
                 </petclinic:menuItem>

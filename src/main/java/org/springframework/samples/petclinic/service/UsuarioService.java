@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -59,7 +60,10 @@ public class UsuarioService {
 //		auth.add(authorities);
 //		usuario.getUser().setAuthorities(auth);
 		authoritiesService.saveAuthorities(usuario.getUser().getUsername(), "pagado");
-//		usuarioRepository.save(usuario);
+
+		usuario.setFechaPago(LocalDate.now());
+		usuarioRepository.save(usuario);
+
 	}
 	
 	public void downgradeAccount(@Valid Usuario usuario) {
