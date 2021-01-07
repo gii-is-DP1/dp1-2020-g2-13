@@ -60,8 +60,10 @@ public class UsuarioService {
 //		auth.add(authorities);
 //		usuario.getUser().setAuthorities(auth);
 		authoritiesService.saveAuthorities(usuario.getUser().getUsername(), "pagado");
+
 		usuario.setFechaPago(LocalDate.now());
 		usuarioRepository.save(usuario);
+
 	}
 	
 	public void downgradeAccount(@Valid Usuario usuario) {

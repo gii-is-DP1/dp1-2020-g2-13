@@ -19,7 +19,7 @@ public class OpcionValidator implements Validator {
 		Boolean esCorrecta= opcion.getEsCorrecta();
 		
 		// Texto validation
-		if (texto.isEmpty() || texto.equals(" ")|| texto.equals("")) {
+		if (texto.trim().length() == 0) {
 			errors.rejectValue("texto", "La opción no puede estar vacía");
 		}
 		
