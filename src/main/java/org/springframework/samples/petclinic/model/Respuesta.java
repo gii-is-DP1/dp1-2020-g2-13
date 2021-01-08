@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
 
@@ -12,7 +13,7 @@ import lombok.Data;
 @Table(name = "respuestas")
 public class Respuesta extends BaseEntity{
 	
-	@NotNull
+	@NotEmpty
 	private String textoRespuesta;
 	private Integer numeroPregunta;
 }
