@@ -18,9 +18,9 @@ public class Examen extends BaseEntity{
 
 	@NotEmpty
 	private String titulos;
-	@NotNull
+	@NotEmpty
 	private Double puntuacionMaxima;
-	@NotNull
+	@NotEmpty
 	private Double puntuacionMinima;
 	
 	@ManyToOne(optional = false)
