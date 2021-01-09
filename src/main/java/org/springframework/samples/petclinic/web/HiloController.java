@@ -15,6 +15,8 @@ import org.springframework.samples.petclinic.model.businessrulesexceptions.Impos
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.UsuarioService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,9 @@ public class HiloController {
 	public static final String HILOS_FORM = "hilos/createOrUpdateHilosForm";
 	public static final String HILOS_LISTING = "hilos/HilosListing";
 	public static final String HILO_VISTA = "hilos/vistaHilo";
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
+	public static final String LOGIN = "login";
+	public static final String ERROR = "";
 	
 //	private String auxViewHilo(int id, ModelMap model) {
 //		Hilo hilo = hiloService.findById(id);
@@ -58,13 +63,37 @@ public class HiloController {
 
 	@GetMapping
 	public String listHilos(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		model.addAttribute("hilos", hiloService.findAll());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
+		model.addAttribute("usuario", usuario);
+		String authority = AuthController.highestLevel();
+		model.addAttribute("authority", authority);
 		return HILOS_LISTING;
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		Hilo hilo = hiloService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!hilo.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("usuarios", usuarios);
@@ -92,27 +121,50 @@ public class HiloController {
 
 	@GetMapping("/{id}/delete")
 	public String deleteHilo(@PathVariable("id") int id,ModelMap model) {
-		Hilo hilo=hiloService.findById(id);
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		Hilo hilo = hiloService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!hilo.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
 		hiloService.delete(hilo);
 		model.addAttribute("message","The thread was deleted successfully!");
 		return listHilos(model);
 	}
-	
+	 
 	@GetMapping("/new")
 	public String editNewHilo(ModelMap model) {
-		Collection<Usuario> usuarios = usuarioService.findAll();
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		model.addAttribute("hilo",new Hilo());
-		model.addAttribute("usuarios", usuarios);
 		return HILOS_FORM;
 	}
 	
 	@PostMapping("/new")
 	public String saveNewHilo(@Valid Hilo hilo, BindingResult binding, ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
 		if(binding.hasErrors()) {	
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {
+			hilo.setUsuario(usuarioLoggeado); 
 			hiloService.save(hilo);
 			model.addAttribute("message", "The thread was created successfully!");			
 			return listHilos(model);
