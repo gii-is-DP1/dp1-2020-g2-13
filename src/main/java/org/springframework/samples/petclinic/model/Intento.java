@@ -19,7 +19,7 @@ import lombok.Data;
 public class Intento extends BaseEntity{
 
 	private Double puntuacion;
-	@NotEmpty
+	
 	private LocalDate fecha;
 	
 	@OneToOne
