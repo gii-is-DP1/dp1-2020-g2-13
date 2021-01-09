@@ -10,7 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.samples.petclinic.model.Examen;
 import org.springframework.samples.petclinic.model.Intento;
 import org.springframework.samples.petclinic.model.Opcion;
@@ -41,8 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/examenes")
-@Slf4j
-@SpringBootApplication
+//@Slf4j
+//@SpringBootApplication
 public class ExamenController {
 
 	public static final String EXAMENES_FORM = "examenes/createOrUpdateExamenesForm";
@@ -153,25 +153,25 @@ public class ExamenController {
 
 	@GetMapping("/new")
 	public String editNewExamen(ModelMap model) {
-		log.info("------------------------------------------------------------------------------LLEGO AL GET NEW");
+//		log.info("------------------------------------------------------------------------------LLEGO AL GET NEW");
 		model.addAttribute("examen", new Examen());
 		return EXAMENES_FORM;
 	}
 
 	@PostMapping("/new")
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding, ModelMap model) {
-		log.info("------------------------------------------------------------------------------LLEGO AL POST");
+//		log.info("------------------------------------------------------------------------------LLEGO AL POST");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuario = usuarioService.findByUsername(username);
 	
 		if (binding.hasErrors()) {
-			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
-			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
+//			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
+//			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
 			return EXAMENES_FORM;
 		} else {
-			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
-			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
+//			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
+//			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
 			examen.setUsuario(usuario);
 			examenService.save(examen);
 			model.addAttribute("message", "The exam was created successfully!");
@@ -214,10 +214,10 @@ public class ExamenController {
 		}
 		int numero_pregunta;
 		if(model.getAttribute("numero_pregunta")==null) {
-			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
+//			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
 			numero_pregunta = 0;
 		}else {
-			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
+//			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
 			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
 		}
 		Intento intento = new Intento();
@@ -260,14 +260,14 @@ public class ExamenController {
         intento.setRespuestas(respuestas);
 		intentoService.save(intento);
 		Examen examen = examenService.findById(examen_id);
-		log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
+//		log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			model.addAttribute("message", "You finished the exam!");
 			return listExamenes(model);
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
+//			log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
 			return examenTry(examen_id, intento_id, model);
 		}
 	}
