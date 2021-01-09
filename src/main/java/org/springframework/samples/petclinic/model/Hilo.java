@@ -17,16 +17,13 @@ import lombok.Data;
 @Table(name = "hilos")
 public class Hilo extends BaseEntity {
 
-	private enum Categoria {
-		General, Buenas_practicas, Preguntas, Eventos, Noticias
-	}
 	
 
-	@NotNull
+	@NotEmpty
 	private String nombre;
-	@NotNull
+	@NotEmpty
 	private String categoria;
-	@NotNull
+	@NotEmpty
 	private String contenido;
 
 	
