@@ -35,9 +35,7 @@ public class NotificacionService {
 		notificacionRepository.deleteById(notificacion.getId());
 	}
 	
-	public void findByMensajeId(int id) {
-		notificacionRepository.findByMensajeId(id);
-	}
+	
 
 //	public void save(@Valid Comentario comentario) throws ImpossibleComentarioException {
 //		validateComentarioIsPossible(comentario);

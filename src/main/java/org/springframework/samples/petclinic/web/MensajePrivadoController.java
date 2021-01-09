@@ -142,7 +142,7 @@ public class MensajePrivadoController {
 	}
 
 	@GetMapping("/{value}/edit")
-	public String editComentario(@PathVariable("value") int value, ModelMap model) {
+	public String editMensajePrivado(@PathVariable("value") int value, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}

@@ -13,8 +13,12 @@ import javax.validation.constraints.Size;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+
+@Setter
 @Entity
 @Table(name = "mensajesPrivados")
 public class MensajePrivado extends BaseEntity{
