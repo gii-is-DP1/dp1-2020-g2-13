@@ -56,7 +56,7 @@ public class ExamenServiceTest {
 	@Test
 	void shouldDeleteExamen() {
 		this.examenService.delete(this.examenService.findById(1));
-		assertThrows(NoSuchElementException.class, () -> this.examenService.findById(1).getTitulos());
+		assertThrows(NullPointerException.class, () -> this.examenService.findById(1).getTitulos());
 	}
 
 	@DisplayName("Prueba de edición de examen")
