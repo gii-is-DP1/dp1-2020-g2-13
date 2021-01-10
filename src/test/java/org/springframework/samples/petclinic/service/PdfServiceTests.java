@@ -104,6 +104,7 @@ class PdfServiceTests {
 
 		Pdf pdf = new Pdf();
 		pdf.setLink("ejemplo");
+		pdf.setNombre("jnoj");
 		this.pdfService.save(pdf);
 		assertEquals(pdf, this.pdfService.findById(pdf.getId()));
 	}
