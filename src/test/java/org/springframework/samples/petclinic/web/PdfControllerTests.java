@@ -26,6 +26,7 @@ import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PdfService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,6 +50,9 @@ class PdfControllerTests {
 
 	@MockBean
 	private PdfService pdfService;
+
+	@MockBean
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private MockMvc mockMvc;

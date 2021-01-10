@@ -16,6 +16,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.service.NotificacionService;
+import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,6 +32,12 @@ public class NotificacionControllerTest {
 
 	@MockBean
 	private NotificacionService notificacionService;
+
+	@MockBean
+	private UsuarioService usuarioService;
+
+	@MockBean
+	private UserService userService;
 
 	@Autowired
 	private MockMvc mockMvc;

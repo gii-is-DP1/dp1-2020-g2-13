@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Video;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.samples.petclinic.service.VideoService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -39,6 +40,8 @@ public class VideoControllerTests {
 	
 	@MockBean
 	private VideoService videoService;
+	@MockBean
+	UsuarioService usuarioService;
 	
 	@Autowired
 	private MockMvc mockMvc;
