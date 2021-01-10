@@ -2,6 +2,7 @@
 package org.springframework.samples.petclinic.web;
 
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -14,6 +15,8 @@ public class HiloValidator implements Validator {
 		String nombre = hilo.getNombre();
 		String categoria = hilo.getCategoria();
 		String contenido = hilo.getContenido();
+		Usuario usuario = hilo.getUsuario();
+		
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length() < 1 || nombre.length() > 30) {
 			errors.rejectValue("nombre", "El nombre debe tener entre 1 y 30 caracteres",
@@ -37,6 +40,10 @@ public class HiloValidator implements Validator {
 		}
 		if (contenido.trim().length() == 0) {
 			errors.rejectValue("contenido", "El contenido no puede estar vacío", "El contenido no puede estar vacío");
+		}
+		// usuario validation
+		if (usuario == null) {
+			errors.rejectValue("usuario", "Usuario no puede estar vacío", "Usuario no puede estar vacío");
 		}
 	}
 
