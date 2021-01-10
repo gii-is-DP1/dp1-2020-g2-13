@@ -44,6 +44,10 @@ public class MensajePrivadoServiceTest {
 
 		MensajePrivado smspriv = new MensajePrivado();
 		smspriv.setContenido("ejemplo");
+		Usuario usuario1 = this.usuarioService.findById(1);
+		Usuario usuario2 = this.usuarioService.findById(2);
+		smspriv.setReceptor(usuario2);
+		smspriv.setEmisor(usuario1);
 		this.mensajePrivadoService.save(smspriv);
 		assertEquals(smspriv, this.mensajePrivadoService.findById(smspriv.getId()));
 	}
