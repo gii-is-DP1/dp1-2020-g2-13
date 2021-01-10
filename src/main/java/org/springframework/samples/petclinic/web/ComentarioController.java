@@ -118,13 +118,13 @@ public class ComentarioController {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
 		Hilo hilo = hiloService.findById(id);
-		Collection<Usuario> usuarios = usuarioService.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("comentario", new Comentario());
 		model.addAttribute("cita", cita);
-
-
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuario);
 		return COMENTARIOS_FORM;
 	}
 

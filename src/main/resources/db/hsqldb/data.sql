@@ -103,6 +103,12 @@ INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,1);
 INSERT INTO examenes_preguntas(examen_id, preguntas_id) VALUES (1,2);
 
 
+-- Insertar intento
+INSERT INTO intentos(id, puntuacion, fecha) VALUES (1, 2.8,'2008-11-11');
+
+-- Insertar intento
+INSERT INTO respuestas(id, texto_respuesta, numero_pregunta) VALUES (1, 'ihhhh',4);
+
 -- Insertar mensajes privados
 INSERT INTO mensajes_privados(id, contenido, emisor_id, receptor_id) VALUES (1, 'Hola_mundo', 2, 1);
 

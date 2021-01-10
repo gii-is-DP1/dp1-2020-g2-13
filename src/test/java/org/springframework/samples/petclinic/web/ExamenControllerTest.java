@@ -58,7 +58,7 @@ public class ExamenControllerTest {
 		given(this.examenService.findById(TEST_EXAMEN_ID)).willReturn(new Examen());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/examenes/new", TEST_EXAMEN_ID)).andExpect(status().isOk())
@@ -76,7 +76,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("redirect:/examenes/{id}"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID)
@@ -89,7 +89,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("examenes/createOrUpdateExamenesForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test 
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/examenes/{id}/edit", TEST_EXAMEN_ID))
@@ -97,7 +97,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("examenes/createOrUpdateExamenesForm"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
 	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)
@@ -109,7 +109,7 @@ public class ExamenControllerTest {
 			.andExpect(view().name("examenes/ExamenesListing"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
 	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)

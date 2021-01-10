@@ -73,14 +73,14 @@ class LogroControllerTests {
 
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/logros/new")).andExpect(status().isOk()).andExpect(model().attributeExists("logro"))
 		.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/logros/new")
@@ -90,7 +90,7 @@ class LogroControllerTests {
 				.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/logros/new")
@@ -102,7 +102,7 @@ class LogroControllerTests {
 				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 
-        @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitUpdateLogroForm() throws Exception {
 		mockMvc.perform(get("/logros/{id}/edit", TEST_LOGRO_ID)).andExpect(status().isOk())
@@ -111,7 +111,7 @@ class LogroControllerTests {
 				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateLogroFormSuccess() throws Exception {
 		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID)
@@ -122,7 +122,7 @@ class LogroControllerTests {
 				.andExpect(view().name("logros/LogrosListing"));
 	}
 
-        @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateLogroFormHasErrors() throws Exception {
 		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID)
