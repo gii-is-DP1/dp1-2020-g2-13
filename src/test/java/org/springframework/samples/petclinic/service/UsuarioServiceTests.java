@@ -74,7 +74,7 @@ public class UsuarioServiceTests {
 		
 		
 		this.usuarioService.delete(this.usuarioService.findById(TEST_USUARIO_ID));
-		assertThrows(NullPointerException.class, () -> this.usuarioService.findById(TEST_USUARIO_ID).getNombre());
+		assertThrows(NullPointerException.class, () -> this.usuarioService.findById(TEST_USUARIO_ID).getId());
 		
 
 	}

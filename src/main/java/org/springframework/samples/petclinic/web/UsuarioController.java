@@ -14,7 +14,6 @@ import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

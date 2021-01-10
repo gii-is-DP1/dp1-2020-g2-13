@@ -22,8 +22,6 @@ public class User{
 	
 	boolean enabled;
 	
-	Integer notificaciones;
-	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authorities> authorities;
 }

@@ -23,8 +23,13 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
+import org.springframework.samples.petclinic.service.IntentoService;
+import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.PreguntaService;
+import org.springframework.samples.petclinic.service.RespuestaService;
+import org.springframework.samples.petclinic.service.TipoTestService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -45,6 +50,21 @@ public class ExamenControllerTest {
 
 	@MockBean
 	private UsuarioService usuarioService;
+
+	@MockBean
+	private IntentoService intentoService;
+
+	@MockBean
+	private RespuestaService respuestaService;
+	
+	@MockBean
+	private PreguntaService preguntaService;
+	
+	@MockBean
+	private OpcionService opcionService;
+
+	@MockBean
+	private TipoTestService tipoTestService;
 
 	@Autowired
 	private MockMvc mockMvc;
