@@ -24,7 +24,7 @@ import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
-
+import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -48,6 +48,12 @@ public class UsuarioControllerTests {
 	private HiloService hiloService;
 	@MockBean
 	private ExamenService examenService;
+	@MockBean
+	NotificacionService notificacionService;
+	@MockBean
+	AuthoritiesService authoritiesService;
+	@MockBean
+	AuthController authController;
 	@Autowired
 	private MockMvc mockMvc;
 
