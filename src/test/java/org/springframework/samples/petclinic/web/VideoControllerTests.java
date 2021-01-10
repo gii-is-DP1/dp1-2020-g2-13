@@ -56,14 +56,14 @@ public class VideoControllerTests {
 		given(this.videoService.findById(TEST_VIDEO_ID)).willReturn(video);
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
     void testInitCreationForm() throws Exception {
 	mockMvc.perform(get("/videos/new")).andExpect(status().isOk()).andExpect(model().attributeExists("video"))
 			.andExpect(view().name("videos/CreateOrUpdateVideoForm"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
     void testProcessCreationFormSuccess() throws Exception {
 	mockMvc.perform(post("/videos/new").param("nombre", "paquito").param("link", "https://www.youtube.com/watch?v=dQw4w9WgXcQ").param("descripcion", "Never gonna give you up, never gonna let you down")
@@ -72,7 +72,7 @@ public class VideoControllerTests {
 			.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
     void testProcessCreationFormHasErrors() throws Exception {
 	mockMvc.perform(post("/videos/new")
@@ -94,7 +94,7 @@ public class VideoControllerTests {
 			.andExpect(view().name("videos/CreateOrUpdateVideoForm"));
 	}
 	
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitUpdateVideoForm() throws Exception {
 		mockMvc.perform(get("/videos/{id}/edit", TEST_VIDEO_ID)).andExpect(status().isOk())
@@ -106,7 +106,7 @@ public class VideoControllerTests {
 				.andExpect(view().name("videos/CreateOrUpdateVideoForm"));
 	}
     
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateVideoFormSuccess() throws Exception {
 		mockMvc.perform(post("/videos/{id}/edit", TEST_VIDEO_ID)
@@ -120,7 +120,7 @@ public class VideoControllerTests {
 				.andExpect(view().name("videos/VideosListing"));
 	}
     
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateVideoFormHasErrors() throws Exception {
 		mockMvc.perform(post("/videos/{id}/edit", TEST_VIDEO_ID)
@@ -143,7 +143,7 @@ public class VideoControllerTests {
 				.andExpect(view().name("videos/CreateOrUpdateVideoForm"));
 	}
     
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testVideoVisualizer() throws Exception {
 		mockMvc.perform(get("/videos/{id}/visualize", TEST_VIDEO_ID)).andExpect(status().isOk())
