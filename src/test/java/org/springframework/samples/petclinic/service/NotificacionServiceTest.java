@@ -44,7 +44,8 @@ public class NotificacionServiceTest {
 	public void shouldsavePdf() {
 
 		Notificacion notificacion = new Notificacion();
-		
+		Usuario usuario = this.usuarioService.findById(1);
+		notificacion.setUsuario(usuario);
 		this.notificacionService.save(notificacion);
 		assertEquals(notificacion, this.notificacionService.findById(notificacion.getId()));
 	}

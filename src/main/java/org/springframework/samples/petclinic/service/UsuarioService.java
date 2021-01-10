@@ -16,11 +16,13 @@ import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
 import org.springframework.samples.petclinic.repository.PdfRepository;
+import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
+	private UserRepository userRepository;
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UserService userService;
@@ -44,6 +46,7 @@ public class UsuarioService {
 	}
 
 	public void delete(Usuario usuario) {
+//		userRepository.delete(usuario.getUser());
 		usuarioRepository.deleteById(usuario.getId());
 	}
 
