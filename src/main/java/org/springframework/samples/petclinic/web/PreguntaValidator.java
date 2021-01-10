@@ -13,7 +13,7 @@ public class PreguntaValidator implements Validator {
 
 		Pregunta pregunta = (Pregunta) obj;
 		String contenido = pregunta.getContenido();
-		TipoTest tipoTest = pregunta.getTipoTest();
+//		TipoTest tipoTest = pregunta.getTipoTest();
 
 		// contenido validation
 		if (contenido.trim().length() == 0) {
@@ -23,10 +23,10 @@ public class PreguntaValidator implements Validator {
 			errors.rejectValue("contenido", "El contenido debe tener entre 1 y 250 caracteres",
 					"El contenido debe tener entre 1 y 250 caracteres");
 		}
-		// tipoTest validation
-		if (tipoTest == null) {
-			errors.rejectValue("tipoTest", "Tipo Test no puede ser nulo", "Tipo Test no puede ser nulo");
-		}
+//		// tipoTest validation
+//		if (tipoTest == null) {
+//			errors.rejectValue("tipoTest", "Tipo Test no puede ser nulo", "Tipo Test no puede ser nulo");
+//		}
 	}
 
 	@Override

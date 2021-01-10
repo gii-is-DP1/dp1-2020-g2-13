@@ -2,6 +2,8 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.repository.PreguntaRepository;
@@ -28,7 +30,7 @@ public class PreguntaService {
 	}
 	
 
-	public void save(Pregunta pregunta) {
+	public void save(@Valid Pregunta pregunta) {
 		preguntaRepository.save(pregunta);
 	}
 }

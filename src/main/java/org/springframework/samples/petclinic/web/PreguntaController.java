@@ -59,26 +59,26 @@ public class PreguntaController {
 		return PREGUNTAS_LISTING;
 	}
 
-	@GetMapping("/{id}/edit")
-	public String editPregunta(@PathVariable("id") int id, ModelMap model) {
-		Pregunta pregunta = preguntaService.findById(id);
-		model.addAttribute("pregunta", pregunta);
-		return PREGUNTAS_FORM;
-	}
-
-	@PostMapping("/{id}/edit")
-	public String editPregunta(@PathVariable("id") int id, @Valid Pregunta modifiedPregunta, BindingResult binding,
-			ModelMap model) {
-		Pregunta pregunta = preguntaService.findById(id);
-		if (binding.hasErrors()) {
-			return PREGUNTAS_FORM;
-		} else {
-			BeanUtils.copyProperties(modifiedPregunta, pregunta, "id");
-			preguntaService.save(pregunta);
-			model.addAttribute("message", "Thread updated succesfully!");
-			return listPreguntas(model);
-		}
-	}
+//	@GetMapping("/{id}/edit")
+//	public String editPregunta(@PathVariable("id") int id, ModelMap model) {
+//		Pregunta pregunta = preguntaService.findById(id);
+//		model.addAttribute("pregunta", pregunta);
+//		return PREGUNTAS_FORM;
+//	}
+//
+//	@PostMapping("/{id}/edit")
+//	public String editPregunta(@PathVariable("id") int id, @Valid Pregunta modifiedPregunta, BindingResult binding,
+//			ModelMap model) {
+//		Pregunta pregunta = preguntaService.findById(id);
+//		if (binding.hasErrors()) {
+//			return PREGUNTAS_FORM;
+//		} else {
+//			BeanUtils.copyProperties(modifiedPregunta, pregunta, "id");
+//			preguntaService.save(pregunta);
+//			model.addAttribute("message", "Thread updated succesfully!");
+//			return listPreguntas(model);
+//		}
+//	}
 
 	@GetMapping("/{id_examen}/{id}/delete")
 	public String deletePregunta(@PathVariable("id") int id, @PathVariable("id_examen") int id_examen, ModelMap model) {
@@ -106,22 +106,22 @@ public class PreguntaController {
 		return examenController.examenDetails(id_examen, model);
 	}
 
-	@GetMapping("/new")
-	public String editNewPregunta(ModelMap model) {
-		model.addAttribute("pregunta", new Pregunta());
-		return PREGUNTAS_FORM;
-	}
-
-	@PostMapping("/new")
-	public String saveNewPreguntas(@Valid Pregunta pregunta, BindingResult binding, ModelMap model) {
-		if (binding.hasErrors()) {
-			return PREGUNTAS_FORM;
-		} else {
-			preguntaService.save(pregunta);
-			model.addAttribute("message", "The question was created successfully!");
-			return listPreguntas(model);
-		}
-	}
+//	@GetMapping("/new")
+//	public String editNewPregunta(ModelMap model) {
+//		model.addAttribute("pregunta", new Pregunta());
+//		return PREGUNTAS_FORM;
+//	}
+//
+//	@PostMapping("/new")
+//	public String saveNewPreguntas(@Valid Pregunta pregunta, BindingResult binding, ModelMap model) {
+//		if (binding.hasErrors()) {
+//			return PREGUNTAS_FORM;
+//		} else {
+//			preguntaService.save(pregunta);
+//			model.addAttribute("message", "The question was created successfully!");
+//			return listPreguntas(model);
+//		}
+//	}
 	
 	@GetMapping("/{value}/new")
 	public String editNewPregunta(@PathVariable("value") int id_examen, ModelMap model) {
@@ -145,12 +145,12 @@ public class PreguntaController {
 			return examenController.examenDetails(id_examen, model);
 		}
 	}
-	
-	@GetMapping("/{id}/details")
-	public String preguntaDetails(@PathVariable("id") int id, ModelMap model) {
-		Pregunta pregunta = preguntaService.findById(id);
-		model.addAttribute("pregunta", pregunta);
-		return PREGUNTAS_DETAILS;
-	}
+//	
+//	@GetMapping("/{id}/details")
+//	public String preguntaDetails(@PathVariable("id") int id, ModelMap model) {
+//		Pregunta pregunta = preguntaService.findById(id);
+//		model.addAttribute("pregunta", pregunta);
+//		return PREGUNTAS_DETAILS;
+//	}
 
 }
