@@ -66,14 +66,14 @@ class PdfControllerTests {
 
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/pdfs/new")).andExpect(status().isOk()).andExpect(model().attributeExists("pdf"))
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pdfs/new").with(csrf()).param("link", "Ejemplo").param("nombre", "paquito2"))
@@ -81,7 +81,7 @@ class PdfControllerTests {
 				.andExpect(status().isOk());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pdfs/new").with(csrf()).param("link", "").param("nombre", "")).andExpect(status().isOk())
@@ -89,7 +89,7 @@ class PdfControllerTests {
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitUpdatePdfForm() throws Exception {
 		mockMvc.perform(get("/pdfs/{id}/edit", TEST_PDF_ID)).andExpect(status().isOk())
@@ -99,7 +99,7 @@ class PdfControllerTests {
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdatePdfFormSuccess() throws Exception {
 		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID).with(csrf()).param("link", "Ejemplo")
@@ -108,7 +108,7 @@ class PdfControllerTests {
 				.andExpect(status().isOk()).andExpect(view().name("pdfs/PdfsListing"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdatePdfFormHasErrors() throws Exception {
 		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID).with(csrf()).param("link", "")
@@ -117,7 +117,7 @@ class PdfControllerTests {
 				.andExpect(view().name("pdfs/createOrUpdatePdfsForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testPdfVisualizer() throws Exception {
 		mockMvc.perform(get("/pdfs/{id}/visualize", TEST_PDF_ID)).andExpect(status().isOk())

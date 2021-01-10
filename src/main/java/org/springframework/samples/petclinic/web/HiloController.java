@@ -141,6 +141,9 @@ public class HiloController {
 	 
 	@GetMapping("/new")
 	public String editNewHilo(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
@@ -153,12 +156,6 @@ public class HiloController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-		if (!AuthController.isAuthenticated()) {
-			return "redirect:/" + LOGIN;
-		}
-		if (!AuthController.hasPaid()) {
-			return "redirect:/" + MEJORAR_CUENTA;
-		}
 		if(binding.hasErrors()) {	
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);		

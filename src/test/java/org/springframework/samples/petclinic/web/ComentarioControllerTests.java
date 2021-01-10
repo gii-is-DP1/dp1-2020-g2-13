@@ -108,14 +108,14 @@ class ComentarioControllerTests {
 
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/hilos/{id}", TEST_HILO_ID)).andExpect(status().isOk()).andExpect(model().attributeExists("comentario"))
 		.andExpect(view().name("hilos/vistaHilo"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/hilos/{id}", TEST_COMENTARIO_ID)
@@ -124,7 +124,7 @@ class ComentarioControllerTests {
 				.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/hilos/{id}", TEST_HILO_ID)

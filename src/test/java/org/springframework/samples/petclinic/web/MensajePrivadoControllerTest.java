@@ -47,7 +47,7 @@ public class MensajePrivadoControllerTest {
 
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testlistNotificaciones() throws Exception {
 		mockMvc.perform(get("/mensajesPrivados/{value}")).andExpect(status().isOk()).andExpect(model().attributeExists("mensajesPrivados"))
@@ -57,7 +57,7 @@ public class MensajePrivadoControllerTest {
 	
 	
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/mensajesPrivados/{value}/new").with(csrf()).param("contenido", "Ejemplo"))
@@ -65,7 +65,7 @@ public class MensajePrivadoControllerTest {
 				.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/mensajesPrivados/{value}/new").with(csrf()).param("contenido", "")).andExpect(status().isOk())
@@ -73,7 +73,7 @@ public class MensajePrivadoControllerTest {
 				.andExpect(view().name("mensajesPrivados/createOrUpdateMensajePrivadoForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdatePdfFormSuccess() throws Exception {
 		mockMvc.perform(post("/mensajesPrivados/{value}/edit", TEST_SMSPRIV_ID).with(csrf()).param("contenido", "Ejemplo2"))
@@ -81,7 +81,7 @@ public class MensajePrivadoControllerTest {
 				.andExpect(status().isOk()).andExpect(view().name("mensajesPrivados/mensajesPrivadosListing"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdatePdfFormHasErrors() throws Exception {
 		mockMvc.perform(post("/mensajesPrivados/{value}/edit", TEST_SMSPRIV_ID).with(csrf()).param("contenido", ""))

@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Usuario;
@@ -34,12 +35,11 @@ public class VideoServiceTests {
 	@Autowired
 	protected VideoService videoService;
 	
+	@DisplayName("Prueba de localización de pdf")
 	@Test
-	void shouldFindPetWithCorrectId() {
+	void shouldFindPdfWithCorrectId() {
 		Video video = this.videoService.findById(1);
-		assertThat(video.getLink()).startsWith("jfiowq jio");
-		assertThat(video.getDescripcion()).isEqualTo("jjjjjjjjjgeop");
-		assertThat(video.getDuracion()).isEqualTo("20");
+		assertEquals(1, video.getId());
 
 	}
 	
@@ -49,9 +49,10 @@ public class VideoServiceTests {
 		video.setLink("www.youtube2.com");
 		video.setDescripcion("po un video wapo2");
 		video.setDuracion("8:02");
+		video.setNombre("pepe");
 		this.videoService.save(video);
 		assertThat(video.getId().longValue()).isNotEqualTo(0);
-		assertEquals("www.youtube2.com", this.videoService.findById(video.getId()).getLink());
+		assertEquals(video.getLink(), this.videoService.findById(video.getId()).getLink());
 
 	}
 	
@@ -59,9 +60,8 @@ public class VideoServiceTests {
 	void shouldFindAllVideos() {
 		Collection<Video> videos = this.videoService.findAll();
 		Video video1 = EntityUtils.getById(videos, Video.class, 1);
-		assertThat(video1.getLink()).isEqualTo("jfiowq jio");
-		Video video2 = EntityUtils.getById(videos, Video.class, 2);
-		assertThat(video2.getLink()).isEqualTo("abcdefghijklmnop");
+		assertThat(video1.getLink()).isEqualTo("https://www.youtube.com/watch?v=HEydV4B6mRQ");
+		
 	}
 	
 	@Test
