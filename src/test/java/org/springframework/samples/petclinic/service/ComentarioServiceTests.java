@@ -17,6 +17,7 @@ import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
@@ -33,9 +34,12 @@ public class ComentarioServiceTests {
 
 	@Autowired
 	protected HiloService hiloService;
-	
+
 	@Autowired
 	protected UsuarioService usuarioService;
+	
+	@Autowired
+	protected UserService userService;
 	
 	private static int TEST_COMENTARIO_ID = 1;
 	
@@ -103,15 +107,16 @@ public class ComentarioServiceTests {
 	void shouldSave(){
 		Collection<Comentario> comentarios = this.comentarioService.findAll();
 		int size = comentarios.size();
+		User user = new User();
+		user.setUsername("user");
+		user.setPassword("Qwerty123");
 		Usuario usuario = new Usuario();
+		usuario.setUser(user);
 		usuario.setNombre("Fran2");
 		usuario.setApellidos("Bel2");
 		usuario.setLocalidad("El piso2");
 		usuario.setColegio("La etsii2");
 		usuario.setEmail("999999999992");
-
-//		usuario.setContrasena("qwerty1232");
-
 		usuarioService.save(usuario);
 		Hilo hilo = new Hilo();
 		hilo.setNombre("Profesorado maleducado2");

@@ -84,15 +84,20 @@ public class ComentarioService {
 				
 			}
 		}
-		List<Usuario> suscriptores = new ArrayList<>(comentario.getHilo().getSuscriptores());
-		for (Usuario u : suscriptores) {
-			if (!u.equals(comentario.getUsuario())) {
-				Notificacion notificacion = new Notificacion();
-				notificacion.setUsuario(u);
-				notificacion.setComentario(comentario);
-				notificacion.setMensajePrivado(null);
-				notificacionRepository.save(notificacion);
+		try {
+			List<Usuario> suscriptores = new ArrayList<>(comentario.getHilo().getSuscriptores());
+			for (Usuario u : suscriptores) {
+				if (!u.equals(comentario.getUsuario())) {
+					Notificacion notificacion = new Notificacion();
+					notificacion.setUsuario(u);
+					notificacion.setComentario(comentario);
+					notificacion.setMensajePrivado(null);
+					notificacionRepository.save(notificacion);
+				}
 			}
+		}
+		catch (Exception e) {
+			
 		}
 	}
 	

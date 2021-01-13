@@ -31,11 +31,13 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 
 public class VideoServiceTests {
-	
+
 	@Autowired
 	protected VideoService videoService;
+	@Autowired
+	protected UsuarioService usuarioService;
 	
-	@DisplayName("Prueba de localización de pdf")
+	@DisplayName("Prueba de localización de vídeo")
 	@Test
 	void shouldFindPdfWithCorrectId() {
 		Video video = this.videoService.findById(1);
@@ -45,7 +47,9 @@ public class VideoServiceTests {
 	
 	@Test
 	void shouldSave(){
+		Usuario usuario = usuarioService.findById(1);
 		Video video = new Video();
+		video.setUsuario(usuario);
 		video.setLink("www.youtube2.com");
 		video.setDescripcion("po un video wapo2");
 		video.setDuracion("8:02");
