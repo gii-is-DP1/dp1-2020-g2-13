@@ -26,7 +26,7 @@ public class PdfController {
 	public static final String PDFs_VISUALIZE = "pdfs/PdfVisualize";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	
 	private final PdfService pdfService;

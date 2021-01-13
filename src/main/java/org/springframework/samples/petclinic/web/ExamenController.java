@@ -37,8 +37,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 @RequestMapping("/examenes")
 //@Slf4j
@@ -50,7 +48,7 @@ public class ExamenController {
 	public static final String EXAMEN_DETAILS = "examenes/ExamenDetails";
 	public static final String EXAMEN_TRY = "examenes/examenTry";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	ExamenService examenService;
