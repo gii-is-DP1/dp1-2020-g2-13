@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
-import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;

@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +17,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Examen;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.IntentoService;
 import org.springframework.samples.petclinic.service.OpcionService;
-import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.RespuestaService;
 import org.springframework.samples.petclinic.service.TipoTestService;

@@ -2,14 +2,11 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
-import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.repository.ComentarioRepository;
 import org.springframework.samples.petclinic.repository.HiloRepository;
 import org.springframework.stereotype.Service;
