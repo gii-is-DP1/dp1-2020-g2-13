@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
