@@ -1,17 +1,13 @@
 package org.springframework.samples.petclinic.web;
 
-import java.io.Console;
 import java.util.Collection;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.UsuarioService;
@@ -35,7 +31,7 @@ public class HiloController {
 	public static final String HILO_VISTA = "hilos/vistaHilo";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 	
 //	private String auxViewHilo(int id, ModelMap model) {
 //		Hilo hilo = hiloService.findById(id);
@@ -141,6 +137,9 @@ public class HiloController {
 	 
 	@GetMapping("/new")
 	public String editNewHilo(ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
@@ -153,12 +152,6 @@ public class HiloController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-		if (!AuthController.isAuthenticated()) {
-			return "redirect:/" + LOGIN;
-		}
-		if (!AuthController.hasPaid()) {
-			return "redirect:/" + MEJORAR_CUENTA;
-		}
 		if(binding.hasErrors()) {	
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);		

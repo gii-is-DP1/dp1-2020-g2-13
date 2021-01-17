@@ -1,8 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -14,7 +11,6 @@ import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,7 +36,7 @@ public class UsuarioController {
 
 	public static final String PERFIL = "usuarios/perfil";
 
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	UsuarioService usuarioService;

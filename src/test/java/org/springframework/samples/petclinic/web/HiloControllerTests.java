@@ -73,7 +73,7 @@ public class HiloControllerTests {
 
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 
     	@Test
 	void testInitCreationForm() throws Exception {
@@ -94,7 +94,7 @@ public class HiloControllerTests {
 				.andExpect(status().isOk());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/hilos/new")
@@ -107,7 +107,7 @@ public class HiloControllerTests {
 				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitUpdateHiloForm() throws Exception {
 		Usuario usuario = new Usuario();
@@ -125,7 +125,7 @@ public class HiloControllerTests {
 				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 		@Test
 		void testProcessUpdateHiloFormSuccess() throws Exception {
 			mockMvc.perform(post("/hilos/{id}/edit", TEST_HILO_ID)
@@ -136,8 +136,8 @@ public class HiloControllerTests {
 					.andExpect(status().isOk())
 					.andExpect(view().name("hilos/HilosListing"));
 		}
-	
-    @WithMockUser(value = "spring")
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateHiloFormHasErrors() throws Exception {
 		mockMvc.perform(post("/hilos/{id}/edit", TEST_HILO_ID)

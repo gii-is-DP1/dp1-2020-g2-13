@@ -3,25 +3,19 @@ package org.springframework.samples.petclinic.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
-import org.springframework.samples.petclinic.model.Hilo;
-import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.MensajePrivado;
 import org.springframework.samples.petclinic.model.Notificacion;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.MensajePrivadoService;
 import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.UsuarioService;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,7 +35,7 @@ public class MensajePrivadoController {
 	public static final String MENSAJES_PRIVADOS_LISTING = "mensajesPrivados/mensajesPrivadosListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	MensajePrivadoService mensajePrivadoService;
@@ -54,6 +48,11 @@ public class MensajePrivadoController {
 	
 	@Autowired
 	NotificacionService notificacionService;
+	
+	@InitBinder("mensajePrivado")
+	public void initPreguntaBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new MensajePrivadoValidator());
+	}
 
 	@GetMapping("/{value}")
 	public String listMensajesPrivados(@PathVariable("value") int receptor, ModelMap model) {
@@ -142,7 +141,7 @@ public class MensajePrivadoController {
 	}
 
 	@GetMapping("/{value}/edit")
-	public String editComentario(@PathVariable("value") int value, ModelMap model) {
+	public String editMensajePrivado(@PathVariable("value") int value, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}

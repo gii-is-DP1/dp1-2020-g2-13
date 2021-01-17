@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Examen;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
-import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.IntentoService;
+import org.springframework.samples.petclinic.service.OpcionService;
+import org.springframework.samples.petclinic.service.PreguntaService;
+import org.springframework.samples.petclinic.service.RespuestaService;
+import org.springframework.samples.petclinic.service.TipoTestService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -46,6 +45,21 @@ public class ExamenControllerTest {
 	@MockBean
 	private UsuarioService usuarioService;
 
+	@MockBean
+	private IntentoService intentoService;
+
+	@MockBean
+	private RespuestaService respuestaService;
+	
+	@MockBean
+	private PreguntaService preguntaService;
+	
+	@MockBean
+	private OpcionService opcionService;
+
+	@MockBean
+	private TipoTestService tipoTestService;
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -58,7 +72,7 @@ public class ExamenControllerTest {
 		given(this.examenService.findById(TEST_EXAMEN_ID)).willReturn(new Examen());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/examenes/new", TEST_EXAMEN_ID)).andExpect(status().isOk())
@@ -76,7 +90,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("redirect:/examenes/{id}"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID)
@@ -89,7 +103,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("examenes/createOrUpdateExamenesForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test 
 	void testInitUpdateForm() throws Exception {
 		mockMvc.perform(get("/examenes/{id}/edit", TEST_EXAMEN_ID))
@@ -97,7 +111,7 @@ public class ExamenControllerTest {
 				.andExpect(view().name("examenes/createOrUpdateExamenesForm"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
 	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)
@@ -109,7 +123,7 @@ public class ExamenControllerTest {
 			.andExpect(view().name("examenes/ExamenesListing"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
 	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)

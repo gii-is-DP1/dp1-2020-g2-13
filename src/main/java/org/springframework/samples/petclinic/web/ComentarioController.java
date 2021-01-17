@@ -36,7 +36,7 @@ public class ComentarioController {
 	public static final String COMENTARIOS_LISTING = "comentarios/ComentariosListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	ComentarioService comentarioService;

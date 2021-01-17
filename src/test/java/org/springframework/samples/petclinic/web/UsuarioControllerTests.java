@@ -18,20 +18,20 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-
-import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
-
+import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 
-@WebMvcTest(controllers = UsuarioController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(controllers = UsuarioController.class, 
+		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), 
+		excludeAutoConfiguration = SecurityConfiguration.class)
 
 public class UsuarioControllerTests {
 	private static final int TEST_USUARIO_ID = 1;
@@ -46,6 +46,12 @@ public class UsuarioControllerTests {
 	private HiloService hiloService;
 	@MockBean
 	private ExamenService examenService;
+	@MockBean
+	NotificacionService notificacionService;
+	@MockBean
+	AuthoritiesService authoritiesService;
+	@MockBean
+	AuthController authController;
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -66,14 +72,14 @@ public class UsuarioControllerTests {
 	}
 
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/usuarios/new")).andExpect(status().isOk()).andExpect(model().attributeExists("usuario"))
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/usuarios/new").with(csrf()).param("nombre", "Ejemplo").param("apellidos", "Ejemplo2")
@@ -81,7 +87,7 @@ public class UsuarioControllerTests {
 				.param("contrasena", "Ejemplo6")).andExpect(status().isOk());
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/usuarios/new").with(csrf()).param("nombre", "").param("apellidos", "Ejemplo2")
@@ -91,7 +97,7 @@ public class UsuarioControllerTests {
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testInitUpdateUsuarioForm() throws Exception {
 		mockMvc.perform(get("/usuarios/{id}/edit", TEST_USUARIO_ID)).andExpect(status().isOk())
@@ -105,7 +111,7 @@ public class UsuarioControllerTests {
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 		@Test
 		void testProcessUpdateUsuarioFormSuccess() throws Exception {
 			mockMvc.perform(post("/usuarios/{id}/edit", TEST_USUARIO_ID)
@@ -120,7 +126,7 @@ public class UsuarioControllerTests {
 					.andExpect(view().name("usuarios/UsuariosListing"));
 		}
 	
-    @WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateUsuarioFormHasErrors() throws Exception {
 		mockMvc.perform(post("/usuarios/{id}/edit", TEST_USUARIO_ID)

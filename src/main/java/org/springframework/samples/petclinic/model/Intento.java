@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -19,7 +16,7 @@ import lombok.Data;
 public class Intento extends BaseEntity{
 
 	private Double puntuacion;
-	@NotEmpty
+	
 	private LocalDate fecha;
 	
 	@OneToOne

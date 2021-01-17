@@ -4,18 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.NoSuchElementException;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Examen;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +50,7 @@ public class ExamenServiceTest {
 	@Test
 	void shouldDeleteExamen() {
 		this.examenService.delete(this.examenService.findById(1));
-		assertThrows(NoSuchElementException.class, () -> this.examenService.findById(1).getTitulos());
+		assertThrows(NullPointerException.class, () -> this.examenService.findById(1).getTitulos());
 	}
 
 	@DisplayName("Prueba de edición de examen")
