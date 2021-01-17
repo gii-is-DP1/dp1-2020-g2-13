@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.MensajePrivado;
-import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +43,10 @@ public class MensajePrivadoServiceTest {
 
 		MensajePrivado smspriv = new MensajePrivado();
 		smspriv.setContenido("ejemplo");
+		Usuario usuario1 = this.usuarioService.findById(1);
+		Usuario usuario2 = this.usuarioService.findById(2);
+		smspriv.setReceptor(usuario2);
+		smspriv.setEmisor(usuario1);
 		this.mensajePrivadoService.save(smspriv);
 		assertEquals(smspriv, this.mensajePrivadoService.findById(smspriv.getId()));
 	}

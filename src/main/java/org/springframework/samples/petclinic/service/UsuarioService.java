@@ -2,25 +2,18 @@ package org.springframework.samples.petclinic.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Authorities;
-import org.springframework.samples.petclinic.model.Comentario;
-import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
-import org.springframework.samples.petclinic.model.businessrulesexceptions.ImpossibleComentarioException;
-import org.springframework.samples.petclinic.repository.PdfRepository;
+import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
+	private UserRepository userRepository;
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UserService userService;
@@ -44,6 +37,7 @@ public class UsuarioService {
 	}
 
 	public void delete(Usuario usuario) {
+//		userRepository.delete(usuario.getUser());
 		usuarioRepository.deleteById(usuario.getId());
 	}
 
