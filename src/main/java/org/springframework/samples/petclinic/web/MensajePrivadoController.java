@@ -35,7 +35,7 @@ public class MensajePrivadoController {
 	public static final String MENSAJES_PRIVADOS_LISTING = "mensajesPrivados/mensajesPrivadosListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	MensajePrivadoService mensajePrivadoService;

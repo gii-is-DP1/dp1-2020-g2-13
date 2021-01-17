@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -25,7 +23,7 @@ public class LogroController {
 	public static final String LOGROS_LISTING = "logros/LogrosListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	LogroService logroService;

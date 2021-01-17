@@ -6,8 +6,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.sun.istack.NotNull;
-
 import lombok.Data;
 
 @Data
