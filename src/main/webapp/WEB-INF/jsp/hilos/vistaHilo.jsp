@@ -38,5 +38,10 @@
 			</div>
 		</div>
 	</form:form>
+	
+	
+   	<a href="/hilos">
+   		<button class="btn btn-default">Volver a la lista de hilos</button>
+   	</a>
 
 </petclinic:layout>
