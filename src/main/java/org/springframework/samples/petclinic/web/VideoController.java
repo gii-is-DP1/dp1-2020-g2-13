@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +30,7 @@ public class VideoController {
 	public static final String VIDEOS_VISUALIZE = "videos/VideoVisualize";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
-	public static final String ERROR = "";
+	public static final String ERROR = "error";
 
 	@Autowired
 	VideoService videoService;

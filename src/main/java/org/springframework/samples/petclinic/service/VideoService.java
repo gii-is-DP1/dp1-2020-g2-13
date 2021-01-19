@@ -1,10 +1,8 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.model.Video;
 import org.springframework.samples.petclinic.repository.VideoRepository;
 import org.springframework.stereotype.Service;

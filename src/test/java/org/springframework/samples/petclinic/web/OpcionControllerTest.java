@@ -17,7 +17,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Opcion;
-import org.springframework.samples.petclinic.model.Pdf;
 import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.TipoTestService;
