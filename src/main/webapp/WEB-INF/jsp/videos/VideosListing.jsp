@@ -44,6 +44,10 @@
 		<a href="/videos/new" class="btn  btn-success"><span
 			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir
 			Video</a>
+			
+		<a href="/videos">
+		   		<button class="btn btn-default">Volver a Lista de Videos</button>
+		</a>
 	</p>
 
 </petclinic:layout>
