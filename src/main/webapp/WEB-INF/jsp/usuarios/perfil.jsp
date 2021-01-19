@@ -60,5 +60,8 @@
 		   	</a>
     	</c:if>
     </c:if>
+    <a href="/usuarios">
+		   		<button class="btn btn-default">Volver a Lista de Usuarios</button>
+	</a>
 
 </petclinic:layout>
