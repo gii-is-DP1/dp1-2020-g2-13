@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.repository.ComentarioRepository;
 import org.springframework.samples.petclinic.repository.HiloRepository;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,11 @@ public class HiloService {
 
 	public Collection<Hilo> findByUsuarioId(int usuarioid) {
 		return hiloRepository.findByUsuarioId(usuarioid);
+	}
+	
+	public void suscribir(Hilo hilo, Usuario usuario) {
+		hilo.getSuscriptores().add(usuario);
+		save(hilo);
 	}
 
 }
