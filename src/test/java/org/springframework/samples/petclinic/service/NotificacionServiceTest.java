@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Comentario;
+import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.MensajePrivado;
 import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,15 @@ public class NotificacionServiceTest {
 
 	@Autowired
 	protected NotificacionService notificacionService;
+
+	@Autowired
+	protected MensajePrivadoService mensajePrivadoService;
+
+	@Autowired
+	protected ComentarioService comentarioService;
+
+	@Autowired
+	protected HiloService hiloService;
 	
 	@Autowired
 	protected UsuarioService usuarioService;
@@ -73,5 +85,36 @@ public class NotificacionServiceTest {
 		assertThat(notificaciones.get(0).getUsuario().getId()).isEqualTo(1);
 
 	}
-	
+
+	@DisplayName("Prueba de generación de notificacion al enviar mensaje privado")
+	@Test
+	@Transactional
+	public void shouldGenerateNotificationOnMessageRecieve() {
+		int n = notificacionService.findAll().size();
+		Usuario usuario1 = this.usuarioService.findById(1);
+		Usuario usuario2 = this.usuarioService.findById(2);
+		MensajePrivado m = new MensajePrivado();
+		m.setContenido("Hola");
+		m.setEmisor(usuario2);
+		m.setReceptor(usuario1);
+		mensajePrivadoService.save(m);
+		assertThat(notificacionService.findAll().size()).isEqualTo(n+1);
+	}
+
+	@DisplayName("Prueba de generación de notificacion al comentarse en un hilo al que se está suscrito")
+	@Test
+	@Transactional
+	public void shouldGenerateNotificationOnCommentInSubscThread() {
+		int n = notificacionService.findAll().size();
+		Usuario usuario1 = this.usuarioService.findById(1);
+		Usuario usuario2 = this.usuarioService.findById(2);
+		Hilo hilo = hiloService.findById(1);
+		hiloService.suscribir(hilo, usuario1);
+		Comentario comentario = new Comentario();
+		comentario.setContenido("Hola");
+		comentario.setUsuario(usuario2);
+		comentario.setHilo(hilo);
+		comentarioService.save(comentario);
+		assertThat(notificacionService.findAll().size()).isEqualTo(n+1);
+	}
 }
