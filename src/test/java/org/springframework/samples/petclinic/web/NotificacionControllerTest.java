@@ -56,7 +56,9 @@ public class NotificacionControllerTest {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testlistNotificaciones() throws Exception {
-		mockMvc.perform(get("/notificaciones")).andExpect(status().isOk()).andExpect(model().attributeExists("notificaciones"))
+		mockMvc.perform(get("/notificaciones"))
+				.andExpect(status().isOk()).andExpect(model()
+				.attributeExists("notificaciones"))
 				.andExpect(view().name("notificaciones/NotificacionesListing"));
 	}
 

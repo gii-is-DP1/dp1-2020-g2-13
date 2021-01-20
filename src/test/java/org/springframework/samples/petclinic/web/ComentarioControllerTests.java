@@ -121,9 +121,9 @@ class ComentarioControllerTests {
 	void testProcessCreationFormHasErrors() throws Exception {
 		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID)
 							.with(csrf())
-							.param("contenido", ""))
+							.param("contenido", " "))
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasFieldErrors("comentario"))
-				.andExpect(view().name("hilos/{" + TEST_HILO_ID + "}"));
+				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
 	}
 }

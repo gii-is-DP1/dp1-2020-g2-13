@@ -76,6 +76,16 @@ public class HiloControllerTests {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 
     	@Test
+	void testListing() throws Exception {
+		mockMvc.perform(get("/hilos"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("hilos"))
+				.andExpect(view().name("hilos/HilosListing"));
+	}
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+
+    	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/hilos/new"))
 				.andExpect(status().isOk())
