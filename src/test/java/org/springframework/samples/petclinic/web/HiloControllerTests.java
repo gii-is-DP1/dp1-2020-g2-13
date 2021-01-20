@@ -83,7 +83,7 @@ public class HiloControllerTests {
 				.andExpect(view().name("hilos/createOrUpdateHilosForm"));
 	}
 
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/hilos/new")
