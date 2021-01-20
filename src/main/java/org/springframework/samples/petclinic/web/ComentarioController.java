@@ -46,8 +46,6 @@ public class ComentarioController {
 	UsuarioService usuarioService;
 	@Autowired
 	NotificacionService notificacionService;
-	@Autowired
-	OwnerService ownerService;
 
 	@InitBinder("comentario")
 	public void initComentarioBinder(WebDataBinder dataBinder) {
