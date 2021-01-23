@@ -66,6 +66,7 @@ public class PdfController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("pdf", pdf);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return PDFs_FORM;
 	}
 
