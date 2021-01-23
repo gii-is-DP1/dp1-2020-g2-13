@@ -9,7 +9,7 @@
 <petclinic:layout pageName="videoVisualize">
 
 <a href="/videos">
-		   		<button class="btn btn-default">Volver a Lista de Videos</button>
+		   		<button class="btn btn-default">Volver a Lista de Vídeos</button>
 		</a>
 
 	<h2>${video.nombre}</h2>
