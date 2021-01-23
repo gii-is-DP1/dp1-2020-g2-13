@@ -9,7 +9,7 @@
 <petclinic:layout pageName="comentario">
 	<h2>
 		<c:if test="${comentario['new']}">Nuevo </c:if>
-		comentario
+		Comentario
 	</h2>
 	<form:form modelAttribute="comentario" class="form-horizontal"
 		id="add-comentario-form">
