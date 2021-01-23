@@ -6,6 +6,11 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="examenTry">
+
+<a href="/examenes">
+		   		<button class="btn btn-default">Volver a Lista de Examenes</button>
+		</a>
+
     <h2>Pregunta <c:out value="${numero_pregunta+1}"/> de <c:out value="${size}"/>:</h2>
     </br>
     <p style="font-size:18px"><c:out value="${pregunta}"/></p>

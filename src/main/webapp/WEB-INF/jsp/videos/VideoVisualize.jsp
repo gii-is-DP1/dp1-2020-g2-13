@@ -7,6 +7,11 @@
 
 
 <petclinic:layout pageName="videoVisualize">
+
+<a href="/videos">
+		   		<button class="btn btn-default">Volver a Lista de Videos</button>
+		</a>
+
 	<h2>${video.nombre}</h2>
 	<iframe width="560" height="315"
 		src="${embedLink}"
