@@ -41,10 +41,6 @@ public class HiloValidator implements Validator {
 		if (contenido.trim().length() == 0) {
 			errors.rejectValue("contenido", "El contenido no puede estar vacío", "El contenido no puede estar vacío");
 		}
-		// usuario validation
-		if (usuario == null) {
-			errors.rejectValue("usuario", "Usuario no puede estar vacío", "Usuario no puede estar vacío");
-		}
 	}
 
 	@Override
