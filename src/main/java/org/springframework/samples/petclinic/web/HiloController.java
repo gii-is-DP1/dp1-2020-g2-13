@@ -110,7 +110,7 @@ public class HiloController {
 		} else {
 			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
 			hiloService.save(hilo);
-			model.addAttribute("message", "Thread updated succesfully!");
+			model.addAttribute("message", "Hilo actualizado");
 			return listHilos(model);
 		}
 	}
@@ -131,7 +131,7 @@ public class HiloController {
 			return "redirect:/" + ERROR;
 		}
 		hiloService.delete(hilo);
-		model.addAttribute("message","The thread was deleted successfully!");
+		model.addAttribute("message","Hilo eliminado");
 		return listHilos(model);
 	}
 	 
@@ -163,7 +163,7 @@ public class HiloController {
 		}else {
 			hilo.setUsuario(usuarioLoggeado); 
 			hiloService.save(hilo);
-			model.addAttribute("message", "The thread was created successfully!");			
+			model.addAttribute("message", "Nuevo hilo añadido");			
 			return listHilos(model);
 		}
 	}
