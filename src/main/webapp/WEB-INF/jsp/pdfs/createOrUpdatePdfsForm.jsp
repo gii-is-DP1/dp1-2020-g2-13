@@ -13,7 +13,8 @@
     <form:form modelAttribute="pdf" class="form-horizontal" id="add-pdf-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
-            <petclinic:inputField label="Enlace" name="link"/>                     
+            <petclinic:inputField label="Enlace" name="link"/>          
+            <input name="usuario" type=hidden value="${usuario.id}">           
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

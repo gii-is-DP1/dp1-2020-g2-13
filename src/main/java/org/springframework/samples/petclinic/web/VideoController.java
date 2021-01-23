@@ -93,6 +93,7 @@ public class VideoController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("video", video);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return VIDEOS_FORM;
 	}
 

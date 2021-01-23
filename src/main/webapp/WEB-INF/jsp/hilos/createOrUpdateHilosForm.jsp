@@ -14,7 +14,8 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Categoria" name="categoria"/>
-            <petclinic:inputField label="Contenido" name="contenido"/>          
+            <petclinic:inputField label="Contenido" name="contenido"/>   
+            <input name="usuario" type=hidden value="${usuario.id}">     
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
