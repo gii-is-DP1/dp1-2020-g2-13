@@ -59,7 +59,7 @@ public class VideoController {
 			return "redirect:/" + ERROR;
 		}
 		videoService.delete(video);
-		model.addAttribute("message", "Video eliminado");
+		model.addAttribute("message", "Vídeo eliminado");
 		return listVideos(model);
 	}
 
@@ -106,7 +106,7 @@ public class VideoController {
 		} else {
 			BeanUtils.copyProperties(modifiedVideo, video, "id");
 			videoService.save(video);
-			model.addAttribute("message", "Video actualizado");
+			model.addAttribute("message", "Vídeo actualizado");
 			return listVideos(model);
 		}
 	}
@@ -133,7 +133,7 @@ public class VideoController {
 			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 			video.setUsuario(usuarioLoggeado);
 			videoService.save(video);
-			model.addAttribute("message", "Nuevo video añadido");
+			model.addAttribute("message", "Nuevo vídeo añadido");
 			return listVideos(model);
 		}
 	}
