@@ -66,9 +66,7 @@
     
     <p>
     	<a href="/examenes/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Exam</a>
-    	<a href="/examenes">
-		   		<button class="btn btn-default">Volver a Lista de Examenes</button>
-		</a>
+    	
     </p>
 
 </petclinic:layout>
