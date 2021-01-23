@@ -48,9 +48,7 @@
     
     <p>
     	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Documento</a>
-    	<a href="/pdfs">
-		   		<button class="btn btn-default">Volver a Lista de pdfs</button>
-		</a>
+    	
     </p>
 
 </petclinic:layout>
