@@ -8,7 +8,7 @@
 <petclinic:layout pageName="examenTry">
 
 	<a href="/examenes">
-		<button class="btn btn-default">Volver a Lista de Examenes</button>
+		<button class="btn btn-default">Volver a Lista de Exámenes</button>
 	</a>
 
 	<h2>

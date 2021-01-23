@@ -25,11 +25,11 @@
 			<div class="col-sm-offset-2 col-sm-10">
 				<c:choose>
 					<c:when test="${comentario['new']}">
-						<button class="btn btn-default" type="submit">Add Comment</button>
+						<button class="btn btn-default" type="submit">Añadir comentario</button>
 					</c:when>
 					<c:otherwise>
-						<button class="btn btn-default" type="submit">Update
-							Comment</button>
+						<button class="btn btn-default" type="submit">Actualizar
+							comentario</button>
 					</c:otherwise>
 				</c:choose>
 			</div>

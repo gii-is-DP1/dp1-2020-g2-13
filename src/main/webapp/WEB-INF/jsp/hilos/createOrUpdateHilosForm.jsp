@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="hilos">
     <h2>
-        <c:if test="${hilo['new']}">Nuevo </c:if> hilo
+        <c:if test="${hilo['new']}">Nuevo </c:if> Hilo
     </h2>
     <form:form modelAttribute="hilo" class="form-horizontal" id="add-hilo-form">
         <div class="form-group has-feedback">
@@ -21,10 +21,10 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${hilo['new']}">
-                        <button class="btn btn-default" type="submit">Add Thread</button>
+                        <button class="btn btn-default" type="submit">Añadir hilo</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Thread</button>
+                        <button class="btn btn-default" type="submit">Actualizar hilo</button>
                     </c:otherwise>
                 </c:choose>
             </div>

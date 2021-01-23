@@ -7,13 +7,13 @@
 
 
 <petclinic:layout pageName="videos">
-	<h2>Videos</h2>
+	<h2>Vídeos</h2>
 	<table id="usuariosTable" class="table table-striped">
 		<thead>
 			<tr>
 				<th style="width: 40%;">Nombre</th>
-				<th style="width: 20%;">Descripcion</th>
-				<th style="width: 20%;">Duracion</th>
+				<th style="width: 20%;">Descripción</th>
+				<th style="width: 20%;">Duración</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -43,7 +43,7 @@
 	<p>
 		<a href="/videos/new" class="btn  btn-success"><span
 			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir
-			Video</a>
+			Vídeo</a>
 			
 		
 	</p>
