@@ -22,10 +22,10 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${video['new']}">
-                        <button class="btn btn-default" type="submit">Subir video</button>
+                        <button class="btn btn-default" type="submit">Subir vídeo</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Editar video</button>
+                        <button class="btn btn-default" type="submit">Actualizar vídeo</button>
                     </c:otherwise>
                 </c:choose>
             </div>

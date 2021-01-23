@@ -11,9 +11,9 @@
 	<table id="examenesTable" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 20%;">Titulos</th>
-				<th style="width: 80%;">Puntuacion Maxima</th>
-				<th style="width: 80%;">Puntuacion Minima</th>
+				<th style="width: 20%;">Examen</th>
+				<th style="width: 40%;">Puntuación máxima</th>
+				<th style="width: 40%;">Puntuación mínima</th>
 				<th></th>
 				<th></th>
 

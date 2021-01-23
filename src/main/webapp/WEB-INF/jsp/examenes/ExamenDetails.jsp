@@ -7,7 +7,7 @@
 <petclinic:layout pageName="perfil">
 
 	<a href="/examenes">
-		<button class="btn btn-default">Volver a Lista de Examenes</button>
+		<button class="btn btn-default">Volver a Lista de Exámenes</button>
 	</a>
 
 	<h2>Detalles del examen</h2>
@@ -17,11 +17,11 @@
 			<td><b><c:out value="${examen.titulos}" /></b></td>
 		</tr>
 		<tr>
-			<th>PuntuaciÃ³n MÃ¡xima</th>
+			<th>Puntuación máxima</th>
 			<td><c:out value="${examen.puntuacionMaxima}" /></td>
 		</tr>
 		<tr>
-			<th>PuntuaciÃ³n MÃ­nima</th>
+			<th>Puntuación mínima</th>
 			<td><c:out value="${examen.puntuacionMinima}" /></td>
 		</tr>
 	</table>
