@@ -196,17 +196,16 @@ public class ComentarioController {
 			return "redirect:/" + ERROR;
 		}
 		Hilo hilo = hiloService.findById(value);
-		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo", hilo);
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuarioLoggeado);
 		model.addAttribute("comentario", comentario);
 		return COMENTARIOS_FORM;
 	}
 
-	@PostMapping("/{value}/edit/{id}")
-	public String editComentario(@PathVariable("id") int id, @Valid Comentario modifiedComentario,
-			BindingResult binding, ModelMap model) {
-		Comentario comentario = comentarioService.findById(id);
+	@PostMapping("/{value}/edit/{comment}")
+	public String editComentario(@PathVariable("comment") int comment, @PathVariable("value") int id, 
+			@Valid Comentario modifiedComentario, BindingResult binding, ModelMap model) {
+		Comentario comentario = comentarioService.findById(comment);
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);

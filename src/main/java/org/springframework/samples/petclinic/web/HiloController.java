@@ -92,7 +92,7 @@ public class HiloController {
 		}
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo", hilo);
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return HILOS_FORM;
 	}
 
