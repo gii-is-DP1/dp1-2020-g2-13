@@ -143,7 +143,11 @@ public class HiloController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("hilo",new Hilo());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return HILOS_FORM;
 	}
 	
