@@ -95,7 +95,7 @@ public class ExamenController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("examen", examen);
-		model.addAttribute("usuario", usuario);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return EXAMENES_FORM;
 	}
 
