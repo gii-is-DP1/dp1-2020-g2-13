@@ -12,6 +12,7 @@ public class LogroValidator implements Validator {
 		Logro logro = (Logro) obj;
 		String nombre = logro.getNombre();
 		String descripcion = logro.getDescripcion();
+
 		// nombre validation
 		if (!StringUtils.hasLength(nombre) || nombre.length() < 1 || nombre.length() > 30) {
 			errors.rejectValue("nombre", "El nombre debe tener entre 1 y 30 caracteres",
@@ -31,9 +32,6 @@ public class LogroValidator implements Validator {
 		}
 	}
 
-	/**
-	 * This Validator validates *just* Pet instances
-	 */
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Logro.class.isAssignableFrom(clazz);

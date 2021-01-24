@@ -92,7 +92,7 @@ public class HiloController {
 		}
 		Collection<Usuario> usuarios = usuarioService.findAll();
 		model.addAttribute("hilo", hilo);
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return HILOS_FORM;
 	}
 
@@ -110,7 +110,7 @@ public class HiloController {
 		} else {
 			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
 			hiloService.save(hilo);
-			model.addAttribute("message", "Thread updated succesfully!");
+			model.addAttribute("message", "Hilo actualizado");
 			return listHilos(model);
 		}
 	}
@@ -131,7 +131,7 @@ public class HiloController {
 			return "redirect:/" + ERROR;
 		}
 		hiloService.delete(hilo);
-		model.addAttribute("message","The thread was deleted successfully!");
+		model.addAttribute("message","Hilo eliminado");
 		return listHilos(model);
 	}
 	 
@@ -143,7 +143,11 @@ public class HiloController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("hilo",new Hilo());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return HILOS_FORM;
 	}
 	
@@ -159,7 +163,7 @@ public class HiloController {
 		}else {
 			hilo.setUsuario(usuarioLoggeado); 
 			hiloService.save(hilo);
-			model.addAttribute("message", "The thread was created successfully!");			
+			model.addAttribute("message", "Nuevo hilo añadido");			
 			return listHilos(model);
 		}
 	}

@@ -27,31 +27,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	public static final String USUARIOS_LISTING = "usuarios/UsuariosListing";
-
-	public static final String USUARIOS_FORM = "usuarios/createOrUpdateUsuariosForm";
-	
-	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
-	
+	public static final String USUARIOS_FORM = "usuarios/createOrUpdateUsuariosForm";	
+	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";	
 	public static final String LOGIN = "login";
-
 	public static final String PERFIL = "usuarios/perfil";
-
 	public static final String ERROR = "error";
 
 	@Autowired
 	UsuarioService usuarioService;
 	@Autowired
 	HiloService hiloService;
-
 	@Autowired
 	ExamenService examenService;
-	
 	@Autowired
-	NotificacionService notificacionService;
-	
+	NotificacionService notificacionService;	
 	@Autowired
-	AuthoritiesService authoritiesService;
-	
+	AuthoritiesService authoritiesService;	
 	@Autowired
 	AuthController authController;
 
@@ -107,7 +98,7 @@ public class UsuarioController {
 		} else {
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
 			usuarioService.save(usuario);
-			model.addAttribute("message", "User updated succesfully!");
+			model.addAttribute("message", "Usuario actualizado");
 			return listUsuarios(model);
 		}
 	}
@@ -128,7 +119,7 @@ public class UsuarioController {
 		}
 		Usuario usuario = usuarioService.findById(id);
 		usuarioService.delete(usuario);
-		model.addAttribute("message", "The user was deleted successfully!");
+		model.addAttribute("message", "Usuario eliminado");
 		return listUsuarios(model);
 
 	}
@@ -145,7 +136,7 @@ public class UsuarioController {
 			return USUARIOS_FORM;
 		} else {
 			usuarioService.save(usuario);
-			model.addAttribute("message", "The user was created successfully!");
+			model.addAttribute("message", "Nuevo usuario creado");
 			return listUsuarios(model);
 		}
 	}
