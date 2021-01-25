@@ -72,7 +72,6 @@ class PdfControllerTests {
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/pdfs/new").with(csrf()).param("link", "Ejemplo").param("nombre", "paquito2"))
-
 				.andExpect(status().isOk());
 	}
 

@@ -42,5 +42,9 @@
 			class="btn  btn-success"><span class="glyphicon glyphicon-plus"
 			aria-hidden="true"></span>Enviar mensaje</a>
 	</p>
+	
+   	<a href="/usuarios/${receptor.id}/perfil">
+   		<button class="btn btn-default">Volver al perfil</button>
+   	</a>
 
 </petclinic:layout>

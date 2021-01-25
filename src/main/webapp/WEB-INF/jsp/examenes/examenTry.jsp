@@ -14,14 +14,23 @@
     
    	<form:form modelAttribute="respuesta" class="form-horizontal" id="add-opcion-form">
         <div class="form-group has-feedback">
-        	<c:forEach items="${opciones}" var="opcion">
-            <form:radiobutton path="textoRespuesta" value="${opcion.texto}"/>  <c:out value="${opcion.texto}"/>
-            </br>
-        </c:forEach>
+        <c:choose>
+       		<c:when test="${numeroOpciones > 0}">
+        		<c:forEach items="${opciones}" var="opcion">
+            		<form:radiobutton path="textoRespuesta" value="${opcion.texto}"/>  <c:out value="${opcion.texto}"/>
+            		</br>
+       			</c:forEach>
+            </c:when>
+            <c:otherwise>
+            	<petclinic:inputField label="Respuesta" name="textoRespuesta"/>
+            	</br>
+            </c:otherwise>
+        </c:choose>
         </div>
         <input name="numeroPregunta" type=hidden value="${numero_pregunta}">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
+            	</br>
 				<button href="examenes/${examen.id}/${intento.id}/newTry" class="btn btn-default" type="submit">Send Answer</button>
             </div>
         </div>

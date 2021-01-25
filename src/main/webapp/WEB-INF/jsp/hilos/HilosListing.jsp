@@ -12,7 +12,7 @@
 		<thead>
 			<tr>
 				<th style="width: 20%;">Nombre</th>
-				<th style="width: 80%;">Categoria</th>
+				<th style="width: 80%;">Categoría</th>
 				<th></th>
 				<th></th>
 
@@ -47,7 +47,7 @@
 
 	<p>
 		<a href="/hilos/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Thread</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir hilo</a>
 	</p>
 
 </petclinic:layout>

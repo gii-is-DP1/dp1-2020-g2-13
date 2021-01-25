@@ -173,7 +173,7 @@ public class MensajePrivadoController {
 			BeanUtils.copyProperties(modifiedMensajePrivado, mensajePrivado, "id");
 			mensajePrivadoService.save(mensajePrivado);
 			model.addAttribute("message", "The comentario was created successfully!");
-			return listMensajesPrivados(id, model);
+			return listMensajesPrivados(mensajePrivado.getReceptor().getId(), model);
 		}
 	}
 }

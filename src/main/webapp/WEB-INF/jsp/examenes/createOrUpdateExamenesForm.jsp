@@ -14,16 +14,18 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Titulos" name="titulos"/>
             <petclinic:inputField label="Puntuacion Maxima" name="puntuacionMaxima"/>
-            <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>        
+            <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>  
+            <input name="usuario" type=hidden value="${usuario.id}">
+                  
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${examen['new']}">
-                        <button class="btn btn-default" type="submit">Add Examen</button>
+                        <button class="btn btn-default" type="submit">Añadir Examen</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Examen</button>
+                        <button class="btn btn-default" type="submit">Guardar Cambios</button>
                     </c:otherwise>
                 </c:choose>
             </div>

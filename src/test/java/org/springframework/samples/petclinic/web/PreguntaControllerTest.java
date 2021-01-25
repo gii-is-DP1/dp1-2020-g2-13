@@ -117,8 +117,9 @@ public class PreguntaControllerTest {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/preguntas/{value}/new",TEST_EXAMEN_ID).with(csrf()).param("contenido","")).andExpect(status().isOk())
-				.andExpect(model().attributeHasFieldErrors("contenido"))
+		mockMvc.perform(post("/preguntas/{value}/new",TEST_EXAMEN_ID).with(csrf()).param("contenido", " "))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeHasFieldErrors("pregunta"))
 				.andExpect(view().name("preguntas/createOrUpdatePreguntasForm"));
 	}
 

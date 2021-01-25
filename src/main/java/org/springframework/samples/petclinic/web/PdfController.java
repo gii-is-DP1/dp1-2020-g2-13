@@ -66,6 +66,7 @@ public class PdfController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("pdf", pdf);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return PDFs_FORM;
 	}
 
@@ -79,7 +80,7 @@ public class PdfController {
 		} else {
 			BeanUtils.copyProperties(modifiedPdf, pdf, "id");
 			pdfService.save(pdf);
-			model.addAttribute("message", "Pdf updated succesfully!");
+			model.addAttribute("message", "Documento actualizado");
 			return listPdfs(model);
 		}
 	}
@@ -94,7 +95,7 @@ public class PdfController {
 			return "redirect:/" + ERROR;
 		}
 		pdfService.delete(pdf);
-		model.addAttribute("message","El documento ha sido eliminado con éxito.");
+		model.addAttribute("message","Documento eliminado");
 		return listPdfs(model);
 	}
 	
@@ -121,7 +122,7 @@ public class PdfController {
 			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 			pdf.setUsuario(usuarioLoggeado);
 			pdfService.save(pdf);
-			model.addAttribute("message", "The thread was created successfully!");			
+			model.addAttribute("message", "Nuevo documento creado");			
 			return listPdfs(model);
 		}
 	}

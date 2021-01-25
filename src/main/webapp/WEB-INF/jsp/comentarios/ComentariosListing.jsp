@@ -50,7 +50,11 @@
 
 	<p>
 		<a href="/hilos/${hilo.id}/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Comment</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir comentario</a>
 	</p>
+	
+   	<a href="/hilos">
+   		<button class="btn btn-default">Volver a la lista de hilos</button>
+   	</a>
 
 </petclinic:layout>
