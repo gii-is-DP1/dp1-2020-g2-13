@@ -8,6 +8,11 @@
 
 
 <petclinic:layout pageName="hilo">
+
+	<a href="/hilos">
+   		<button class="btn btn-default">Volver a la lista de hilos</button>
+   	</a>
+
 	<h1>${hilo.nombre}</h1>
 	<p>${hilo.contenido}</p>
 	<c:forEach items="${comentarios}" var="comentarios">

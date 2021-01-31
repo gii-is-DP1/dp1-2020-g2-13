@@ -48,6 +48,7 @@
     
     <p>
     	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Documento</a>
+    	
     </p>
 
 </petclinic:layout>

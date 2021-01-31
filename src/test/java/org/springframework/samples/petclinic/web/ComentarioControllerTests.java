@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.model.Hilo;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
+import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -32,7 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Colin But
  */
 
-@WebMvcTest(value = HiloController.class,
+@WebMvcTest(value = ComentarioController.class,
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 		excludeAutoConfiguration= SecurityConfiguration.class)
 class ComentarioControllerTests {
@@ -44,7 +45,7 @@ class ComentarioControllerTests {
 	private static final int TEST_HILO_ID = 1;
 
 	@Autowired
-	private HiloController comentarioController;
+	private ComentarioController comentarioController;
 
 
 	@MockBean
@@ -55,6 +56,9 @@ class ComentarioControllerTests {
 	
 	@MockBean
 	private HiloService hiloService;
+	
+	@MockBean
+	private NotificacionService notificacionService;
         
 
 	@Autowired
@@ -98,14 +102,15 @@ class ComentarioControllerTests {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/hilos/{id}", TEST_HILO_ID)).andExpect(status().isOk()).andExpect(model().attributeExists("comentario"))
-		.andExpect(view().name("hilos/vistaHilo"));
+		mockMvc.perform(get("/hilos/{id}/new", TEST_HILO_ID))
+		.andExpect(status().isOk()).andExpect(model().attributeExists("hilo"))
+		.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
 	}
 
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/hilos/{id}", TEST_COMENTARIO_ID)
+		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID)
 							.with(csrf())
 							.param("contenido", "Hola"))
 				.andExpect(status().isOk());
@@ -114,11 +119,11 @@ class ComentarioControllerTests {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/hilos/{id}", TEST_HILO_ID)
+		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID)
 							.with(csrf())
-							.param("contenido", ""))
+							.param("contenido", " "))
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasFieldErrors("comentario"))
-				.andExpect(view().name("hilos/{" + TEST_HILO_ID + "}"));
+				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
 	}
 }

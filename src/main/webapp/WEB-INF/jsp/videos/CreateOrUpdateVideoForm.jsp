@@ -15,16 +15,17 @@
         	<petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Link" name="link"/>
             <petclinic:inputField label="Descripcion" name="descripcion"/>     
-            <petclinic:inputField label="Duracion" name="duracion"/>       
+            <petclinic:inputField label="Duracion" name="duracion"/>           
+            <input name="usuario" type=hidden value="${usuario.id}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${video['new']}">
-                        <button class="btn btn-default" type="submit">Subir video</button>
+                        <button class="btn btn-default" type="submit">Subir vídeo</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Editar video</button>
+                        <button class="btn btn-default" type="submit">Actualizar vídeo</button>
                     </c:otherwise>
                 </c:choose>
             </div>

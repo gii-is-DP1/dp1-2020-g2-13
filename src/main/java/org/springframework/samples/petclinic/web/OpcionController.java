@@ -77,7 +77,7 @@ public class OpcionController {
 			pregunta.setTipoTest(tipoTest);
 			preguntaService.save(pregunta);
 			
-			model.addAttribute("message", "The question was created successfully!");
+			model.addAttribute("message", "Pregunta añadida");
 			return examenController.examenDetails(id_examen, model);
 		}
 	}
@@ -98,7 +98,7 @@ public class OpcionController {
 			preguntaService.save(pregunta);
 			tipoTestService.delete(tipoTest2);
 		}
-		model.addAttribute("message", "The option was deleted successfully!");
+		model.addAttribute("message", "Pregunta Borrada");
 		return examenController.examenDetails(id_examen, model);
 	}
 

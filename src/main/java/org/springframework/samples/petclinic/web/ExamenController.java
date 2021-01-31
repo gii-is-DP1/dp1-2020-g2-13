@@ -236,6 +236,7 @@ public class ExamenController {
 		if(pregunta.getTipoTest()!=null) {
 			opciones = pregunta.getTipoTest().getOpciones();
 		}
+		int numeroOpciones = opciones.size();
 		Examen examen = examenService.findById(examen_id);
 		int size = examen.getPreguntas().size();
 		model.addAttribute("examen", examen);
@@ -245,6 +246,7 @@ public class ExamenController {
 		model.addAttribute("respuesta", respuesta);
 		model.addAttribute("numero_pregunta", numero_pregunta);
 		model.addAttribute("size", size);
+		model.addAttribute("numeroOpciones", numeroOpciones);
 		return EXAMEN_TRY;
 	}
 	

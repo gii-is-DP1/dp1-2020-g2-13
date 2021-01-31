@@ -7,6 +7,11 @@
 
 
 <petclinic:layout pageName="PdfVisualizacion">
+
+<a href="/pdfs">
+		   		<button class="btn btn-default">Volver a Lista de pdfs</button>
+		</a>
+
     <h2>${pdf.nombre}</h2>
     
     <embed src="${pdf.link}" width="800" height="800">    

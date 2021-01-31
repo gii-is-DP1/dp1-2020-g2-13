@@ -110,6 +110,13 @@
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Herramientas</span>
                 </petclinic:menuItem>
+                
+                   <petclinic:menuItem active="${name eq 'examenes'}" url="/examenes"
+                    title="examenes" >
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Exámenes</span>
+                </petclinic:menuItem>
+                       
 				
 				<petclinic:menuItem active="${name eq 'foro'}" url="/hilos"
                     title="foro" dropdown="${true}">
@@ -128,7 +135,7 @@
                             </li>
                         </ul>
                 </petclinic:menuItem>
-				
+ 		
 				<!--
 				<petclinic:menuItem active="${name eq 'pdfs'}" url="/pdfs"
                     title="pdf" dropdown="${true}">
