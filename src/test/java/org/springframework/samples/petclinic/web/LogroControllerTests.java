@@ -30,9 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Colin But
  */
 
-@WebMvcTest(value = LogroController.class,
-		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
-		excludeAutoConfiguration= SecurityConfiguration.class)
+@WebMvcTest(value = LogroController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 class LogroControllerTests {
 
 	private static final int TEST_LOGRO_ID = 1;
@@ -40,10 +38,8 @@ class LogroControllerTests {
 	@Autowired
 	private LogroController logroController;
 
-
 	@MockBean
 	private LogroService logroService;
-        
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -59,39 +55,31 @@ class LogroControllerTests {
 		logro.setDescripcion("Poseso");
 		given(this.logroService.findById(TEST_LOGRO_ID)).willReturn(logro);
 
-
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-        @Test
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/logros/new")).andExpect(status().isOk()).andExpect(model().attributeExists("logro"))
-		.andExpect(view().name("logros/createOrUpdateLogrosForm"));
-	}
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-        @Test
-	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/logros/new")
-							.with(csrf())
-							.param("nombre", "Otro nombre")
-							.param("descripcion", "Otra descripcion"))
-				.andExpect(status().isOk());
-	}
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-        @Test
-	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/logros/new")
-							.with(csrf())
-							.param("nombre", "")
-							.param("descripcion", "Ejemplo2"))
-				.andExpect(status().isOk())
-				.andExpect(model().attributeHasFieldErrors("logro"))
 				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
+	void testProcessCreationFormSuccess() throws Exception {
+		mockMvc.perform(post("/logros/new").with(csrf()).param("nombre", "Otro nombre").param("descripcion",
+				"Otra descripcion")).andExpect(status().isOk());
+	}
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
+	void testProcessCreationFormHasErrors() throws Exception {
+		mockMvc.perform(post("/logros/new").with(csrf()).param("nombre", "").param("descripcion", "Ejemplo2"))
+				.andExpect(status().isOk()).andExpect(model().attributeHasFieldErrors("logro"))
+				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
+	}
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testInitUpdateLogroForm() throws Exception {
 		mockMvc.perform(get("/logros/{id}/edit", TEST_LOGRO_ID)).andExpect(status().isOk())
@@ -100,26 +88,20 @@ class LogroControllerTests {
 				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testProcessUpdateLogroFormSuccess() throws Exception {
-		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID)
-							.with(csrf())
-							.param("nombre", "Ejemplo2")
-							.param("descripcion", "Ejemplo2"))
-				.andExpect(status().isOk())
+		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID).with(csrf()).param("nombre", "Ejemplo2")
+				.param("descripcion", "Ejemplo2")).andExpect(status().isOk())
 				.andExpect(view().name("logros/LogrosListing"));
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testProcessUpdateLogroFormHasErrors() throws Exception {
-		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID)
-							.with(csrf())
-							.param("nombre", "")
-							.param("descripcion", "Ejemplo2"))
-				.andExpect(status().isOk())
-				.andExpect(model().attributeHasErrors("logro"))
+		mockMvc.perform(post("/logros/{id}/edit", TEST_LOGRO_ID).with(csrf()).param("nombre", "")
+				.param("descripcion","Ejemplo2"))
+				.andExpect(status().isOk()).andExpect(model().attributeHasErrors("logro"))
 				.andExpect(view().name("logros/createOrUpdateLogrosForm"));
 	}
 }
