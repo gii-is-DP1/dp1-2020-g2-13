@@ -139,4 +139,21 @@ public class UsuarioControllerTests {
 				.andExpect(view().name("usuarios/createOrUpdateUsuariosForm"));
 
 	}
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+    @Test
+	void testListing() throws Exception {
+		mockMvc.perform(get("/usuarios"))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("usuarios"))
+				.andExpect(view().name("usuarios/UsuariosListing"));
+	}
+
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test
+	void testListingNotPremium() throws Exception {
+		mockMvc.perform(get("/usuarios"))
+				.andExpect(status().is(302))
+				.andExpect(view().name("redirect:/usuarios/mejorarCuenta"));
+	}
 }
