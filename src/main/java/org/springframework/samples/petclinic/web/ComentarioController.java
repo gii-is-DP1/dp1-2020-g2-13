@@ -221,6 +221,7 @@ public class ComentarioController {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
+			
 		} else {
 			BeanUtils.copyProperties(modifiedComentario, comentario, "id");
 			comentarioService.save(comentario);

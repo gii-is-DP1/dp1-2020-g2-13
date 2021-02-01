@@ -84,6 +84,7 @@ public class ExamenController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("examenes", examenService.findAll());
 		return EXAMENES_LISTING;
+		
 	}
 
 	@GetMapping("/{id}/edit")

@@ -139,8 +139,7 @@ public class HiloController {
 		hiloService.delete(hilo);
 		model.addAttribute("message","Hilo eliminado");
 		
-		log.info("Hilo con id "+ id + " fue eliminado por el usuario " + username);
-		
+		log.info("Hilo con id "+ id + " fue eliminado por el usuario " + username);	
 		return listHilos(model);
 	}
 	 

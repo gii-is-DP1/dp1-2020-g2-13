@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/preguntas")
 public class PreguntaController {
+	
 
 	public static final String PREGUNTAS_FORM = "preguntas/createOrUpdatePreguntasForm";
 	public static final String PREGUNTAS_LISTING = "preguntas/PreguntasListing";
