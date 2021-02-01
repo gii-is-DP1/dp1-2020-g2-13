@@ -6,6 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.service.LogroService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/logros")
 public class LogroController {
@@ -54,6 +58,9 @@ public class LogroController {
 			return "redirect:/" + ERROR;
 		}
 		Logro logro = logroService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		log.info("Logro editado con id: "+ id+" con el administrador con id: "+username);
 		model.addAttribute("logro", logro);
 		return LOGROS_FORM;
 	}
@@ -98,6 +105,9 @@ public class LogroController {
 			return LOGROS_FORM;
 		}else {
 			logroService.save(logro);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Logro creado con id: "+ logro.getId()+" con el administrador con id: "+username);
 			model.addAttribute("message", "The goal was created successfully!");			
 			return listLogros(model);
 		}

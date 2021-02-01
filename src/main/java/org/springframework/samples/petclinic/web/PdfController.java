@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/pdfs")
 public class PdfController {
@@ -74,6 +76,9 @@ public class PdfController {
 	public String editPdf(@PathVariable("id") int id, @Valid Pdf modifiedPdf, BindingResult binding,
 			ModelMap model) {
 		Pdf pdf = pdfService.findById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		log.info("Editando el pdf con id: "+id+" por el usuario: "+username);
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Documento inválido.");
 			return PDFs_FORM;
@@ -90,7 +95,8 @@ public class PdfController {
 		Pdf pdf=pdfService.findById(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		log.info("Eliminando el pdf con id: "+id+" por el usuario: "+username);
+	    Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		if (!pdf.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
 			return "redirect:/" + ERROR;
 		}
@@ -120,6 +126,7 @@ public class PdfController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+			log.info("Creando el pdf con id: "+pdf.getId()+" por el usuario: "+username);
 			pdf.setUsuario(usuarioLoggeado);
 			pdfService.save(pdf);
 			model.addAttribute("message", "Nuevo documento creado");			

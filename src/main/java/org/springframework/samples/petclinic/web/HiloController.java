@@ -23,7 +23,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/hilos")
 public class HiloController {
 	public static final String HILOS_FORM = "hilos/createOrUpdateHilosForm";
@@ -111,6 +114,9 @@ public class HiloController {
 			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
 			hiloService.save(hilo);
 			model.addAttribute("message", "Hilo actualizado");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Hilo con id "+ id + " fue actualizado por el usuario " + username);
 			return listHilos(model);
 		}
 	}
@@ -132,6 +138,8 @@ public class HiloController {
 		}
 		hiloService.delete(hilo);
 		model.addAttribute("message","Hilo eliminado");
+		
+		log.info("Hilo con id "+ id + " fue eliminado por el usuario " + username);	
 		return listHilos(model);
 	}
 	 
@@ -163,7 +171,8 @@ public class HiloController {
 		}else {
 			hilo.setUsuario(usuarioLoggeado); 
 			hiloService.save(hilo);
-			model.addAttribute("message", "Nuevo hilo añadido");			
+			model.addAttribute("message", "Nuevo hilo añadido");
+			log.info("Un nuevo hilo con id "+ hilo.getId() + " fue creado por el usuario " + username);
 			return listHilos(model);
 		}
 	}

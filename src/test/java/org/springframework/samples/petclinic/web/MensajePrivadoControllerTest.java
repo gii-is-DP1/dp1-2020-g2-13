@@ -26,9 +26,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(value = MensajePrivadoController.class, 
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), 
-excludeAutoConfiguration = SecurityConfiguration.class)
+@WebMvcTest(value = MensajePrivadoController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class MensajePrivadoControllerTest {
 
 	private static final int TEST_USUARIO1_ID = 1;
@@ -43,10 +41,10 @@ public class MensajePrivadoControllerTest {
 
 	@MockBean
 	private UsuarioService usuarioService;
-	
+
 	@MockBean
 	private UserService userService;
-	
+
 	@MockBean
 	private NotificacionService notificacionService;
 
@@ -60,21 +58,20 @@ public class MensajePrivadoControllerTest {
 
 	@BeforeEach
 	void setup() {
-		
 		usuario1 = new Usuario();
 		usuario1.setId(TEST_USUARIO1_ID);
 		usuario1.setNombre("Pablito");
 		usuario1.setApellidos("Hola Adiós");
 		usuario1.setEmail("hola@us.exe");
-		usuario1.setLocalidad("Valencina");;
+		usuario1.setLocalidad("Valencina");
 		given(this.usuarioService.findById(TEST_USUARIO1_ID)).willReturn(usuario1);
-		
+
 		usuario2 = new Usuario();
 		usuario2.setId(TEST_USUARIO2_ID);
 		usuario2.setNombre("Pablito");
 		usuario2.setApellidos("Hola Adiós");
 		usuario2.setEmail("hola@us.exe");
-		usuario2.setLocalidad("Valencina");;
+		usuario2.setLocalidad("Valencina");
 		given(this.usuarioService.findById(TEST_USUARIO2_ID)).willReturn(usuario2);
 
 		mensajePrivado = new MensajePrivado();
@@ -87,49 +84,44 @@ public class MensajePrivadoControllerTest {
 
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testListing() throws Exception {
-		mockMvc.perform(get("/mensajesPrivados/{id}", TEST_USUARIO2_ID))
-				.andExpect(status().isOk())
-//				.andExpect(model().attributeExists("mensajesPrivados"))
+		mockMvc.perform(get("/mensajesPrivados/{id}", TEST_USUARIO2_ID)).andExpect(status().isOk())
+//				.andExpect(model().attributeExists("mensajePrivado"))
 				.andExpect(view().name("mensajesPrivados/mensajesPrivadosListing"));
 	}
-	
-	
-	
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		mockMvc.perform(post("/mensajesPrivados/{id}/new", TEST_USUARIO2_ID).with(csrf()).param("contenido", "Ejemplo"))
-			.andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/mensajesPrivados/{id}/new", TEST_USUARIO2_ID).with(csrf()).param("contenido", " ")).andExpect(status().isOk())
-				.andExpect(model().attributeHasFieldErrors("mensajePrivado"))
+		mockMvc.perform(post("/mensajesPrivados/{id}/new", TEST_USUARIO2_ID).with(csrf()).param("contenido", ""))
+				.andExpect(status().isOk()).andExpect(model().attributeHasFieldErrors("mensajePrivado"))
 				.andExpect(view().name("mensajesPrivados/createOrUpdateMensajePrivadoForm"));
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
-	void testProcessUpdatePdfFormSuccess() throws Exception {
-		mockMvc.perform(post("/mensajesPrivados/{id}/edit", TEST_MENSAJEPRIVADO_ID)
-				.with(csrf())
-				.param("contenido", "Ejemplo2"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("mensajesPrivados/mensajesPrivadosListing"));
+	void testProcessUpdateMensajeFormSuccess() throws Exception {
+		mockMvc.perform(
+				post("/mensajesPrivados/{id}/edit", TEST_MENSAJEPRIVADO_ID).with(csrf()).param("contenido", "Ejemplo2"))
+				.andExpect(status().isOk()).andExpect(view().name("mensajesPrivados/mensajesPrivadosListing"));
 	}
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
 	@Test
-	void testProcessUpdatePdfFormHasErrors() throws Exception {
-		mockMvc.perform(post("/mensajesPrivados/{id}/edit", TEST_MENSAJEPRIVADO_ID).with(csrf()).param("contenido", " "))
+	void testProcessUpdateMensajeFormHasErrors() throws Exception {
+		mockMvc.perform(
+				post("/mensajesPrivados/{id}/edit", TEST_MENSAJEPRIVADO_ID).with(csrf()).param("contenido", ""))
 				.andExpect(status().isOk()).andExpect(model().attributeHasErrors("mensajePrivado"))
 				.andExpect(view().name("mensajesPrivados/mensajesPrivadosListing"));
 	}
-	
+
 }

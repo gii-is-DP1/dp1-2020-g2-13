@@ -33,9 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Colin But
  */
 
-@WebMvcTest(value = ComentarioController.class,
-		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
-		excludeAutoConfiguration= SecurityConfiguration.class)
+@WebMvcTest(value = ComentarioController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 class ComentarioControllerTests {
 
 	private static final int TEST_COMENTARIO_ID = 1;
@@ -47,19 +45,17 @@ class ComentarioControllerTests {
 	@Autowired
 	private ComentarioController comentarioController;
 
-
 	@MockBean
 	private ComentarioService comentarioService;
-	
+
 	@MockBean
 	private UsuarioService usuarioService;
-	
+
 	@MockBean
 	private HiloService hiloService;
-	
+
 	@MockBean
 	private NotificacionService notificacionService;
-        
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -72,16 +68,17 @@ class ComentarioControllerTests {
 
 	@BeforeEach
 	void setup() {
-		
+
 		usuario = new Usuario();
 		usuario.setId(TEST_USUARIO_ID);
 		usuario.setNombre("Pablito");
 		usuario.setApellidos("Hola Adiós");
 //		usuario.setContrasena("Hola");
 		usuario.setEmail("hola@us.exe");
-		usuario.setLocalidad("Valencina");;
+		usuario.setLocalidad("Valencina");
+		;
 		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(usuario);
-		
+
 		hilo = new Hilo();
 		hilo.setId(TEST_HILO_ID);
 		hilo.setNombre("Prueba");
@@ -99,8 +96,23 @@ class ComentarioControllerTests {
 
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-        @Test
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
+	void testListing() throws Exception {
+		mockMvc.perform(get("/hilos/{id}", TEST_HILO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("comentarios"))
+				.andExpect(view().name("comentarios/ComentariosListing"));
+	}
+	
+	@WithMockUser(value = "spring", authorities = { "registrado" })
+	@Test
+	void testListingNotPremium() throws Exception {
+		mockMvc.perform(get("/hilos/{id}", TEST_HILO_ID)).andExpect(status().is(302))
+				.andExpect(view().name("redirect:/usuarios/mejorarCuenta"));
+	}
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/hilos/{id}/{cita}/new", TEST_HILO_ID, TEST_COMENTARIO_ID))
 		.andExpect(status().isOk()).andExpect(model().attributeExists("hilo"))
@@ -118,21 +130,23 @@ class ComentarioControllerTests {
 
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
+		mockMvc.perform(get("/hilos/{id}/new", TEST_HILO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("hilo"))
+				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
+	}
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID)
-							.with(csrf())
-							.param("contenido", "Hola"))
+		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID).with(csrf()).param("contenido", "Hola"))
 				.andExpect(status().isOk());
 	}
-	
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-        @Test
+
+	@WithMockUser(value = "spring", authorities = { "admin", "registrado" })
+	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID)
-							.with(csrf())
-							.param("contenido", " "))
-				.andExpect(status().isOk())
-				.andExpect(model().attributeHasFieldErrors("comentario"))
+		mockMvc.perform(post("/hilos/{id}/new", TEST_HILO_ID).with(csrf()).param("contenido", " "))
+				.andExpect(status().isOk()).andExpect(model().attributeHasFieldErrors("comentario"))
 				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
 	}
 
