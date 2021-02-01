@@ -74,8 +74,7 @@ public class HiloControllerTests {
 	}
 
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
-
-    	@Test
+    @Test
 	void testListing() throws Exception {
 		mockMvc.perform(get("/hilos"))
 				.andExpect(status().isOk())
@@ -83,9 +82,16 @@ public class HiloControllerTests {
 				.andExpect(view().name("hilos/HilosListing"));
 	}
 
-	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test
+	void testListingNotPremium() throws Exception {
+		mockMvc.perform(get("/hilos"))
+				.andExpect(status().is(302))
+				.andExpect(view().name("redirect:/usuarios/mejorarCuenta"));
+	}
 
-    	@Test
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+	@Test
 	void testInitCreationForm() throws Exception {
 		mockMvc.perform(get("/hilos/new"))
 				.andExpect(status().isOk())

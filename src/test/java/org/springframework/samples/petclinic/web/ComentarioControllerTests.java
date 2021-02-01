@@ -102,9 +102,18 @@ class ComentarioControllerTests {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
 	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/hilos/{id}/new", TEST_HILO_ID))
+		mockMvc.perform(get("/hilos/{id}/{cita}/new", TEST_HILO_ID, TEST_COMENTARIO_ID))
 		.andExpect(status().isOk()).andExpect(model().attributeExists("hilo"))
 		.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
+	}
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+        @Test
+	void testProcessCitationSuccess() throws Exception {
+		mockMvc.perform(post("/hilos/{id}/{cita}/new", TEST_HILO_ID, TEST_COMENTARIO_ID)
+							.with(csrf())
+							.param("contenido", "Hola"))
+				.andExpect(status().isOk());
 	}
 
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
@@ -125,5 +134,20 @@ class ComentarioControllerTests {
 				.andExpect(status().isOk())
 				.andExpect(model().attributeHasFieldErrors("comentario"))
 				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
+	}
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+        @Test
+	void testInitCitationForm() throws Exception {
+		mockMvc.perform(get("/hilos/{id}/new", TEST_HILO_ID))
+		.andExpect(status().isOk()).andExpect(model().attributeExists("hilo"))
+		.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
+	}
+
+	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
+        @Test
+	void testSubscribe() throws Exception {
+		mockMvc.perform(get("/hilos/{id}/subscribe", TEST_HILO_ID))
+		.andExpect(view().name("comentarios/ComentariosListing"));
 	}
 }

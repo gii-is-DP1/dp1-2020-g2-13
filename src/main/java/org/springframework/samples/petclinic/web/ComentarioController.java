@@ -217,4 +217,23 @@ public class ComentarioController {
 			return viewHilo(id, model);
 		}
 	}
+
+	@GetMapping("/{value}/subscribe")
+	public String subsccribeToThread(@PathVariable("value") int value,
+			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		Hilo hilo = hiloService.findById(value);
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("usuario", usuarioLoggeado);
+		hiloService.suscribir(hilo, usuarioLoggeado);
+		return COMENTARIOS_LISTING;
+	}
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/notificaciones")
 public class NotificacionController {
-	//public static final String NOTIFICACIONES_FORM = "mensajesPrivados/createOrUpdateMensajePrivadoForm";
 	public static final String NOTIFICACIONES_LISTING = "notificaciones/NotificacionesListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";
