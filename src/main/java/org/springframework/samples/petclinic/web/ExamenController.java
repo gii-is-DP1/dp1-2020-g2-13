@@ -98,7 +98,7 @@ public class ExamenController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("examen", examen);
-		model.addAttribute("usuario", usuario);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return EXAMENES_FORM;
 	}
 
@@ -161,7 +161,11 @@ public class ExamenController {
 
 	@GetMapping("/new")
 	public String editNewExamen(ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("examen", new Examen());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return EXAMENES_FORM;
 	}
 
@@ -169,12 +173,10 @@ public class ExamenController {
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding, ModelMap model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario usuario = usuarioService.findByUsername(username);
 	
 		if (binding.hasErrors()) {
 			return EXAMENES_FORM;
 		} else {		
-			examen.setUsuario(usuario);
 			examenService.save(examen);
 			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username);
 			model.addAttribute("message", "El examen fue creado exitosamente");
