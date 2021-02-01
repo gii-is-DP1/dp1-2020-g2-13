@@ -135,5 +135,39 @@ public class ComentarioServiceTests {
 		this.comentarioService.delete(this.comentarioService.findById(TEST_COMENTARIO_ID));
 		assertThrows(NullPointerException.class, () -> this.comentarioService.findById(TEST_COMENTARIO_ID).getContenido());
 	}
-
+	
+	@DisplayName("Prueba de nivel de comentario")
+	@Test
+	@Transactional
+	void shouldLevelUp(){
+		User user = new User();
+		user.setUsername("user");
+		user.setPassword("Qwerty123");
+		Usuario usuario = new Usuario();
+		usuario.setUser(user);
+		usuario.setNombre("Giorno");
+		usuario.setApellidos("Giovana");
+		usuario.setLocalidad("El piso");
+		usuario.setColegio("La etsii");
+		usuario.setEmail("109876543210");
+		usuarioService.save(usuario);
+		Hilo hilo = new Hilo();
+		hilo.setNombre("Profesorado maleduca2");
+		hilo.setCategoria("maltrato");
+		hilo.setContenido("abro hilo:");
+		hilo.setUsuario(usuario);
+		hiloService.save(hilo);
+		Comentario comentario = new Comentario();
+		comentario.setUsuario(usuario);
+		comentario.setHilo(hilo);
+		comentario.setContenido("Pole");
+		this.comentarioService.save(comentario);
+		Comentario respuesta = new Comentario();
+		respuesta.setContenido("Subpole");
+		respuesta.setUsuario(usuario);
+		respuesta.setHilo(hilo);
+		respuesta.setCita(comentario);
+		this.comentarioService.save(respuesta);
+		assertEquals(comentario.getNivel() + 1, respuesta.getNivel());
+	}
 }

@@ -74,7 +74,7 @@ public class PreguntaController {
 //		} else {
 //			BeanUtils.copyProperties(modifiedPregunta, pregunta, "id");
 //			preguntaService.save(pregunta);
-//			model.addAttribute("message", "Thread updated succesfully!");
+//			model.addAttribute("message", "Pregunta actualizada");
 //			return listPreguntas(model);
 //		}
 //	}
@@ -101,7 +101,7 @@ public class PreguntaController {
 		examen.setPreguntas(preguntas);
 		examenService.save(examen);
 		preguntaService.delete(pregunta);
-		model.addAttribute("message", "The question was deleted successfully!");
+		model.addAttribute("message", "Pregunta Borrada");
 		return examenController.examenDetails(id_examen, model);
 	}
 
@@ -140,7 +140,7 @@ public class PreguntaController {
 			examen.setPreguntas(preguntas);
 			preguntaService.save(pregunta);
 			examenService.save(examen);
-			model.addAttribute("message", "The question was created successfully!");
+			model.addAttribute("message", "Pregunta Añadida");
 			return examenController.examenDetails(id_examen, model);
 		}
 	}
