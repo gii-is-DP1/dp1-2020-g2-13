@@ -130,6 +130,7 @@ class ComentarioControllerTests {
 
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
         @Test
+    	void testProcessCreationSuccess() throws Exception {
 		mockMvc.perform(get("/hilos/{id}/new", TEST_HILO_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("hilo"))
 				.andExpect(view().name("comentarios/createOrUpdateComentariosForm"));
