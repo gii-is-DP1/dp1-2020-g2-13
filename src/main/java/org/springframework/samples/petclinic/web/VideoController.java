@@ -125,7 +125,11 @@ public class VideoController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("video", new Video());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return VIDEOS_FORM;
 	}
 
@@ -136,8 +140,6 @@ public class VideoController {
 		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-			video.setUsuario(usuarioLoggeado);
 			videoService.save(video);
 			log.info("Creando el video con id: "+video.getId()+" por el usuario: "+username);
 			model.addAttribute("message", "Nuevo vídeo añadido");
