@@ -113,7 +113,11 @@ public class PdfController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("pdf",new Pdf());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return PDFs_FORM;
 	}
 	
@@ -125,9 +129,7 @@ public class PdfController {
 		}else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 			log.info("Creando el pdf con id: "+pdf.getId()+" por el usuario: "+username);
-			pdf.setUsuario(usuarioLoggeado);
 			pdfService.save(pdf);
 			model.addAttribute("message", "Nuevo documento creado");			
 			return listPdfs(model);

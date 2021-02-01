@@ -40,10 +40,10 @@ public class OpcionController {
 	@Autowired
 	ExamenController examenController;
 	
-	@InitBinder("opcion")
-	public void initOpcionBinder(WebDataBinder dataBinder) {
-		dataBinder.setValidator(new OpcionValidator());
-	}
+//	@InitBinder("opcion")
+//	public void initOpcionBinder(WebDataBinder dataBinder) {
+//		dataBinder.setValidator(new OpcionValidator());
+//	}
 	 
 	@GetMapping("/{id_examen}/{id_pregunta}/new")
 	public String editNewOpcion(@PathVariable("id_examen") int id_examen, @PathVariable("id_pregunta") int id_pregunta, ModelMap model) {
