@@ -14,6 +14,8 @@ import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.TipoTestService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,9 +26,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/preguntas")
 public class PreguntaController {
+	
 
 	public static final String PREGUNTAS_FORM = "preguntas/createOrUpdatePreguntasForm";
 	public static final String PREGUNTAS_LISTING = "preguntas/PreguntasListing";
@@ -102,6 +108,9 @@ public class PreguntaController {
 		examenService.save(examen);
 		preguntaService.delete(pregunta);
 		model.addAttribute("message", "Pregunta Borrada");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		log.info("Pregunta con id " + id + " fue eliminada del examen " + id_examen + " por el usuario " + username);
 		return examenController.examenDetails(id_examen, model);
 	}
 
@@ -141,6 +150,9 @@ public class PreguntaController {
 			preguntaService.save(pregunta);
 			examenService.save(examen);
 			model.addAttribute("message", "Pregunta Añadida");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Pregunta con id " + pregunta.getId() + " fue añadida al examen " + id_examen + " por el usuario " + username);
 			return examenController.examenDetails(id_examen, model);
 		}
 	}

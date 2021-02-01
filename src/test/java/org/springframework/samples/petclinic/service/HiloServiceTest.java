@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -75,5 +77,26 @@ public class HiloServiceTest {
 
 		
 
+	}
+	
+	
+	@DisplayName("Prueba de subscripción a un hilo")
+	@Test
+	void shouldSubscribe(){
+		User user = new User();
+		user.setUsername("user");
+		user.setPassword("Qwerty123");
+		Usuario usuario = new Usuario();
+		usuario.setUser(user);
+		usuario.setNombre("Fran2");
+		usuario.setApellidos("Bel2");
+		usuario.setLocalidad("El piso2");
+		usuario.setColegio("La etsii2");
+		usuario.setEmail("999999999992");
+		usuarioService.save(usuario);
+		Hilo hilo = hiloService.findById(TEST_HILO_ID);
+		int size = hilo.getSuscriptores().size();
+		hiloService.suscribir(hilo, usuario);
+		assertThat(hilo.getSuscriptores().size()).isEqualTo(size + 1);
 	}
 }

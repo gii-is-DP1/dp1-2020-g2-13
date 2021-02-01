@@ -14,10 +14,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/notificaciones")
 public class NotificacionController {
-	//public static final String NOTIFICACIONES_FORM = "mensajesPrivados/createOrUpdateMensajePrivadoForm";
 	public static final String NOTIFICACIONES_LISTING = "notificaciones/NotificacionesListing";
 	public static final String MEJORAR_CUENTA = "usuarios/mejorarCuenta";
 	public static final String LOGIN = "login";

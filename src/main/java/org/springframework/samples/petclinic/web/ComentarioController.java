@@ -29,7 +29,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/hilos")
 public class ComentarioController {
 	public static final String COMENTARIOS_FORM = "comentarios/createOrUpdateComentariosForm";
@@ -142,7 +145,9 @@ public class ComentarioController {
 		if (!comentario.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
 			return "redirect:/" + ERROR;
 		}
+		int idlog = comentario.getId();
 		comentarioService.delete(comentario);
+		log.info("El usuario " +username + " ha eliminado el comentario " +idlog);
 		model.addAttribute("message", "El comentario ha sido eliminado");
 		return viewHilo(id, model);
 	}
@@ -156,7 +161,10 @@ public class ComentarioController {
 			return COMENTARIOS_FORM;
 		} else {
 			comentarioService.save(comentario);
-			model.addAttribute("message", "The comentario was created successfully!");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String usuarioActual = authentication.getName();
+			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId());
+			model.addAttribute("message", "El comentario se ha creado exitosamente");
 			return viewHilo(id, model);
 		}
 	}
@@ -175,7 +183,10 @@ public class ComentarioController {
 			return COMENTARIOS_FORM;
 		} else {
 			comentarioService.save(comentario);
-			model.addAttribute("message", "The comentario was created successfully!");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String usuarioActual = authentication.getName();
+			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId());
+			model.addAttribute("message", "El comentario se ha creado de manera exitosa");
 			return viewHilo(id, model);
 		}
 	}
@@ -210,11 +221,34 @@ public class ComentarioController {
 			Collection<Usuario> usuarios = usuarioService.findAll();
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
+			
 		} else {
 			BeanUtils.copyProperties(modifiedComentario, comentario, "id");
 			comentarioService.save(comentario);
-			model.addAttribute("message", "The comentario was created successfully!");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String usuarioActual = authentication.getName();
+			log.info("El usuario " +usuarioActual + " ha editado el comentario " +comentario.getId());
+			model.addAttribute("message", "The comentario fue editado exitosamente");
 			return viewHilo(id, model);
 		}
+	}
+
+	@GetMapping("/{value}/subscribe")
+	public String subsccribeToThread(@PathVariable("value") int value,
+			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		Hilo hilo = hiloService.findById(value);
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("usuario", usuarioLoggeado);
+		hiloService.suscribir(hilo, usuarioLoggeado);
+		return COMENTARIOS_LISTING;
 	}
 }
