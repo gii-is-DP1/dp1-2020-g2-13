@@ -111,6 +111,8 @@ public class ExamenController {
 			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
+			List<Pregunta> preguntas = examen.getPreguntas();
+			modifiedExamen.setPreguntas(preguntas);
 			BeanUtils.copyProperties(modifiedExamen, examen, "id");
 			examenService.save(examen);
 			model.addAttribute("message", "Examen editado satisfactoriamente");
