@@ -1,4 +1,4 @@
-hay u<%@ page session="false" trimDirectiveWhitespaces="true"%>
+<%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,6 +43,14 @@ hay u<%@ page session="false" trimDirectiveWhitespaces="true"%>
 		<tr>
 			<th>Email</th>
 			<td><c:out value="${usuario.email}" /></td>
+		</tr>
+		<tr>
+			<th>Logros</th>
+			<td><c:forEach var="logro" items="${usuario.logros}">
+					<c:out value="${logro.nombre}" />
+					</br>
+				</c:forEach>
+			</td>
 		</tr>
 		
 		
