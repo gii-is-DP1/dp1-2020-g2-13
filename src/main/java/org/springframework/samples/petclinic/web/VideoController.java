@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -102,16 +103,17 @@ public class VideoController {
 
 	@PostMapping("/{id}/edit")
 	public String editVideo(@PathVariable("id") int id, @Valid Video modifiedVideo, BindingResult binding,
-			ModelMap model) {
+			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Video video = videoService.findById(id);
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
 		} else {
+			modifiedVideo.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedVideo, video, "id");
 			videoService.save(video);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("Editando el video con id: "+id+" por el usuario: "+username);
+			log.info("Editado el video con id: "+video.getId()+" y versión " + video.getVersion() +" por el usuario: "+username);
 			model.addAttribute("message", "Vídeo actualizado");
 			return listVideos(model);
 		}
@@ -140,8 +142,9 @@ public class VideoController {
 		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
+			video.setVersion(0);
 			videoService.save(video);
-			log.info("Creando el video con id: "+video.getId()+" por el usuario: "+username);
+			log.info("Creado el video con id: "+video.getId()+" y versión " + video.getVersion() +" por el usuario: "+username);
 			model.addAttribute("message", "Nuevo vídeo añadido");
 			return listVideos(model);
 		}
