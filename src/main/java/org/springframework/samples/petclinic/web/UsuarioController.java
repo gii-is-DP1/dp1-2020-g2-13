@@ -4,7 +4,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.configuration.PasswordConfiguration;
 import org.springframework.samples.petclinic.model.Authorities;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ExamenService;
@@ -142,6 +144,9 @@ public class UsuarioController {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
+			User user = usuario.getUser();
+			user.setPassword(PasswordConfiguration.passwordEncoder().encode(user.getPassword()));
+			usuario.setUser(user);
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
