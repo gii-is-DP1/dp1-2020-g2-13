@@ -212,6 +212,14 @@ public class UsuarioController {
 		return PERFIL;
 	}
 
+	@GetMapping("/miPerfil")
+	public String miPerfil(ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		return perfil(usuarioLoggeado.getId(), model);
+	}
+
 	@GetMapping("/mejorarCuenta")
 	public String upgradeAccountView(ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
