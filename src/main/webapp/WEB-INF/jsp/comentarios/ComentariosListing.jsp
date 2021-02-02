@@ -7,6 +7,12 @@
 
 
 <petclinic:layout pageName="comentarios">
+   	<a href="/hilos">
+   		<button class="btn btn-default">Volver a la lista de hilos</button>
+   	</a>
+   	<a href="/hilos/${hilo.id}/subscribe">
+   		<button class="btn btn-default">Suscribirse al hilo</button>
+   	</a>
 	<h2>${hilo.nombre}</h2>
 	<table id="hilosTable" class="table table-striped">
 		<thead>
@@ -53,8 +59,5 @@
 			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir comentario</a>
 	</p>
 	
-   	<a href="/hilos">
-   		<button class="btn btn-default">Volver a la lista de hilos</button>
-   	</a>
 
 </petclinic:layout>

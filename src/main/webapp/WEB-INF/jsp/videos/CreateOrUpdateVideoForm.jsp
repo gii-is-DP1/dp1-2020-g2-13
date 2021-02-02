@@ -17,6 +17,7 @@
             <petclinic:inputField label="Descripcion" name="descripcion"/>     
             <petclinic:inputField label="Duracion" name="duracion"/>           
             <input name="usuario" type=hidden value="${usuario.id}">
+            <input name="version" type=hidden value="${video.version}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

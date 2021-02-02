@@ -98,7 +98,6 @@ class PdfControllerTests {
 	void testProcessUpdatePdfFormSuccess() throws Exception {
 		mockMvc.perform(post("/pdfs/{id}/edit", TEST_PDF_ID).with(csrf()).param("link", "Ejemplo")
 				.param("nombre", "paquito12"))
-		
 				.andExpect(status().isOk()).andExpect(view().name("pdfs/PdfsListing"));
 	}
 

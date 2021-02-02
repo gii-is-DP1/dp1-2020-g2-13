@@ -1,4 +1,4 @@
-<%@ page session="false" trimDirectiveWhitespaces="true"%>
+hay u<%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,6 +10,10 @@
 
 	<a href="/usuarios">
 		<button class="btn btn-default">Volver a Lista de Usuarios</button>
+	</a>
+	
+			<a href="intentos/${usuario.id}}">
+			<button class="btn btn-default">Ver intentos</button>
 	</a>
 
 	<c:if
@@ -40,6 +44,8 @@
 			<th>Email</th>
 			<td><c:out value="${usuario.email}" /></td>
 		</tr>
+		
+		
 	</table>
 
 	<c:if

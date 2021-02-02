@@ -33,7 +33,9 @@ public class LogroService {
 		logroRepository.save(logro);
 	}
 
-	
+	public Logro findByName(String name) {
+		return logroRepository.findByName(name);
+	}
 	
 	
 

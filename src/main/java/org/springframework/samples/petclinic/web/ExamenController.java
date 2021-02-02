@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.samples.petclinic.model.Examen;
 import org.springframework.samples.petclinic.model.Intento;
+import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.Opcion;
 import org.springframework.samples.petclinic.model.Pregunta;
 import org.springframework.samples.petclinic.model.Respuesta;
@@ -20,6 +21,7 @@ import org.springframework.samples.petclinic.model.TipoTest;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.IntentoService;
+import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.RespuestaService;
@@ -66,6 +68,10 @@ public class ExamenController {
 	OpcionService opcionService;
 	@Autowired
 	TipoTestService tipoTestService;
+	@Autowired
+	LogroService logroService;
+	@Autowired
+	LogroController logroController;
 
 	@InitBinder("examen")
 	public void initExamenBinder(WebDataBinder dataBinder) {
@@ -268,6 +274,8 @@ public class ExamenController {
 		intentoService.save(intento);
 		Examen examen = examenService.findById(examen_id);
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
+			Logro logro = logroService.findByName("Hiciste un examen");
+			logroController.addLogro(logro);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			log.info("El usuario " + username + "terminó el intento " + intento_id + " del examen " + examen_id);
