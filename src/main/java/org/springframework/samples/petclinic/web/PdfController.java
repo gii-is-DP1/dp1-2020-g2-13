@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -74,15 +75,20 @@ public class PdfController {
 
 	@PostMapping("/{id}/edit")
 	public String editPdf(@PathVariable("id") int id, @Valid Pdf modifiedPdf, BindingResult binding,
-			ModelMap model) {
+			ModelMap model, @RequestParam(value="version", required= false) Integer version) {
 		Pdf pdf = pdfService.findById(id);
+		if(pdf.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el pdf, prueba otra vez");
+			return editPdf(id, model);
+		}
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		log.info("Editando el pdf con id: "+id+" por el usuario: "+username);
+		String username = authentication.getName();	
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Documento inválido.");
 			return PDFs_FORM;
 		} else {
+			modifiedPdf.setVersion(version+1);
+			log.info("Editando el pdf con id: "+id+ " y con versión actual " + modifiedPdf.getVersion()+" por el usuario: "+username);
 			BeanUtils.copyProperties(modifiedPdf, pdf, "id");
 			pdfService.save(pdf);
 			model.addAttribute("message", "Documento actualizado");
@@ -129,7 +135,8 @@ public class PdfController {
 		}else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("Creando el pdf con id: "+pdf.getId()+" por el usuario: "+username);
+			pdf.setVersion(0);
+			log.info("Creando el pdf con id: "+pdf.getId()+" por el usuario: " + username + " y con versión "+ pdf.getVersion());
 			pdfService.save(pdf);
 			model.addAttribute("message", "Nuevo documento creado");			
 			return listPdfs(model);
