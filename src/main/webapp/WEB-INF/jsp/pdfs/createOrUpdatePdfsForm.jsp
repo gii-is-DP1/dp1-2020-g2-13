@@ -14,7 +14,8 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Enlace" name="link"/>          
-            <input name="usuario" type=hidden value="${usuario.id}">           
+            <input name="usuario" type=hidden value="${usuario.id}">
+            <input name="version" type=hidden value="${pdf.version}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

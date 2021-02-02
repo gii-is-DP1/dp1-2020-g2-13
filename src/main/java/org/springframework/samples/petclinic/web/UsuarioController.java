@@ -4,7 +4,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.configuration.PasswordConfiguration;
 import org.springframework.samples.petclinic.model.Authorities;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ExamenService;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -84,6 +88,7 @@ public class UsuarioController {
 			return "redirect:/" + ERROR;
 		}
 		Usuario usuario = usuarioService.findById(id);
+		
 		model.addAttribute("usuario", usuario);
 		return USUARIOS_FORM;
 
@@ -98,6 +103,9 @@ public class UsuarioController {
 		} else {
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
 			usuarioService.save(usuario);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Editando el usuario con id: "+id+" por el admin: "+username);
 			model.addAttribute("message", "Usuario actualizado");
 			return listUsuarios(model);
 		}
@@ -118,6 +126,7 @@ public class UsuarioController {
 			return "redirect:/" + ERROR;
 		}
 		Usuario usuario = usuarioService.findById(id);
+		log.info("Eliminando el usuario con id: "+id+" por el admin: "+username);
 		usuarioService.delete(usuario);
 		model.addAttribute("message", "Usuario eliminado");
 		return listUsuarios(model);
@@ -135,7 +144,13 @@ public class UsuarioController {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
+			User user = usuario.getUser();
+			user.setPassword(PasswordConfiguration.passwordEncoder().encode(user.getPassword()));
+			usuario.setUser(user);
 			usuarioService.save(usuario);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Creando el usuario con id: "+usuario.getId()+" por el admin: "+username);
 			model.addAttribute("message", "Nuevo usuario creado");
 			return listUsuarios(model);
 		}

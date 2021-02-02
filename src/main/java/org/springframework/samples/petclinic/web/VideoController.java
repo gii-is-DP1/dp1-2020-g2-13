@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/videos")
 public class VideoController {
@@ -54,6 +56,7 @@ public class VideoController {
 		Video video = videoService.findById(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
+		log.info("Borrando el video con id: "+id+" por el usuario: "+username);
 		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		if (!video.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
 			return "redirect:/" + ERROR;
@@ -106,6 +109,9 @@ public class VideoController {
 		} else {
 			BeanUtils.copyProperties(modifiedVideo, video, "id");
 			videoService.save(video);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("Editando el video con id: "+id+" por el usuario: "+username);
 			model.addAttribute("message", "Vídeo actualizado");
 			return listVideos(model);
 		}
@@ -119,7 +125,11 @@ public class VideoController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("video", new Video());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return VIDEOS_FORM;
 	}
 
@@ -130,9 +140,8 @@ public class VideoController {
 		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-			video.setUsuario(usuarioLoggeado);
 			videoService.save(video);
+			log.info("Creando el video con id: "+video.getId()+" por el usuario: "+username);
 			model.addAttribute("message", "Nuevo vídeo añadido");
 			return listVideos(model);
 		}

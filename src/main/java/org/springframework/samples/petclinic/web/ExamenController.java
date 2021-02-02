@@ -37,9 +37,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/examenes")
-//@Slf4j
+@Slf4j
 //@SpringBootApplication
 public class ExamenController {
 
@@ -82,6 +84,7 @@ public class ExamenController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("examenes", examenService.findAll());
 		return EXAMENES_LISTING;
+		
 	}
 
 	@GetMapping("/{id}/edit")
@@ -95,7 +98,7 @@ public class ExamenController {
 			return "redirect:/" + ERROR;
 		}
 		model.addAttribute("examen", examen);
-		model.addAttribute("usuario", usuario);
+		model.addAttribute("usuario", usuarioLoggeado);
 		return EXAMENES_FORM;
 	}
 
@@ -108,9 +111,14 @@ public class ExamenController {
 			model.addAttribute("usuario", usuario);
 			return EXAMENES_FORM;
 		} else {
+			List<Pregunta> preguntas = examen.getPreguntas();
+			modifiedExamen.setPreguntas(preguntas);
 			BeanUtils.copyProperties(modifiedExamen, examen, "id");
 			examenService.save(examen);
-			model.addAttribute("message", "Thread updated succesfully!");
+			model.addAttribute("message", "Examen editado satisfactoriamente");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username);
 			return listExamenes(model);
 		}
 	}
@@ -142,37 +150,38 @@ public class ExamenController {
 			examenService.save(examen);
 			preguntaService.delete(pregunta);
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
 		examenes.remove(examen);
+		int idlogs= examen.getId();
 		examenService.delete(examen);
 		usuarioService.save(usuario);
-		model.addAttribute("message", "The exam was deleted successfully!");
+		log.info("El examen " + idlogs + " fue eliminado por el usuario " + username);
+		model.addAttribute("message", "El examen fue eliminado exitosamente");
 		return listExamenes(model);
 	}
 
 	@GetMapping("/new")
 	public String editNewExamen(ModelMap model) {
-//		log.info("------------------------------------------------------------------------------LLEGO AL GET NEW");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
 		model.addAttribute("examen", new Examen());
+		model.addAttribute("usuario", usuarioLoggeado);
 		return EXAMENES_FORM;
 	}
 
 	@PostMapping("/new")
 	public String saveNewExamen(@Valid Examen examen, BindingResult binding, ModelMap model) {
-//		log.info("------------------------------------------------------------------------------LLEGO AL POST");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		Usuario usuario = usuarioService.findByUsername(username);
 	
 		if (binding.hasErrors()) {
-//			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
-//			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
 			return EXAMENES_FORM;
-		} else {
-//			log.info("------------------------------------------------------------------El usuario detectado es-" + usuario.getNombre());
-//			log.info("------------------------------------------------------------------El examen enviado detectado es-" + examen.getTitulos());
-			examen.setUsuario(usuario);
+		} else {		
 			examenService.save(examen);
-			model.addAttribute("message", "The exam was created successfully!");
+			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username);
+			model.addAttribute("message", "El examen fue creado exitosamente");
 			return listExamenes(model);
 		}
 	}
@@ -212,10 +221,8 @@ public class ExamenController {
 		}
 		int numero_pregunta;
 		if(model.getAttribute("numero_pregunta")==null) {
-//			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
 			numero_pregunta = 0;
 		}else {
-//			log.info("--------------------------------------------------------------------------" + model.getAttribute("numero_pregunta"));
 			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
 		}
 		Intento intento = new Intento();
@@ -260,14 +267,15 @@ public class ExamenController {
         intento.setRespuestas(respuestas);
 		intentoService.save(intento);
 		Examen examen = examenService.findById(examen_id);
-//		log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("El usuario " + username + "terminó el intento " + intento_id + " del examen " + examen_id);
 			model.addAttribute("message", "You finished the exam!");
 			return listExamenes(model);
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-//			log.info("--------------------------------------------------------------------------" + numero_pregunta + " " + examen.getPreguntas().size());
 			return examenTry(examen_id, intento_id, model);
 		}
 	}
