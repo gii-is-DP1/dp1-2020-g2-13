@@ -105,6 +105,10 @@ public class VideoController {
 	public String editVideo(@PathVariable("id") int id, @Valid Video modifiedVideo, BindingResult binding,
 			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Video video = videoService.findById(id);
+		if(video.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el vídeo, prueba otra vez");
+			return editPdf(id, model);
+		}
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
 		} else {
