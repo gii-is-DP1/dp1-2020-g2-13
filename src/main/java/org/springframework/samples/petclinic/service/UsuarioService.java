@@ -53,10 +53,12 @@ public class UsuarioService {
 //		Set<Authorities> auth = new HashSet<>();
 //		auth.add(authorities);
 //		usuario.getUser().setAuthorities(auth);
+		usuarioRepository.save(usuario);
+		userService.saveUser(usuario.getUser());
+		authoritiesService.deleteAuthorities(usuario.getUser().getUsername(), "registrado");
 		authoritiesService.saveAuthorities(usuario.getUser().getUsername(), "pagado");
 
-		usuario.setFechaPago(LocalDate.now());
-		usuarioRepository.save(usuario);
+		//usuario.setFechaPago(LocalDate.now());
 
 	}
 	
@@ -67,7 +69,8 @@ public class UsuarioService {
 //		auth.add(authorities);
 //		usuario.getUser().setAuthorities(auth);
 		authoritiesService.deleteAuthorities(usuario.getUser().getUsername(), "pagado");
-//		usuarioRepository.save(usuario);
+		userService.saveUser(usuario.getUser());
+		usuarioRepository.save(usuario);
 	}
 
 	public void hacerAdministrador(@Valid Usuario usuario) {

@@ -1,11 +1,15 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Logro;
+import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.LogroService;
+import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,8 @@ public class LogroController {
 
 	@Autowired
 	LogroService logroService;
+	@Autowired
+	UsuarioService usuarioService;
 	
 
 	@InitBinder("logro")
@@ -111,6 +117,17 @@ public class LogroController {
 			model.addAttribute("message", "The goal was created successfully!");			
 			return listLogros(model);
 		}
+	}
+	
+	public Logro addLogro(Logro logro) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuario = usuarioService.findByUsername(username);
+		Set<Logro> logros = usuario.getLogros();
+		logros.add(logro);
+		usuario.setLogros(logros);
+		usuarioService.save(usuario);
+		return logro;
 	}
 	
 }

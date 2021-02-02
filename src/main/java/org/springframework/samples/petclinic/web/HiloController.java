@@ -7,9 +7,11 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
+import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,6 +56,10 @@ public class HiloController {
 	ComentarioService comentarioService;
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+	LogroService logroService;
+	@Autowired
+	LogroController logroController;
 	
 
 	@InitBinder("hilo")
@@ -175,6 +181,8 @@ public class HiloController {
 			model.addAttribute("usuarios", usuarios);		
 			return HILOS_FORM;
 		}else {
+			Logro logro = logroService.findByName("Creaste un hilo");
+			logroController.addLogro(logro);
 			hilo.setUsuario(usuarioLoggeado); 
 			hilo.setVersion(0);
 			hiloService.save(hilo);	

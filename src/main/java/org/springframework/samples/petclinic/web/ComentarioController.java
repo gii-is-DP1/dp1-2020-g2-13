@@ -10,10 +10,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comentario;
 import org.springframework.samples.petclinic.model.Hilo;
+import org.springframework.samples.petclinic.model.Logro;
 import org.springframework.samples.petclinic.model.Notificacion;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ComentarioService;
 import org.springframework.samples.petclinic.service.HiloService;
+import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UsuarioService;
@@ -50,6 +52,10 @@ public class ComentarioController {
 	UsuarioService usuarioService;
 	@Autowired
 	NotificacionService notificacionService;
+	@Autowired
+	LogroService logroService;
+	@Autowired
+	LogroController logroController;
 
 	@InitBinder("comentario")
 	public void initComentarioBinder(WebDataBinder dataBinder) {
@@ -162,6 +168,8 @@ public class ComentarioController {
 			return COMENTARIOS_FORM;
 		} else {
 			comentario.setVersion(0);
+			Logro logro = logroService.findByName("Primer comentario");
+			logroController.addLogro(logro);
 			comentarioService.save(comentario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String usuarioActual = authentication.getName();
@@ -185,6 +193,8 @@ public class ComentarioController {
 			return COMENTARIOS_FORM;
 		} else {
 			comentario.setVersion(0);
+			Logro logro = logroService.findByName("Primer comentario");
+			logroController.addLogro(logro);
 			comentarioService.save(comentario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String usuarioActual = authentication.getName();
