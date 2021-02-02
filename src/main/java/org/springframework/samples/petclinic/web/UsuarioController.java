@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -13,7 +16,11 @@ import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.HiloService;
 import org.springframework.samples.petclinic.service.NotificacionService;
 import org.springframework.samples.petclinic.service.UsuarioService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -225,6 +232,11 @@ public class UsuarioController {
 		String username = authentication.getName();
 		Usuario usuario = usuarioService.findByUsername(username);
 		usuarioService.upgradeAccount(usuario);
+		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(authentication.getAuthorities());
+		updatedAuthorities.add(new SimpleGrantedAuthority("pagado"));
+		Authentication newAuth = 
+				new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), updatedAuthorities);
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		model.addAttribute("message", "¡Has mejorado tu cuenta!");
 		return listUsuarios(model);
 	}
@@ -244,6 +256,11 @@ public class UsuarioController {
 		String username = authentication.getName();
 		Usuario usuario = usuarioService.findByUsername(username);
 		usuarioService.downgradeAccount(usuario);
+		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(authentication.getAuthorities());
+		updatedAuthorities.add(new SimpleGrantedAuthority("pagado"));
+		Authentication newAuth = 
+				new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), updatedAuthorities);
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		model.addAttribute("message", "¡Has empeorado tu cuenta!");
 		return listUsuarios(model);
 	}

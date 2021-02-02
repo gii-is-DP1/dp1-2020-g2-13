@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -166,12 +167,13 @@ public class ComentarioController {
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
 		} else {
+			comentario.setVersion(0);
 			Logro logro = logroService.findByName("Primer comentario");
 			logroController.addLogro(logro);
 			comentarioService.save(comentario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String usuarioActual = authentication.getName();
-			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId());
+			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId() + " con versión " + comentario.getVersion());
 			model.addAttribute("message", "El comentario se ha creado exitosamente");
 			return viewHilo(id, model);
 		}
@@ -190,12 +192,13 @@ public class ComentarioController {
 			model.addAttribute("usuarios", usuarios);
 			return COMENTARIOS_FORM;
 		} else {
+			comentario.setVersion(0);
 			Logro logro = logroService.findByName("Primer comentario");
 			logroController.addLogro(logro);
 			comentarioService.save(comentario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String usuarioActual = authentication.getName();
-			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId());
+			log.info("El usuario " +usuarioActual + " ha creado el comentario " +comentario.getId() + " con versión " + comentario.getVersion());
 			model.addAttribute("message", "El comentario se ha creado de manera exitosa");
 			return viewHilo(id, model);
 		}
@@ -225,7 +228,8 @@ public class ComentarioController {
 
 	@PostMapping("/{value}/edit/{comment}")
 	public String editComentario(@PathVariable("comment") int comment, @PathVariable("value") int id, 
-			@Valid Comentario modifiedComentario, BindingResult binding, ModelMap model) {
+			@Valid Comentario modifiedComentario, BindingResult binding, ModelMap model,
+			@RequestParam(value="version", required= false) Integer version) {
 		Comentario comentario = comentarioService.findById(comment);
 		if (binding.hasErrors()) {
 			Collection<Usuario> usuarios = usuarioService.findAll();
@@ -233,11 +237,12 @@ public class ComentarioController {
 			return COMENTARIOS_FORM;
 			
 		} else {
+			modifiedComentario.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedComentario, comentario, "id");
 			comentarioService.save(comentario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String usuarioActual = authentication.getName();
-			log.info("El usuario " +usuarioActual + " ha editado el comentario " +comentario.getId());
+			log.info("El usuario " +usuarioActual + " ha editado el comentario " +comentario.getId() + " con versión " + comentario.getVersion());
 			model.addAttribute("message", "The comentario fue editado exitosamente");
 			return viewHilo(id, model);
 		}
