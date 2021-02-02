@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -81,7 +82,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/{id}/edit")
-	public String editPdf(@PathVariable("id") int id, ModelMap model) {
+	public String editUsuario(@PathVariable("id") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
@@ -103,11 +104,16 @@ public class UsuarioController {
 
 	@PostMapping("/{id}/edit")
 	public String editUsuario(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
-			ModelMap model) {
+			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Usuario usuario = usuarioService.findById(id);
+		if(usuario.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el usuario, prueba otra vez");
+			return editUsuario(id, model);
+		}
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
+			modifiedUsuario.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -154,6 +160,7 @@ public class UsuarioController {
 			User user = usuario.getUser();
 			user.setPassword(PasswordConfiguration.passwordEncoder().encode(user.getPassword()));
 			usuario.setUser(user);
+			usuario.setVersion(0);
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
