@@ -15,7 +15,8 @@
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Categoria" name="categoria"/>
             <petclinic:inputField label="Contenido" name="contenido"/>   
-            <input name="usuario" type=hidden value="${usuario.id}">     
+            <input name="usuario" type=hidden value="${usuario.id}">
+            <input name="version" type=hidden value="${hilo.version}">     
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
