@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -112,17 +113,22 @@ public class HiloController {
 
 	@PostMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, @Valid Hilo modifiedHilo, BindingResult binding,
-			ModelMap model) {
+			ModelMap model, @RequestParam(value="version", required= false) Integer version) {
 		Hilo hilo = hiloService.findById(id);
+		if(hilo.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el hilo, prueba otra vez");
+			return editHilo(id, model);
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();	
 		if (binding.hasErrors()) {
 			return HILOS_FORM;
 		} else {
+			modifiedHilo.setVersion(version+1);
+			log.info("Editado el hilo con id: "+id+ " y con versión actual " + modifiedHilo.getVersion()+" por el usuario: "+username);
 			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
 			hiloService.save(hilo);
 			model.addAttribute("message", "Hilo actualizado");
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String username = authentication.getName();
-			log.info("Hilo con id "+ id + " fue actualizado por el usuario " + username);
 			return listHilos(model);
 		}
 	}
@@ -178,9 +184,10 @@ public class HiloController {
 			Logro logro = logroService.findByName("Creaste un hilo");
 			logroController.addLogro(logro);
 			hilo.setUsuario(usuarioLoggeado); 
-			hiloService.save(hilo);
+			hilo.setVersion(0);
+			hiloService.save(hilo);	
 			model.addAttribute("message", "Nuevo hilo añadido");
-			log.info("Un nuevo hilo con id "+ hilo.getId() + " fue creado por el usuario " + username);
+			log.info("Un nuevo hilo con id "+ hilo.getId() + " fue creado por el usuario " + username + " con versión " + hilo.getVersion());
 			return listHilos(model);
 		}
 	}
