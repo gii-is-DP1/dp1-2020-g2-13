@@ -22,7 +22,7 @@
 		<tbody>
 			<c:forEach items="${examenes}" var="examenes">
 				<tr>
-					<td><a href="/examenes/${examenes.id}/1/newTry"> <c:out
+					<td><a href="/examenes/${examenes.id}/newTry"> <c:out
 								value="${examenes.titulos}" /></a></td>
 					<td><c:out value="${examenes.puntuacionMaxima}" /></td>
 					<td><c:out value="${examenes.puntuacionMinima}" /></td>
