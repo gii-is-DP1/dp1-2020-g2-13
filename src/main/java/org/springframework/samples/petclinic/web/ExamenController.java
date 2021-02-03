@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -110,8 +111,12 @@ public class ExamenController {
 
 	@PostMapping("/{id}/edit")
 	public String editExamen(@PathVariable("id") int id, @Valid Examen modifiedExamen, BindingResult binding,
-			ModelMap model) {
+			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Examen examen = examenService.findById(id);
+		if(examen.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el usuario, prueba otra vez");
+			return editExamen(id, model);
+		}
 		if (binding.hasErrors()) {
 			Usuario usuario = examen.getUsuario();
 			model.addAttribute("usuario", usuario);
@@ -119,6 +124,7 @@ public class ExamenController {
 		} else {
 			List<Pregunta> preguntas = examen.getPreguntas();
 			modifiedExamen.setPreguntas(preguntas);
+			modifiedExamen.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedExamen, examen, "id");
 			examenService.save(examen);
 			model.addAttribute("message", "Examen editado satisfactoriamente");
@@ -184,7 +190,8 @@ public class ExamenController {
 	
 		if (binding.hasErrors()) {
 			return EXAMENES_FORM;
-		} else {		
+		} else {
+			examen.setVersion(0);
 			examenService.save(examen);
 			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username);
 			model.addAttribute("message", "El examen fue creado exitosamente");
