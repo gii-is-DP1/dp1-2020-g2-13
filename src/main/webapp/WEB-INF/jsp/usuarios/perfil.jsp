@@ -12,7 +12,7 @@ hay u<%@ page session="false" trimDirectiveWhitespaces="true"%>
 		<button class="btn btn-default">Volver a Lista de Usuarios</button>
 	</a>
 	
-			<a href="intentos/${usuario.id}}">
+			<a href="/intentos/${usuario.id}">
 			<button class="btn btn-default">Ver intentos</button>
 	</a>
 
