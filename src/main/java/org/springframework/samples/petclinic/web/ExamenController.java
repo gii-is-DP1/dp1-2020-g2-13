@@ -131,7 +131,7 @@ public class ExamenController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username+"con la version: "+version+1);
-			return listExamenes(model);
+			return "redirect:/" +"examenes";
 		}
 	}
 
@@ -170,7 +170,7 @@ public class ExamenController {
 		usuarioService.save(usuario);
 		log.info("El examen " + idlogs + " fue eliminado por el usuario " + username);
 		model.addAttribute("message", "El examen fue eliminado exitosamente");
-		return listExamenes(model);
+		return "redirect:/" +"examenes";
 	}
 
 	@GetMapping("/new")
@@ -195,7 +195,7 @@ public class ExamenController {
 			examenService.save(examen);
 			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username+"con la version: 0");
 			model.addAttribute("message", "El examen fue creado exitosamente");
-			return listExamenes(model);
+			return "redirect:/" +"examen";
 		}
 	}
 	

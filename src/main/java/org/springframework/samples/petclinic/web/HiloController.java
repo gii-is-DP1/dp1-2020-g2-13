@@ -129,7 +129,7 @@ public class HiloController {
 			BeanUtils.copyProperties(modifiedHilo, hilo, "id");
 			hiloService.save(hilo);
 			model.addAttribute("message", "Hilo actualizado");
-			return listHilos(model);
+			return "redirect:/" +"hilos";
 		}
 	}
 
@@ -152,7 +152,7 @@ public class HiloController {
 		model.addAttribute("message","Hilo eliminado");
 		
 		log.info("Hilo con id "+ id + " fue eliminado por el usuario " + username);	
-		return listHilos(model);
+		return "redirect:/" +"hilos";
 	}
 	 
 	@GetMapping("/new")
@@ -188,7 +188,7 @@ public class HiloController {
 			hiloService.save(hilo);	
 			model.addAttribute("message", "Nuevo hilo añadido");
 			log.info("Un nuevo hilo con id "+ hilo.getId() + " fue creado por el usuario " + username + " con versión " + hilo.getVersion());
-			return listHilos(model);
+			return "redirect:/" +"hilos";
 		}
 	}
 }
