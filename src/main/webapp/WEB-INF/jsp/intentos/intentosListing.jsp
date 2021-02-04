@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -6,7 +7,7 @@
 
 <petclinic:layout pageName="perfil">
 
-	<a href="usuarios/${usuario.id}/perfil">
+	<a href="/usuarios/${usuario.id}/perfil">
 		<button class="btn btn-default">Volver al perfil del usuario</button>
 	</a>
 
