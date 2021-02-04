@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -110,8 +111,12 @@ public class ExamenController {
 
 	@PostMapping("/{id}/edit")
 	public String editExamen(@PathVariable("id") int id, @Valid Examen modifiedExamen, BindingResult binding,
-			ModelMap model) {
+			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Examen examen = examenService.findById(id);
+		if(examen.getVersion()!=version) {	
+			model.put("message", "Alguien ha modificado simultáneamente el usuario, prueba otra vez");
+			return editExamen(id, model);
+		}
 		if (binding.hasErrors()) {
 			Usuario usuario = examen.getUsuario();
 			model.addAttribute("usuario", usuario);
@@ -119,12 +124,13 @@ public class ExamenController {
 		} else {
 			List<Pregunta> preguntas = examen.getPreguntas();
 			modifiedExamen.setPreguntas(preguntas);
+			modifiedExamen.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedExamen, examen, "id");
 			examenService.save(examen);
 			model.addAttribute("message", "Examen editado satisfactoriamente");
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username);
+			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username+"con la version: "+version+1);
 			return listExamenes(model);
 		}
 	}
@@ -184,9 +190,10 @@ public class ExamenController {
 	
 		if (binding.hasErrors()) {
 			return EXAMENES_FORM;
-		} else {		
+		} else {
+			examen.setVersion(0);
 			examenService.save(examen);
-			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username);
+			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username+"con la version: 0");
 			model.addAttribute("message", "El examen fue creado exitosamente");
 			return listExamenes(model);
 		}
@@ -220,8 +227,8 @@ public class ExamenController {
 		return EXAMEN_DETAILS;
 	}
 	
-	@GetMapping("/{examen_id}/{intento_id}/newTry")
-	public String examenTry(@PathVariable("examen_id") int examen_id, @PathVariable("intento_id") int intento_id, ModelMap model) {
+	@GetMapping("/{examen_id}/newTry")
+	public String examenTry(@PathVariable("examen_id") int examen_id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
@@ -231,18 +238,89 @@ public class ExamenController {
 		}else {
 			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
 		}
-		Intento intento = new Intento();
-		Respuesta respuesta = new Respuesta();
 		List<Pregunta> preguntas = examenService.findById(examen_id).getPreguntas();
-		if(numero_pregunta!=0) {
-			intento = intentoService.findById(intento_id);
-		}else if(numero_pregunta==0) {
-			intento.setPuntuacion(null);
-			intento.setFecha(LocalDate.now());
-			intento.setExamen(examenService.findById(examen_id));
-			intento.setRespuestas(new ArrayList<Respuesta>());
-			intentoService.save(intento);
+		Pregunta pregunta = preguntas.get(numero_pregunta);
+		List<Opcion> opciones = new ArrayList<Opcion>();
+		if(pregunta.getTipoTest()!=null) {
+			opciones = pregunta.getTipoTest().getOpciones();
 		}
+		Respuesta respuesta = new Respuesta();
+		int numeroOpciones = opciones.size();
+		Examen examen = examenService.findById(examen_id);
+		int size = examen.getPreguntas().size();
+		Intento intento = new Intento();
+		intento.setPuntuacion(null);
+		intento.setFecha(LocalDate.now());
+		intento.setExamen(examenService.findById(examen_id));
+		intento.setRespuestas(new ArrayList<Respuesta>());
+		intentoService.save(intento);
+		model.addAttribute("examen", examen);
+		model.addAttribute("intento", intento);
+		model.addAttribute("pregunta", pregunta.getContenido());
+		model.addAttribute("opciones", opciones);
+		model.addAttribute("respuesta", respuesta);
+		model.addAttribute("numero_pregunta", numero_pregunta);
+		model.addAttribute("size", size);
+		model.addAttribute("numeroOpciones", numeroOpciones);
+		return EXAMEN_TRY;
+	}
+	
+	@PostMapping("/{examen_id}/newTry")
+	public String examenTry(@PathVariable("examen_id") int examen_id, 
+			Respuesta respuesta, ModelMap model, 
+			@RequestParam(value="intento", required= true) Integer intentoId) {
+		System.out.println("Antes de guardar");
+		respuestaService.save(respuesta);
+		System.out.println("Se guarda");
+		Integer numero_pregunta = respuesta.getNumeroPregunta();
+		System.out.println("Coge el número de la pregunta");
+		respuesta.setTextoRespuesta("");
+        Intento intento = intentoService.findById(intentoId);
+		System.out.println("Localiza el intento");
+        List<Respuesta> respuestas = new ArrayList<Respuesta>();
+        respuestas.addAll(intento.getRespuestas());
+        respuestas.add(respuesta);
+		System.out.println("Añade la respuesta al conjunto de respuestas del intento");
+        intento.setRespuestas(respuestas);
+		System.out.println(intento.getId());
+		intentoService.save(intento);
+		System.out.println("Guarda el intento");
+		Examen examen = examenService.findById(examen_id);
+		System.out.println("Encuentra el examen");
+		if(numero_pregunta>=examen.getPreguntas().size()-1) {
+			Logro logro = logroService.findByName("Hiciste un examen");
+			logroController.addLogro(logro);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			log.info("El usuario " + username + "terminó el intento " + intento.getId() + " del examen " + examen_id);
+			Usuario usuario = usuarioService.findByUsername(username);
+			usuario.getIntentos().add(intento);
+			usuarioService.save(usuario);
+			model.addAttribute("message", "You finished the exam!");
+			return listExamenes(model);
+		}else {
+			numero_pregunta++;
+			model.addAttribute("numero_pregunta", numero_pregunta);
+			return "redirect:/" + intento.getId() + "/continue";
+		}
+	}
+	
+
+	
+	@GetMapping("/{intento_id}/continue")
+	public String examenContinue(@PathVariable("intento_id") int intento_id, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		int numero_pregunta;
+		if(model.getAttribute("numero_pregunta")==null) {
+			numero_pregunta = 0;
+		}else {
+			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
+		}
+		Intento intento = intentoService.findById(intento_id);
+		Respuesta respuesta = new Respuesta();
+		List<Pregunta> preguntas =  intento.getExamen().getPreguntas();
 		respuesta.setTextoRespuesta("");
 		Pregunta pregunta = preguntas.get(numero_pregunta);
 		List<Opcion> opciones = new ArrayList<Opcion>();
@@ -250,7 +328,7 @@ public class ExamenController {
 			opciones = pregunta.getTipoTest().getOpciones();
 		}
 		int numeroOpciones = opciones.size();
-		Examen examen = examenService.findById(examen_id);
+		Examen examen = examenService.findById(intento.getExamen().getId());
 		int size = examen.getPreguntas().size();
 		model.addAttribute("examen", examen);
 		model.addAttribute("pregunta", pregunta.getContenido());
@@ -263,8 +341,10 @@ public class ExamenController {
 		return EXAMEN_TRY;
 	}
 	
-	@PostMapping("/{examen_id}/{intento_id}/newTry")
-	public String examenTry(@PathVariable("examen_id") int examen_id, @PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
+
+	
+	@PostMapping("/{intento_id}/continue")
+	public String examenContinue(@PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
 		respuestaService.save(respuesta);
         Intento intento = intentoService.findById(intento_id);
@@ -272,19 +352,22 @@ public class ExamenController {
         respuestas.add(respuesta);
         intento.setRespuestas(respuestas);
 		intentoService.save(intento);
-		Examen examen = examenService.findById(examen_id);
+		Examen examen = intento.getExamen();
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			Logro logro = logroService.findByName("Hiciste un examen");
 			logroController.addLogro(logro);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("El usuario " + username + "terminó el intento " + intento_id + " del examen " + examen_id);
+			log.info("El usuario " + username + "terminó el intento " + intento_id + " del examen " + intento.getExamen().getId());
+			Usuario usuario = usuarioService.findByUsername(username);
+			usuario.getIntentos().add(intento);
+			usuarioService.save(usuario);
 			model.addAttribute("message", "You finished the exam!");
 			return listExamenes(model);
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			return examenTry(examen_id, intento_id, model);
+			return "redirect:/" + intento.getId() + "/continue";
 		}
 	}
 

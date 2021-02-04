@@ -28,10 +28,11 @@
         </c:choose>
         </div>
         <input name="numeroPregunta" type=hidden value="${numero_pregunta}">
+        <input name="intento" type=hidden value="${intento.id}">
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
             	</br>
-				<button href="examenes/${examen.id}/${intento.id}/newTry" class="btn btn-default" type="submit">Send Answer</button>
+				<button class="btn btn-default" type="submit">Send Answer</button>
             </div>
         </div>
     </form:form>
