@@ -92,7 +92,7 @@ public class PdfController {
 			BeanUtils.copyProperties(modifiedPdf, pdf, "id");
 			pdfService.save(pdf);
 			model.addAttribute("message", "Documento actualizado");
-			return listPdfs(model);
+			return "redirect:/" + "pdfs";
 		}
 	}
 
@@ -108,7 +108,7 @@ public class PdfController {
 		}
 		pdfService.delete(pdf);
 		model.addAttribute("message","Documento eliminado");
-		return listPdfs(model);
+		return "redirect:/"+"pdfs";
 	}
 	
 	@GetMapping("/new")
@@ -139,7 +139,7 @@ public class PdfController {
 			log.info("Creando el pdf con id: "+pdf.getId()+" por el usuario: " + username + " y con versión "+ pdf.getVersion());
 			pdfService.save(pdf);
 			model.addAttribute("message", "Nuevo documento creado");			
-			return listPdfs(model);
+			return "redirect:/" + "pdfs";
 		}
 	}
 	

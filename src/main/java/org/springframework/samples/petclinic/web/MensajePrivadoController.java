@@ -117,7 +117,7 @@ public class MensajePrivadoController {
 		} else {
 			mensajePrivadoService.save(mensajePrivado);
 			model.addAttribute("message", "El mensaje ha sido enviado con éxito.");
-			return listMensajesPrivados(receptor, model);
+			return "redirect:/" +"mensajesPrivados/"+receptor;
 		}
 	}
 
@@ -138,7 +138,7 @@ public class MensajePrivadoController {
 		}
 		mensajePrivadoService.delete(mensajePrivado);
 		model.addAttribute("message", "El mensaje ha sido eliminado");
-		return listMensajesPrivados(id, model);
+		return "redirect:/" +"mensajesPrivados/"+id;
 	}
 
 	@GetMapping("/{value}/edit")
@@ -174,7 +174,8 @@ public class MensajePrivadoController {
 			BeanUtils.copyProperties(modifiedMensajePrivado, mensajePrivado, "id");
 			mensajePrivadoService.save(mensajePrivado);
 			model.addAttribute("message", "The comentario was created successfully!");
-			return listMensajesPrivados(mensajePrivado.getReceptor().getId(), model);
+
+			return "redirect:/" +"mensajesPrivados/"+mensajePrivado.getReceptor().getId();
 		}
 	}
 }
