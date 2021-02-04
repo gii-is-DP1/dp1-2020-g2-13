@@ -81,7 +81,7 @@ public class LogroController {
 			BeanUtils.copyProperties(modifiedLogro, logro, "id");
 			logroService.save(logro);
 			model.addAttribute("message", "Goal updated succesfully!");
-			return listLogros(model);
+			return "redirect:/" +"logros";
 		}
 	}
 
@@ -93,7 +93,7 @@ public class LogroController {
 		Logro logro=logroService.findById(id);
 		logroService.delete(logro);
 		model.addAttribute("message","The goal was deleted successfully!");
-		return listLogros(model);
+		return "redirect:/" +"logros";
 	}
 	
 	@GetMapping("/new")
@@ -115,7 +115,7 @@ public class LogroController {
 			String username = authentication.getName();
 			log.info("Logro creado con id: "+ logro.getId()+" con el administrador con id: "+username);
 			model.addAttribute("message", "The goal was created successfully!");			
-			return listLogros(model);
+			return "redirect:/" +"logros";
 		}
 	}
 	

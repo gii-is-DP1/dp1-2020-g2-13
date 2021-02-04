@@ -120,7 +120,7 @@ public class UsuarioController {
 			String username = authentication.getName();
 			log.info("Editando el usuario con id: "+id+" por el admin: "+username+"con la version: "+version+1);
 			model.addAttribute("message", "Usuario actualizado");
-			return listUsuarios(model);
+			return "redirect:/" +"usuarios";
 		}
 	}
 
@@ -142,7 +142,7 @@ public class UsuarioController {
 		log.info("Eliminando el usuario con id: "+id+" por el admin: "+username);
 		usuarioService.delete(usuario);
 		model.addAttribute("message", "Usuario eliminado");
-		return listUsuarios(model);
+		return "redirect:/" +"usuarios";
 
 	}
 
@@ -166,7 +166,7 @@ public class UsuarioController {
 			String username = authentication.getName();
 			log.info("Creando el usuario con id: "+usuario.getId()+" por el admin: "+username+"con la version: 0");
 			model.addAttribute("message", "Nuevo usuario creado");
-			return listUsuarios(model);
+			return "redirect:/" +"usuarios";
 		}
 	}
 
