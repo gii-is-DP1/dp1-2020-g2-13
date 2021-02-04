@@ -252,7 +252,6 @@ public class ExamenController {
 		intento.setPuntuacion(null);
 		intento.setFecha(LocalDate.now());
 		intento.setExamen(examenService.findById(examen_id));
-		intento.setRespuestas(new ArrayList<Respuesta>());
 		intentoService.save(intento);
 		model.addAttribute("examen", examen);
 		model.addAttribute("intento", intento);
@@ -270,6 +269,7 @@ public class ExamenController {
 			Respuesta respuesta, ModelMap model, 
 			@RequestParam(value="intento", required= true) Integer intentoId) {
 		System.out.println("Antes de guardar");
+		System.out.println("Número de pregunta: " + respuesta.getNumeroPregunta());
 		respuestaService.save(respuesta);
 		System.out.println("Se guarda");
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
@@ -277,14 +277,6 @@ public class ExamenController {
 		respuesta.setTextoRespuesta("");
         Intento intento = intentoService.findById(intentoId);
 		System.out.println("Localiza el intento");
-        List<Respuesta> respuestas = new ArrayList<Respuesta>();
-        respuestas.addAll(intento.getRespuestas());
-        respuestas.add(respuesta);
-		System.out.println("Añade la respuesta al conjunto de respuestas del intento");
-        intento.setRespuestas(respuestas);
-		System.out.println(intento.getId());
-		intentoService.save(intento);
-		System.out.println("Guarda el intento");
 		Examen examen = examenService.findById(examen_id);
 		System.out.println("Encuentra el examen");
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
@@ -301,7 +293,7 @@ public class ExamenController {
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			return "redirect:/" + intento.getId() + "/continue";
+			return "redirect:/examenes/" + intento.getId() + "/continue";
 		}
 	}
 	
@@ -313,11 +305,12 @@ public class ExamenController {
 			return "redirect:/" + LOGIN;
 		}
 		int numero_pregunta;
-		if(model.getAttribute("numero_pregunta")==null) {
-			numero_pregunta = 0;
-		}else {
-			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
-		}
+		numero_pregunta = respuestaService.findByIntentoId(intento_id).size();
+//		if(model.getAttribute("numero_pregunta")==null) {
+//			numero_pregunta = 0;
+//		}else {
+//			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
+//		}
 		Intento intento = intentoService.findById(intento_id);
 		Respuesta respuesta = new Respuesta();
 		List<Pregunta> preguntas =  intento.getExamen().getPreguntas();
@@ -348,10 +341,6 @@ public class ExamenController {
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
 		respuestaService.save(respuesta);
         Intento intento = intentoService.findById(intento_id);
-        List<Respuesta> respuestas = intento.getRespuestas();
-        respuestas.add(respuesta);
-        intento.setRespuestas(respuestas);
-		intentoService.save(intento);
 		Examen examen = intento.getExamen();
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			Logro logro = logroService.findByName("Hiciste un examen");
