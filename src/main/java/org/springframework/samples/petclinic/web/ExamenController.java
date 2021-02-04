@@ -268,17 +268,19 @@ public class ExamenController {
 	public String examenTry(@PathVariable("examen_id") int examen_id, 
 			Respuesta respuesta, ModelMap model, 
 			@RequestParam(value="intento", required= true) Integer intentoId) {
-		System.out.println("Antes de guardar");
-		System.out.println("Número de pregunta: " + respuesta.getNumeroPregunta());
+		try {
+			if (respuesta.getTextoRespuesta().trim().equals("")) {
+				respuesta.setTextoRespuesta("No respondido");
+			}
+		}
+		catch (Exception e) {
+			respuesta.setTextoRespuesta("No respondido");
+		}
 		respuestaService.save(respuesta);
-		System.out.println("Se guarda");
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
-		System.out.println("Coge el número de la pregunta");
 		respuesta.setTextoRespuesta("");
         Intento intento = intentoService.findById(intentoId);
-		System.out.println("Localiza el intento");
 		Examen examen = examenService.findById(examen_id);
-		System.out.println("Encuentra el examen");
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			Logro logro = logroService.findByName("Hiciste un examen");
 			logroController.addLogro(logro);
@@ -289,7 +291,7 @@ public class ExamenController {
 			usuario.getIntentos().add(intento);
 			usuarioService.save(usuario);
 			model.addAttribute("message", "You finished the exam!");
-			return listExamenes(model);
+			return "redirect:/examenes";
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
@@ -339,6 +341,14 @@ public class ExamenController {
 	@PostMapping("/{intento_id}/continue")
 	public String examenContinue(@PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
+		try {
+			if (respuesta.getTextoRespuesta().trim().equals("")) {
+				respuesta.setTextoRespuesta("No respondido");
+			}
+		}
+		catch (Exception e) {
+			respuesta.setTextoRespuesta("No respondido");
+		}
 		respuestaService.save(respuesta);
         Intento intento = intentoService.findById(intento_id);
 		Examen examen = intento.getExamen();
@@ -352,11 +362,11 @@ public class ExamenController {
 			usuario.getIntentos().add(intento);
 			usuarioService.save(usuario);
 			model.addAttribute("message", "You finished the exam!");
-			return listExamenes(model);
+			return "redirect:/examenes";
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			return "redirect:/" + intento.getId() + "/continue";
+			return "redirect:/examenes/" + intento.getId() + "/continue";
 		}
 	}
 
