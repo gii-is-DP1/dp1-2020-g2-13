@@ -130,7 +130,7 @@ public class ExamenController {
 			model.addAttribute("message", "Examen editado satisfactoriamente");
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username);
+			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username+"con la version: "+version+1);
 			return listExamenes(model);
 		}
 	}
@@ -193,7 +193,7 @@ public class ExamenController {
 		} else {
 			examen.setVersion(0);
 			examenService.save(examen);
-			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username);
+			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username+"con la version: 0");
 			model.addAttribute("message", "El examen fue creado exitosamente");
 			return listExamenes(model);
 		}
