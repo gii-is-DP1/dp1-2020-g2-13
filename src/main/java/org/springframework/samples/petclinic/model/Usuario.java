@@ -274,5 +274,13 @@ public class Usuario extends Person {
 	public void setIntentos(List<Intento> intentos) {
 		this.intentos = intentos;
 	}
+	
+	public Set<Logro> getLogros() {
+		return logros;
+	}
+
+	public void setLogros(Set<Logro> logros) {
+		this.logros = logros;
+	}
 
 }

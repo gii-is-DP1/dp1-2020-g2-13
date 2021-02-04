@@ -40,6 +40,7 @@ public class IntentoController {
 		List<String> titulos= new ArrayList<String>();
 		List<List<Respuesta>> respuestas= new ArrayList<List<Respuesta>>();
 		for(int i=0;i<intentosUsuario.size();i++){			
+				titulos.add(intentosUsuario.get(i).getExamen().getTitulos());
 				respuestas.add(intentosUsuario.get(i).getRespuestas());	
 		}
 		

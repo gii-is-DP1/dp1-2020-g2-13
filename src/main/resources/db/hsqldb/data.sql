@@ -1,13 +1,13 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('mjLera','Qwerty123',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('mjLera','$2a$10$LtqN/Jpn6YdnDeAI0rWLDenLcUC1fCMwZVBi9gtFwvgXjyBmOxPDu',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'mjLera','admin');
 INSERT INTO authorities(id,username,authority) VALUES (2,'mjLera','registrado');
 -- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('chocapi','Qwerty123',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('chocapi','$2a$10$LtqN/Jpn6YdnDeAI0rWLDenLcUC1fCMwZVBi9gtFwvgXjyBmOxPDu',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'chocapi','pagado');
 INSERT INTO authorities(id,username,authority) VALUES (4,'chocapi','registrado');
 -- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('guille','Qwerty123',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('guille','$2a$10$LtqN/Jpn6YdnDeAI0rWLDenLcUC1fCMwZVBi9gtFwvgXjyBmOxPDu',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (5,'guille','registrado');
 
 INSERT INTO vets VALUES (1,1, 'James', 'Carter');
@@ -35,8 +35,9 @@ INSERT INTO types VALUES (5,1,'bird');
 INSERT INTO types VALUES (6,1,'hamster');
 
 -- Insertar logros
-INSERT INTO logros(id,version, nombre,descripcion) VALUES (1,1, 'Hola_mundo', 'primer logro conseguido por registro');
-INSERT INTO logros(id,version, nombre,descripcion) VALUES (2,1, 'Chocapi', 'Choque con pizarra');
+INSERT INTO logros(id, nombre,descripcion) VALUES (1, 'Creaste un hilo', 'Logro que se consigue al crear tu primer hilo.');
+INSERT INTO logros(id, nombre,descripcion) VALUES (2, 'Hiciste un examen', 'Logro que se consigue al realizar un examen por primera vez.');
+INSERT INTO logros(id, nombre,descripcion) VALUES (3, 'Primer comentario', 'Logro que se consigue al comentar en un hilo por primera vez.');
 
 -- Insertar usuarios
 INSERT INTO usuarios(id, version, nombre,apellidos,localidad,colegio,email,username) VALUES (1,1, 'María José','Lera','Sevilla','Colegio de prueba','email@us.es','mjLera');
@@ -54,8 +55,9 @@ INSERT INTO videos(id,version, usuario_id, nombre, link, duracion) VALUES (1,1,1
 INSERT INTO examenes(id,version, titulos, puntuacion_maxima, puntuacion_minima, usuario_id) VALUES (1,1, 'prueba', 10, 0, 1);
 
 -- Insertar usuarios_logros
-INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 1);
-INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (1, 2);
+INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (2, 1);
+INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (2, 2);
+INSERT INTO usuarios_logros(usuario_id, logros_id) VALUES (2, 3);
 
 -- Insertar usuarios_examenes
 --INSERT INTO usuarios_examenes(usuario_id, examenes_id) VALUES (2, 1);

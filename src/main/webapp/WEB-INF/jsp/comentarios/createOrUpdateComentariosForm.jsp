@@ -20,6 +20,7 @@
 			</c:if>
 			<input value="${hilo.id}" name="hilo" type=hidden>
             <input name="usuario" type=hidden value="${usuario.id}">
+             <input name="version" type=hidden value="${comentario.version}"> 
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
