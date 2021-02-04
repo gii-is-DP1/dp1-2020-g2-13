@@ -118,7 +118,7 @@ public class UsuarioController {
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("Editando el usuario con id: "+id+" por el admin: "+username);
+			log.info("Editando el usuario con id: "+id+" por el admin: "+username+"con la version: "+version+1);
 			model.addAttribute("message", "Usuario actualizado");
 			return listUsuarios(model);
 		}
@@ -164,7 +164,7 @@ public class UsuarioController {
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
-			log.info("Creando el usuario con id: "+usuario.getId()+" por el admin: "+username);
+			log.info("Creando el usuario con id: "+usuario.getId()+" por el admin: "+username+"con la version: 0");
 			model.addAttribute("message", "Nuevo usuario creado");
 			return listUsuarios(model);
 		}
