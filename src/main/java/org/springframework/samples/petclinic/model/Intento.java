@@ -21,7 +21,4 @@ public class Intento extends BaseEntity{
 	
 	@OneToOne
 	private Examen examen;
-	
-	@OneToMany
-	List<Respuesta> respuestas;
 }
