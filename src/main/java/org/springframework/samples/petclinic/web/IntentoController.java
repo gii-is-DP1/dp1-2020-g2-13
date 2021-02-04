@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.samples.petclinic.model.Respuesta;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.IntentoService;
 import org.springframework.samples.petclinic.service.LogroService;
+import org.springframework.samples.petclinic.service.RespuestaService;
 import org.springframework.samples.petclinic.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public class IntentoController {
 	
 	public static final String INTENTOS_LISTING = "intentos/intentosListing";
-	
+
 	@Autowired
 	IntentoService intentoService;
+	
+	@Autowired
+	RespuestaService respuestaService;
 	
 	@Autowired
 	UsuarioService usuarioService;
@@ -41,9 +46,11 @@ public class IntentoController {
 		List<List<Respuesta>> respuestas= new ArrayList<List<Respuesta>>();
 		for(int i=0;i<intentosUsuario.size();i++){			
 				titulos.add(intentosUsuario.get(i).getExamen().getTitulos());
-				respuestas.add(intentosUsuario.get(i).getRespuestas());	
+				Collection<Respuesta> r = respuestaService.findByIntentoId(intentosUsuario.get(i).getId());
+				List<Respuesta> r2 = new ArrayList<Respuesta>();
+				r2.addAll(r);
+				respuestas.add(r2);
 		}
-		
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("titulos", titulos);
 		model.addAttribute("intentos", intentosUsuario);
