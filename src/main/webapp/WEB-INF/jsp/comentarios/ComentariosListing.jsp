@@ -33,11 +33,7 @@
 					<td><a href="/hilos/${hilo.id}/${comentarios.id}/new"> <span
 							class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</a></td>
-					<c:if test="${comentarios.usuario.user.username.equals(usuario.user.username) 
-					|| authority.equals('admin')}">
-						<td><a href="/hilos/${hilo.id}/edit/${comentarios.id}"> <span
-								class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</a></td>
+					<c:if test="${authority.equals('admin')}">
 						<td><a href="/hilos/${hilo.id}/delete/${comentarios.id}"> <span
 								class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</a></td>

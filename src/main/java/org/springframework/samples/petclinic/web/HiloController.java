@@ -85,7 +85,7 @@ public class HiloController {
 		return HILOS_LISTING;
 	}
 	
-	@GetMapping("/{id}/edit")
+//	@GetMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -145,7 +145,7 @@ public class HiloController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-		if (!hilo.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+		if (!AuthController.isAdmin()) {
 			return "redirect:/" + ERROR;
 		}
 		hiloService.delete(hilo);
