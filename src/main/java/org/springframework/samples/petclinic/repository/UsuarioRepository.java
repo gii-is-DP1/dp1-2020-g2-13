@@ -16,6 +16,9 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 	@Query("SELECT u FROM Usuario u WHERE u.user.username = :username")
 	Usuario findByUsername(@Param("username")String username);
 
+	@Query("SELECT u FROM Usuario u WHERE u.user.enabled = TRUE")
+	Collection<Usuario> findEnabledUsers();
+
 	void delete(Usuario usuario);
 	
 }
