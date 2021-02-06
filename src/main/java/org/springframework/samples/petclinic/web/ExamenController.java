@@ -298,9 +298,7 @@ public class ExamenController {
 			return "redirect:/examenes/" + intento.getId() + "/continue";
 		}
 	}
-	
 
-	
 	@GetMapping("/{intento_id}/continue")
 	public String examenContinue(@PathVariable("intento_id") int intento_id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
@@ -335,8 +333,6 @@ public class ExamenController {
 		model.addAttribute("numeroOpciones", numeroOpciones);
 		return EXAMEN_TRY;
 	}
-	
-
 	
 	@PostMapping("/{intento_id}/continue")
 	public String examenContinue(@PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
