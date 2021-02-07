@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -71,17 +72,23 @@ public class UsuarioController {
 		if (!AuthController.hasPaid()) {
 			return "redirect:/" + MEJORAR_CUENTA;
 		}
-		model.addAttribute("usuarios", usuarioService.findAll());
+		Collection<Usuario> usuarios = usuarioService.findEnabledUsers();
+		model.addAttribute("usuarios", usuarios);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuario = usuarioService.findByUsername(username);
 		model.addAttribute("usuario", usuario);
 		String authority = AuthController.highestLevel();
 		model.addAttribute("authority", authority);
+		List<String> authorities = new ArrayList<String>();
+		for(Usuario u:usuarios) {
+			authorities.add(authController.highestLevel(u));
+		}
+		model.addAttribute("authorities", authorities);
 		return USUARIOS_LISTING;
 	}
 
-	@GetMapping("/{id}/edit")
+//	@GetMapping("/{id}/edit")
 	public String editUsuario(@PathVariable("id") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -102,7 +109,7 @@ public class UsuarioController {
 
 	}
 
-	@PostMapping("/{id}/edit")
+//	@PostMapping("/{id}/edit")
 	public String editUsuario(@PathVariable("id") int id, @Valid Usuario modifiedUsuario, BindingResult binding,
 			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Usuario usuario = usuarioService.findById(id);
@@ -124,7 +131,7 @@ public class UsuarioController {
 		}
 	}
 
-	@GetMapping("/{id}/delete")
+//	@GetMapping("/{id}/delete")
 	public String deleteUsuario(@PathVariable("id") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -142,6 +149,28 @@ public class UsuarioController {
 		log.info("Eliminando el usuario con id: "+id+" por el admin: "+username);
 		usuarioService.delete(usuario);
 		model.addAttribute("message", "Usuario eliminado");
+		return "redirect:/" +"usuarios";
+
+	}
+
+	@GetMapping("/{id}/disable")
+	public String disableUsuario(@PathVariable("id") int id, ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		if (!AuthController.isAdmin()) {
+			return "redirect:/" + ERROR;
+		}
+		Usuario usuario = usuarioService.findById(id);
+		log.info("Desactivando el usuario con id: "+id+" por el admin: "+username);
+		usuarioService.disableUser(usuario);
+		model.addAttribute("message", "Usuario desactivado");
 		return "redirect:/" +"usuarios";
 
 	}
