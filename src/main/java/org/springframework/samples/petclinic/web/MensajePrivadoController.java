@@ -121,7 +121,7 @@ public class MensajePrivadoController {
 		}
 	}
 
-	@GetMapping("/{value}/delete")
+	//@GetMapping("/{value}/delete")
 	public String deleteMensajesPrivados(@PathVariable("value") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -141,7 +141,7 @@ public class MensajePrivadoController {
 		return "redirect:/" +"mensajesPrivados/"+id;
 	}
 
-	@GetMapping("/{value}/edit")
+	//@GetMapping("/{value}/edit")
 	public String editMensajePrivado(@PathVariable("value") int value, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -162,7 +162,7 @@ public class MensajePrivadoController {
 		return MENSAJES_PRIVADOS_FORM;
 	}
 
-	@PostMapping("/{value}/edit")
+	//@PostMapping("/{value}/edit")
 	public String editMensajesPrivados(@PathVariable("value") int id, @Valid Comentario modifiedMensajePrivado,
 			BindingResult binding, ModelMap model) {
 		MensajePrivado mensajePrivado = mensajePrivadoService.findById(id);

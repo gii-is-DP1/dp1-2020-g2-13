@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.samples.petclinic.repository.UsuarioRepository;
@@ -26,6 +27,10 @@ public class UsuarioService {
 
 	public Collection<Usuario> findAll() {
 		return usuarioRepository.findAll();
+	}
+
+	public Collection<Usuario> findEnabledUsers() {
+		return usuarioRepository.findEnabledUsers();
 	}
 
 	public Usuario findById(int id) {
@@ -88,5 +93,10 @@ public class UsuarioService {
 //		usuario.getUser().setAuthorities(auth);
 		authoritiesService.deleteAuthorities(usuario.getUser().getUsername(), "admin");
 //		usuarioRepository.save(usuario);
+	}
+	
+	public void disableUser(@Valid Usuario usuario) {
+		User user = usuario.getUser();
+		userService.disableUser(user);
 	}
 }

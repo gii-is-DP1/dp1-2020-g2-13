@@ -24,14 +24,6 @@
 				<tr>
 					<td><c:out value="${mensajePrivado.emisor.nombre}" /></td>
 					<td><c:out value="${mensajePrivado.contenido}" /></td>
-					<c:if test="${mensajePrivado.emisor.equals(emisor) || authority.equals('admin')}">
-						<td><a href="/mensajesPrivados/${mensajePrivado.id}/edit"> <span
-							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</a></td>
-						<td><a href="/mensajesPrivados/${mensajePrivado.id}/delete"> <span
-							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						</a></td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>

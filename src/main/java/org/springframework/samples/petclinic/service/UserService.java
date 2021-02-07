@@ -46,6 +46,13 @@ public class UserService {
 		user.setEnabled(true);
 		userRepository.save(user);
 	}
+
+	@Transactional
+	public void disableUser(User user) {
+		user.setEnabled(false);
+		System.out.println(user.isEnabled());
+		userRepository.save(user);
+	}
 	
 	public Optional<User> findUser(String username) {
 		return userRepository.findById(username);
