@@ -20,7 +20,7 @@
         <c:forEach items="${surveys}" var="survey">
             <tr>
                 <td>
-                    <c:out value="${survey.surveyls_title}"/>
+                    <a href='http://www.golden5.org/limesurvey_3/${survey.sid}?lang=es'><c:out value="${survey.surveyls_title}"/></a>
                 </td>
                
             </tr>
