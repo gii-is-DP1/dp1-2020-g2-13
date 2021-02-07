@@ -8,7 +8,15 @@ import java.util.Map;
 
 public class CoreSearch {
 
-    private Integer id;
+    public CoreSearch() {
+		super();
+		this.id = null;
+		this.result = null;
+		this.error = null;
+		this.additionalProperties = null;
+	}
+
+	private Integer id;
     private List<Result> result = null;
     private Object error;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();

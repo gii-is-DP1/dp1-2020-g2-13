@@ -7,7 +7,13 @@ import java.util.Map;
 
 public class Result {
 
-    private String sid;
+    @Override
+	public String toString() {
+		return "Result [sid=" + sid + ", surveylsTitle=" + surveylsTitle + ", startdate=" + startdate + ", expires="
+				+ expires + ", active=" + active + ", additionalProperties=" + additionalProperties + "]";
+	}
+
+	private String sid;
     private String surveylsTitle;
     private Object startdate;
     private Object expires;
