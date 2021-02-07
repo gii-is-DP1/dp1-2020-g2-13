@@ -2,24 +2,19 @@
 package org.springframework.samples.petclinic.model;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
 
 public class CoreSearch {
 
-    public CoreSearch() {
-		super();
-		this.id = null;
-		this.result = null;
-		this.error = null;
-		this.additionalProperties = null;
-	}
-
+	
 	private Integer id;
-    private List<Result> result = null;
+	
+    private List<Result> result;
+	
     private Object error;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    
 
     public Integer getId() {
         return id;
@@ -45,18 +40,11 @@ public class CoreSearch {
         this.error = error;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 	@Override
 	public String toString() {
-		return "CoreSearch [id=" + id + ", result=" + result + ", error=" + error + ", additionalProperties="
-				+ additionalProperties + "]";
+		return "CoreSearch [id=" + id + ", result=" + result + ", error=" + error + "]";
 	}
+
+    
 
 }
