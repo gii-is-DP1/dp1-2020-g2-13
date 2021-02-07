@@ -8,7 +8,25 @@
 
 <petclinic:layout pageName="cuestionarios">
     
-   <p> Hola, Parejo</p>
+    <h2>Herramientas</h2>
+        <table id="HerramientasTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 20%;">Nombre</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${surveys}" var="survey">
+            <tr>
+                <td>
+                    <c:out value="${survey.surveyls_title}"/>
+                </td>
+               
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
     
     
     
