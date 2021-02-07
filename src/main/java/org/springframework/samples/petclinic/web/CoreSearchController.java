@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.web;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.CoreSearch;
@@ -37,6 +39,11 @@ public class CoreSearchController {
 		try {
 			llamadaAPI = ClientAPIService.LlamadaLimeSurvey();
 			List<Result> surveys = llamadaAPI.getResult();
+			List<String> enlaces = new ArrayList<>();
+			surveys = surveys.stream()
+					.filter(x -> x.getActive().equals("Y"))
+					.collect(Collectors.toList());
+			
 			log.info("Se ha llamado a la API de Limesurvey y se ha obtenido el coresearch: " + llamadaAPI);
 			model.addAttribute("surveys", surveys);
 			
