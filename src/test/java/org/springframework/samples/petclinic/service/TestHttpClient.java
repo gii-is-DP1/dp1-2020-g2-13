@@ -2,6 +2,11 @@ package org.springframework.samples.petclinic.service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
 import org.springframework.samples.petclinic.model.CoreSearch;
 import org.springframework.samples.petclinic.model.Result;
 
@@ -19,11 +25,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import aj.org.objectweb.asm.TypeReference;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 
 public class TestHttpClient {
-	public static String json;
+
 	public static String parse(String jsonLine) {
 		JsonElement jelement = new JsonParser().parse(jsonLine);
 		JsonObject jobject = jelement.getAsJsonObject();
@@ -49,10 +56,17 @@ public class TestHttpClient {
 				response = client.execute(post);
 				if (response.getStatusLine().getStatusCode() == 200) {
 					entity = response.getEntity();
-					System.out.println(EntityUtils.toString(entity));
-					json = EntityUtils.toString(entity);
-					CoreSearch p = parse2Core(json);
+//					System.out.println(EntityUtils.toString(entity));
+					CoreSearch p = parse2Core(EntityUtils.toString(entity));
 					System.out.println(p);
+//					Jsonb jsonb = JsonbBuilder.create();
+//					ObjectMapper objectMapper = new ObjectMapper();
+//			      
+//			        CoreSearch p = jsonb.fromJson(EntityUtils.toString(entity), CoreSearch.class);
+//			        System.out.println(p);
+//					List<Result> listCar = ObjectMapper.readValue(EntityUtils.toString(entity), new TypeReference<List<Result>>(){});
+//					CoreSearch car = objectMapper.readValue(EntityUtils.toString(entity), CoreSearch.class);
+//					System.out.println(car);
 				}
 			}
 
@@ -62,7 +76,8 @@ public class TestHttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
+	}
+
 	public static CoreSearch parse2Core(String json) {
 		Gson g = new Gson();
 		CoreSearch p = g.fromJson(json, CoreSearch.class);

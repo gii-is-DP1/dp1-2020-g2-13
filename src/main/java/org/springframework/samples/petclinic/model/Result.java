@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Result {
 
 
+
     private String sid;
 
     private String surveyls_title;
@@ -56,6 +57,7 @@ public class Result {
         this.active = active;
     }
 
+
     @Override
     public String toString() {
         return "Result [sid=" + sid + ", surveylsTitle=" + surveyls_title + ", startdate=" + startdate + ", expires="
@@ -64,3 +66,4 @@ public class Result {
 
 
 }
+

@@ -8,11 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class CoreSearch {
 
 
+
     private Integer id;
 
     private List<Result> result;
 
     private Object error;
+
 
 
     public Integer getId() {
@@ -39,11 +41,13 @@ public class CoreSearch {
         this.error = error;
     }
 
-    @Override
-    public String toString() {
-        return "CoreSearch [id=" + id + ", result=" + result + ", error=" + error + "]";
-    }
 
+	@Override
+	public String toString() {
+		return "CoreSearch [id=" + id + ", result=" + result + ", error=" + error + "]";
+	}
 
+    
 
 }
+
