@@ -25,12 +25,12 @@ public class Result {
         this.sid = sid;
     }
 
-    public String getSurveylsTitle() {
+    public String getSurveyls_title() {
         return surveyls_title;
     }
 
-    public void setSurveylsTitle(String surveylsTitle) {
-        this.surveyls_title = surveylsTitle;
+    public void setSurveyls_title(String surveyls_title) {
+        this.surveyls_title = surveyls_title;
     }
 
     public Object getStartdate() {
