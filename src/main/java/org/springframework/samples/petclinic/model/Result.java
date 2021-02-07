@@ -1,22 +1,21 @@
-
 package org.springframework.samples.petclinic.model;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Result {
 
-   
-	
-	private String sid;
-	
+
+
+    private String sid;
+
     private String surveyls_title;
-	
+
     private Object startdate;
-	
+
     private Object expires;
-	
+
     private String active;
-   
+
 
     public String getSid() {
         return sid;
@@ -58,11 +57,13 @@ public class Result {
         this.active = active;
     }
 
-	@Override
-	public String toString() {
-		return "Result [sid=" + sid + ", surveylsTitle=" + surveyls_title + ", startdate=" + startdate + ", expires="
-				+ expires + ", active=" + active + "]";
-	}
 
-    
+    @Override
+    public String toString() {
+        return "Result [sid=" + sid + ", surveylsTitle=" + surveyls_title + ", startdate=" + startdate + ", expires="
+                + expires + ", active=" + active + "]";
+    }
+
+
 }
+
