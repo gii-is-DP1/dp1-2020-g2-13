@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.CoreSearch;
+import org.springframework.samples.petclinic.model.Result;
 import org.springframework.samples.petclinic.service.ClientAPIService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,8 +36,9 @@ public class CoreSearchController {
 		CoreSearch llamadaAPI;
 		try {
 			llamadaAPI = ClientAPIService.LlamadaLimeSurvey();
+			List<Result> surveys = llamadaAPI.getResult();
 			log.info("Se ha llamado a la API de Limesurvey y se ha obtenido el coresearch: " + llamadaAPI);
-			model.addAttribute("coreSearch", llamadaAPI);
+			model.addAttribute("surveys", surveys);
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
