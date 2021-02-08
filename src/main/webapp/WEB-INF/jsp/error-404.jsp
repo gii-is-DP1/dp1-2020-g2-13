@@ -7,8 +7,8 @@
     <spring:url value="/resources/images/404.png" var="petsImage"/>
     <img src="${petsImage}"/>
 
-    <h2>Esta página que solicita no existe</h2><br>
-    <h2> Porfavor acceda con el enlace correcto o contacte con el servicio técnico.</h2>
+    <h2>La página que solicita no existe</h2><br>
+    <h2> Por favor acceda con el enlace correcto o contacte con el servicio técnico.</h2>
 
    
 

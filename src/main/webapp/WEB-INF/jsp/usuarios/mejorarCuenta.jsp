@@ -9,15 +9,15 @@
 
 <petclinic:layout pageName="mejorarCuenta">
     <h2>
-        Mejorar cuenta
+        Cambiar el nivel de la cuenta
     </h2>
     <h3>
-    	Cuota no c qué, datos bancarios y no c qué más
+    	Para acceder a ciertas funcionalidades de la página es necesario pagar. En esta página habría una opción de pago mediante la api de paypal, pero aún no está implementado, por lo que pondremos botones de prueba.
     </h3>
     <a href="mejorarCuenta/confirma">
-        <button class="btn btn-default" type="submit">Mejorar cuenta</button>
+        <button class="btn btn-default" type="submit">Subir de nivel la cuenta</button>
     </a>
     <a href="empeorarCuenta">
-        <button class="btn btn-default" type="submit">Empeorar cuenta</button>
+        <button class="btn btn-default" type="submit">Bajar de nivel la cuenta</button>
     </a>
 </petclinic:layout> 
