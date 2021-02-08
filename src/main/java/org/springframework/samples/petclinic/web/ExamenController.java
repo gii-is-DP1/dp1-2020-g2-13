@@ -114,7 +114,7 @@ public class ExamenController {
 			ModelMap model,@RequestParam(value="version", required= false) Integer version) {
 		Examen examen = examenService.findById(id);
 		if(examen.getVersion()!=version) {	
-			model.put("message", "Alguien ha modificado simultáneamente el usuario, prueba otra vez");
+			model.put("message", "Alguien ha modificado simultáneamente el examen 	, prueba otra vez");
 			return editExamen(id, model);
 		}
 		if (binding.hasErrors()) {
@@ -195,7 +195,7 @@ public class ExamenController {
 			examenService.save(examen);
 			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username+"con la version: 0");
 			model.addAttribute("message", "El examen fue creado exitosamente");
-			return "redirect:/" +"examen";
+			return "redirect:/examenes";
 		}
 	}
 	
