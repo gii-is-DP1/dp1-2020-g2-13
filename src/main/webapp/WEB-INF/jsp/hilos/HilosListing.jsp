@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -12,7 +13,7 @@
 		<thead>
 			<tr>
 				<th style="width: 20%;">Nombre</th>
-				<th style="width: 80%;">Categoría</th>
+				<th style="width: 80%;">CategorÃ­a</th>
 				<th></th>
 				<th></th>
 
@@ -47,7 +48,7 @@
 
 	<p>
 		<a href="/hilos/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir hilo</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir hilo</a>
 	</p>
 
 </petclinic:layout>

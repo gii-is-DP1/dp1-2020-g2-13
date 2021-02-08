@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -9,7 +10,7 @@
 <petclinic:layout pageName="videoVisualize">
 
 <a href="/videos">
-		   		<button class="btn btn-default">Volver a Lista de Vídeos</button>
+		   		<button class="btn btn-default">Volver a Lista de VÃ­deos</button>
 		</a>
 
 	<h2>${video.nombre}</h2>

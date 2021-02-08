@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,7 +22,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${pdf['new']}">
-                        <button class="btn btn-default" type="submit">Añadir documento</button>
+                        <button class="btn btn-default" type="submit">AÃ±adir documento</button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-default" type="submit">Editar documento</button>
