@@ -14,10 +14,21 @@
     <h3>
     	Para acceder a ciertas funcionalidades de la página es necesario pagar. En esta página habría una opción de pago mediante la api de paypal, pero aún no está implementado, por lo que pondremos botones de prueba.
     </h3>
-    <a href="mejorarCuenta/confirma">
-        <button class="btn btn-default" type="submit">Subir de nivel la cuenta</button>
-    </a>
-    <a href="empeorarCuenta">
-        <button class="btn btn-default" type="submit">Bajar de nivel la cuenta</button>
-    </a>
+    
+    <c:if test="${nivel.equals('admin')}">
+        <p>Los administradores de la página no pueden bajar ni subir el nivel.</p>
+	</c:if>
+    
+    <c:if test="${nivel.equals('registrado')}">
+        <a href="mejorarCuenta/confirma">
+        	<button class="btn btn-default" type="submit">Subir de nivel la cuenta</button>
+    	</a>
+	</c:if>
+	
+	<c:if test="${nivel.equals('pagado')}">
+        <a href="empeorarCuenta">
+        	<button class="btn btn-default" type="submit">Bajar de nivel la cuenta</button>
+    	</a>
+	</c:if>
+    
 </petclinic:layout> 

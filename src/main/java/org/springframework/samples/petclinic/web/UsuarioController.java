@@ -261,6 +261,11 @@ public class UsuarioController {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		String nivel = authController.highestLevel(usuarioLoggeado);
+		model.addAttribute("nivel", nivel);
 		return MEJORAR_CUENTA;
 	}
 
