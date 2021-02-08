@@ -85,7 +85,7 @@ public class HiloController {
 		return HILOS_LISTING;
 	}
 	
-//	@GetMapping("/{id}/edit")
+	@GetMapping("/{id}/edit")
 	public String editHilo(@PathVariable("id") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
