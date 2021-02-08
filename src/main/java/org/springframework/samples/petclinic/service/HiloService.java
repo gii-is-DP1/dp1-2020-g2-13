@@ -49,7 +49,16 @@ public class HiloService {
 	}
 	
 	public void suscribir(Hilo hilo, Usuario usuario) {
-		hilo.getSuscriptores().add(usuario);
+		if (!hilo.getSuscriptores().contains(usuario)) {
+			hilo.getSuscriptores().add(usuario);
+		}
+		save(hilo);
+	}
+	
+	public void dessuscribir(Hilo hilo, Usuario usuario) {
+		if (hilo.getSuscriptores().contains(usuario)) {
+			hilo.getSuscriptores().remove(usuario);
+		}
 		save(hilo);
 	}
 
