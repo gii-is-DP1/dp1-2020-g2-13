@@ -19,7 +19,7 @@
 				<th>Intento del examen: <c:out value="${titulos[loop.index]}" /></th>
 				
 				<td><c:forEach var="respuesta" items="${respuestas[loop.index]}" varStatus="loop2">
-						<p>Respuesta a la pregunta <c:out value="${respuesta.numeroPregunta}" /></p>
+						<p>Respuesta a la pregunta <c:out value="${respuesta.numeroPregunta + 1}" /></p>
 						<c:out value="${respuesta.textoRespuesta}" />
 						</br>
 					</c:forEach></td>

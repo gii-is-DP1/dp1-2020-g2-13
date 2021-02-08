@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.Examen;
 import org.springframework.samples.petclinic.model.Usuario;
 import org.springframework.samples.petclinic.service.ExamenService;
 import org.springframework.samples.petclinic.service.IntentoService;
+import org.springframework.samples.petclinic.service.LogroService;
 import org.springframework.samples.petclinic.service.OpcionService;
 import org.springframework.samples.petclinic.service.PreguntaService;
 import org.springframework.samples.petclinic.service.RespuestaService;
@@ -38,6 +39,8 @@ public class ExamenControllerTest {
 
 	@Autowired
 	private ExamenController examenController;
+	
+	
 
 	@MockBean
 	private ExamenService examenService;
@@ -59,6 +62,15 @@ public class ExamenControllerTest {
 
 	@MockBean
 	private TipoTestService tipoTestService;
+	
+	@MockBean
+	private LogroService logroService;
+	
+	@MockBean
+	private LogroController logroController;
+	
+//	@MockBean
+//	private CustomErrorController customErrorController;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -68,6 +80,7 @@ public class ExamenControllerTest {
 		Examen e = new Examen();
 		e.setId(3);
 		e.setTitulos("Examen de DP");
+		e.setVersion(0);
 		given(this.usuarioService.findById(TEST_USUARIO_ID)).willReturn(new Usuario());
 		given(this.examenService.findById(TEST_EXAMEN_ID)).willReturn(new Examen());
 	}
@@ -81,8 +94,7 @@ public class ExamenControllerTest {
 	}
 	
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID)
-							.with(csrf())
+		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID).with(csrf())
 							.param("titulos", "Examen de DP")
 							.param("puntuacionMinima", "0.0")
 							.param("puntuacionMaxima", "10.0"))
@@ -93,8 +105,7 @@ public class ExamenControllerTest {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
     @Test
 	void testProcessCreationFormHasErrors() throws Exception {
-		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID)
-							.with(csrf())
+		mockMvc.perform(post("/examenes/new", TEST_EXAMEN_ID).with(csrf())
 							.param("titulos", "")
 							.param("puntuacionMinima", "0.0")
 							.param("puntuacionMaxima", "10.0"))
@@ -114,8 +125,7 @@ public class ExamenControllerTest {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormSuccess() throws Exception {
-	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)
-						.with(csrf())
+	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID).with(csrf())
 						.param("titulos", "Examen de DP")
 						.param("puntuacionMinima", "0.0")
 						.param("puntuacionMaxima", "10.0"))
@@ -126,13 +136,73 @@ public class ExamenControllerTest {
 	@WithMockUser(value = "spring", authorities= {"admin", "registrado"})
 	@Test
 	void testProcessUpdateFormHasErrors() throws Exception {
-	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID)
-						.with(csrf())
+	mockMvc.perform(post("/examenes/{id}/edit", TEST_EXAMEN_ID).with(csrf())
 						.param("titulos", "Examen de DP")
 						.param("puntuacionMinima", " ")
 						.param("puntuacionMaxima", "10.0"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeHasFieldErrors("examen"))
 			.andExpect(view().name("examenes/createOrUpdateExamenesForm"));
+	}
+	
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testGetExamenNewTry() throws Exception {
+		mockMvc.perform(get("/{examen_id}/newTry", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(model().attributeExists("intento"))
+				.andExpect(model().attributeExists("respuesta"))
+				.andExpect(view().name("examenes/examenTry"));
+	}
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testGetExamenContinue() throws Exception {
+		mockMvc.perform(get("/{intento_id}/continue", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(model().attributeExists("intento"))
+				.andExpect(model().attributeExists("respuesta"))
+				.andExpect(view().name("examenes/examenTry"));
+	}
+	
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testPostExamenTryNextQuestion() throws Exception {
+		mockMvc.perform(get("/{examen_id}/newTry", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(model().attributeExists("intento"))
+				.andExpect(model().attributeExists("respuesta"))
+				.andExpect(view().name("examenes/examenTry"));
+	}
+	
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testPostExamenTryFinish() throws Exception {
+		mockMvc.perform(get("/{examen_id}/newTry", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(view().name("examenes/examenListing"));
+	}
+	
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testPostExamenContinueNextQuestion() throws Exception {
+		mockMvc.perform(get("/{intento_id}/continue", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(model().attributeExists("intento"))
+				.andExpect(model().attributeExists("respuesta"))
+				.andExpect(view().name("examenes/examenTry"));
+	}
+	
+	@WithMockUser(value = "spring", authorities= {"registrado"})
+	@Test 
+	void testPostExamenContinueFinish() throws Exception {
+		mockMvc.perform(get("/{intento_id}/continue", TEST_EXAMEN_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attributeExists("examen"))
+				.andExpect(view().name("examenes/examenListing"));
 	}
 }

@@ -25,6 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			<c:set var="i" value="0"/>
 			<c:forEach items="${usuarios}" var="usuarios">
 				<tr>
 					<td><c:out value="${usuarios.nombre} " />
@@ -32,21 +33,30 @@
 					<td><c:out value="${usuarios.localidad}" /></td>
 					<td><c:out value="${usuarios.colegio}" /></td>
 					<td><c:out value="${usuarios.email}" /></td>
-
-
-					<td><a href="/usuarios/${usuarios.id}/edit"> <span
-							class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					
+					<td><a href="usuarios/${usuarios.id}/perfil"> <span
+						class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					</a></td>
-					<c:if test="${usuarios.equals(usuario) || authority.equals('admin')}">
-						<td><a href="/usuarios/${usuarios.id}/delete"> <span
-							class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						</a></td>
-
-						<td><a href="usuarios/${usuarios.id}/perfil"> <span
-							class="glyphicon glyphicon-search" aria-hidden="true"></span>
-						</a></td>
+					
+					<c:if test="${authority.equals('admin')}">
+						<c:set var="contains" value="false" />
+						<c:set var="j" value="0"/>
+						<c:forEach items="${authorities}" var="authorities">
+							<c:if test="${j eq i}">
+								<c:if test="${authorities eq 'admin'}">
+									<c:set var="contains" value="true" />
+								</c:if>
+							</c:if>
+							<c:set var="j" value="${j + 1}"/>
+						</c:forEach>
+						<c:if test="${contains eq 'false'}">
+							<td><a href="/usuarios/${usuarios.id}/disable"> <span
+								class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a></td>
+						</c:if>
 					</c:if>
 				</tr>
+				<c:set var="i" value="${i + 1}"/>
 			</c:forEach>
 		</tbody>
 	</table>

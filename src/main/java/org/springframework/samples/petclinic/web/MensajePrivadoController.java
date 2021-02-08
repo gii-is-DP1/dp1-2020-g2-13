@@ -117,11 +117,11 @@ public class MensajePrivadoController {
 		} else {
 			mensajePrivadoService.save(mensajePrivado);
 			model.addAttribute("message", "El mensaje ha sido enviado con éxito.");
-			return listMensajesPrivados(receptor, model);
+			return "redirect:/" +"mensajesPrivados/"+receptor;
 		}
 	}
 
-	@GetMapping("/{value}/delete")
+	//@GetMapping("/{value}/delete")
 	public String deleteMensajesPrivados(@PathVariable("value") int id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -138,10 +138,10 @@ public class MensajePrivadoController {
 		}
 		mensajePrivadoService.delete(mensajePrivado);
 		model.addAttribute("message", "El mensaje ha sido eliminado");
-		return listMensajesPrivados(id, model);
+		return "redirect:/" +"mensajesPrivados/"+id;
 	}
 
-	@GetMapping("/{value}/edit")
+	//@GetMapping("/{value}/edit")
 	public String editMensajePrivado(@PathVariable("value") int value, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -162,7 +162,7 @@ public class MensajePrivadoController {
 		return MENSAJES_PRIVADOS_FORM;
 	}
 
-	@PostMapping("/{value}/edit")
+	//@PostMapping("/{value}/edit")
 	public String editMensajesPrivados(@PathVariable("value") int id, @Valid Comentario modifiedMensajePrivado,
 			BindingResult binding, ModelMap model) {
 		MensajePrivado mensajePrivado = mensajePrivadoService.findById(id);
@@ -174,7 +174,8 @@ public class MensajePrivadoController {
 			BeanUtils.copyProperties(modifiedMensajePrivado, mensajePrivado, "id");
 			mensajePrivadoService.save(mensajePrivado);
 			model.addAttribute("message", "The comentario was created successfully!");
-			return listMensajesPrivados(mensajePrivado.getReceptor().getId(), model);
+
+			return "redirect:/" +"mensajesPrivados/"+mensajePrivado.getReceptor().getId();
 		}
 	}
 }

@@ -131,7 +131,7 @@ public class ExamenController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			log.info("El examen " + examen.getId() + " fue editado por el usuario " + username+"con la version: "+version+1);
-			return listExamenes(model);
+			return "redirect:/" +"examenes";
 		}
 	}
 
@@ -170,7 +170,7 @@ public class ExamenController {
 		usuarioService.save(usuario);
 		log.info("El examen " + idlogs + " fue eliminado por el usuario " + username);
 		model.addAttribute("message", "El examen fue eliminado exitosamente");
-		return listExamenes(model);
+		return "redirect:/" +"examenes";
 	}
 
 	@GetMapping("/new")
@@ -195,7 +195,7 @@ public class ExamenController {
 			examenService.save(examen);
 			log.info("El examen " + examen.getId() + " fue creado por el usuario " + username+"con la version: 0");
 			model.addAttribute("message", "El examen fue creado exitosamente");
-			return listExamenes(model);
+			return "redirect:/" +"examen";
 		}
 	}
 	
@@ -252,7 +252,6 @@ public class ExamenController {
 		intento.setPuntuacion(null);
 		intento.setFecha(LocalDate.now());
 		intento.setExamen(examenService.findById(examen_id));
-		intento.setRespuestas(new ArrayList<Respuesta>());
 		intentoService.save(intento);
 		model.addAttribute("examen", examen);
 		model.addAttribute("intento", intento);
@@ -269,24 +268,19 @@ public class ExamenController {
 	public String examenTry(@PathVariable("examen_id") int examen_id, 
 			Respuesta respuesta, ModelMap model, 
 			@RequestParam(value="intento", required= true) Integer intentoId) {
-		System.out.println("Antes de guardar");
+		try {
+			if (respuesta.getTextoRespuesta().trim().equals("")) {
+				respuesta.setTextoRespuesta("No respondido");
+			}
+		}
+		catch (Exception e) {
+			respuesta.setTextoRespuesta("No respondido");
+		}
 		respuestaService.save(respuesta);
-		System.out.println("Se guarda");
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
-		System.out.println("Coge el número de la pregunta");
 		respuesta.setTextoRespuesta("");
         Intento intento = intentoService.findById(intentoId);
-		System.out.println("Localiza el intento");
-        List<Respuesta> respuestas = new ArrayList<Respuesta>();
-        respuestas.addAll(intento.getRespuestas());
-        respuestas.add(respuesta);
-		System.out.println("Añade la respuesta al conjunto de respuestas del intento");
-        intento.setRespuestas(respuestas);
-		System.out.println(intento.getId());
-		intentoService.save(intento);
-		System.out.println("Guarda el intento");
 		Examen examen = examenService.findById(examen_id);
-		System.out.println("Encuentra el examen");
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			Logro logro = logroService.findByName("Hiciste un examen");
 			logroController.addLogro(logro);
@@ -297,27 +291,26 @@ public class ExamenController {
 			usuario.getIntentos().add(intento);
 			usuarioService.save(usuario);
 			model.addAttribute("message", "You finished the exam!");
-			return listExamenes(model);
+			return "redirect:/examenes";
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			return "redirect:/" + intento.getId() + "/continue";
+			return "redirect:/examenes/" + intento.getId() + "/continue";
 		}
 	}
-	
 
-	
 	@GetMapping("/{intento_id}/continue")
 	public String examenContinue(@PathVariable("intento_id") int intento_id, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
 		int numero_pregunta;
-		if(model.getAttribute("numero_pregunta")==null) {
-			numero_pregunta = 0;
-		}else {
-			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
-		}
+		numero_pregunta = respuestaService.findByIntentoId(intento_id).size();
+//		if(model.getAttribute("numero_pregunta")==null) {
+//			numero_pregunta = 0;
+//		}else {
+//			numero_pregunta = Integer.valueOf(String.valueOf(model.getAttribute("numero_pregunta")));
+//		}
 		Intento intento = intentoService.findById(intento_id);
 		Respuesta respuesta = new Respuesta();
 		List<Pregunta> preguntas =  intento.getExamen().getPreguntas();
@@ -341,17 +334,19 @@ public class ExamenController {
 		return EXAMEN_TRY;
 	}
 	
-
-	
 	@PostMapping("/{intento_id}/continue")
 	public String examenContinue(@PathVariable("intento_id") int intento_id, Respuesta respuesta, ModelMap model) {
 		Integer numero_pregunta = respuesta.getNumeroPregunta();
+		try {
+			if (respuesta.getTextoRespuesta().trim().equals("")) {
+				respuesta.setTextoRespuesta("No respondido");
+			}
+		}
+		catch (Exception e) {
+			respuesta.setTextoRespuesta("No respondido");
+		}
 		respuestaService.save(respuesta);
         Intento intento = intentoService.findById(intento_id);
-        List<Respuesta> respuestas = intento.getRespuestas();
-        respuestas.add(respuesta);
-        intento.setRespuestas(respuestas);
-		intentoService.save(intento);
 		Examen examen = intento.getExamen();
 		if(numero_pregunta>=examen.getPreguntas().size()-1) {
 			Logro logro = logroService.findByName("Hiciste un examen");
@@ -363,11 +358,11 @@ public class ExamenController {
 			usuario.getIntentos().add(intento);
 			usuarioService.save(usuario);
 			model.addAttribute("message", "You finished the exam!");
-			return listExamenes(model);
+			return "redirect:/examenes";
 		}else {
 			numero_pregunta++;
 			model.addAttribute("numero_pregunta", numero_pregunta);
-			return "redirect:/" + intento.getId() + "/continue";
+			return "redirect:/examenes/" + intento.getId() + "/continue";
 		}
 	}
 

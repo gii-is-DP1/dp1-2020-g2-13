@@ -64,7 +64,7 @@ public class VideoController {
 		}
 		videoService.delete(video);
 		model.addAttribute("message", "Vídeo eliminado");
-		return listVideos(model);
+		return "redirect:/" +"videos";
 	}
 
 	@GetMapping("/{id}/visualize")
@@ -119,7 +119,7 @@ public class VideoController {
 			String username = authentication.getName();
 			log.info("Editado el video con id: "+video.getId()+" y versión " + video.getVersion() +" por el usuario: "+username);
 			model.addAttribute("message", "Vídeo actualizado");
-			return listVideos(model);
+			return "redirect:/" +"videos";
 		}
 	}
 
@@ -150,7 +150,7 @@ public class VideoController {
 			videoService.save(video);
 			log.info("Creado el video con id: "+video.getId()+" y versión " + video.getVersion() +" por el usuario: "+username);
 			model.addAttribute("message", "Nuevo vídeo añadido");
-			return listVideos(model);
+			return "redirect:/" +"videos";
 		}
 	}
 }

@@ -23,7 +23,9 @@ public class PreguntaServiceTest {
 
 	@Autowired
 	protected PreguntaService preguntaService;
+	@Autowired
 	protected OpcionService opcionService;
+	@Autowired
 	protected TipoTestService tipoTestService;
 
 	private static int TEST_PREGUNTA_ID = 1;
@@ -33,7 +35,6 @@ public class PreguntaServiceTest {
 	void shouldFindPdfWithCorrectId() {
 		Pregunta pregunta = this.preguntaService.findById(TEST_PREGUNTA_ID);
 		assertEquals(TEST_PREGUNTA_ID, pregunta.getId());
-
 	}
 
 	@DisplayName("Prueba de guardado de pregunta")
@@ -85,6 +86,7 @@ public class PreguntaServiceTest {
 		pregunta.setContenido("Enunciado");
 		this.preguntaService.save(pregunta);
 		Opcion opcion = new Opcion();
+		opcion.setTexto("opcion 1");
 		this.opcionService.save(opcion);
 		List<Opcion> opciones = new ArrayList<>();
 		opciones.add(opcion);
@@ -94,7 +96,6 @@ public class PreguntaServiceTest {
 		pregunta.setTipoTest(tipoTest);
 		this.preguntaService.save(pregunta);
 		assertThat(pregunta.getTipoTest() != null);
-
 	}
 
 	@DisplayName("Prueba añadir y Tipo Test")
@@ -106,6 +107,7 @@ public class PreguntaServiceTest {
 		if (pregunta.getTipoTest() == null) {
 			this.preguntaService.save(pregunta);
 			Opcion opcion = new Opcion();
+			opcion.setTexto("opcion 1");
 			this.opcionService.save(opcion);
 			List<Opcion> opciones = new ArrayList<>();
 			opciones.add(opcion);
@@ -118,7 +120,6 @@ public class PreguntaServiceTest {
 		} else {
 			throw new UnknownError();
 		}
-
 	}
 
 	@DisplayName("Prueba borrar y no Tipo Test")
@@ -128,6 +129,7 @@ public class PreguntaServiceTest {
 		pregunta.setContenido("Enunciado");
 		this.preguntaService.save(pregunta);
 		Opcion opcion = new Opcion();
+		opcion.setTexto("opcion 1");
 		this.opcionService.save(opcion);
 		List<Opcion> opciones = new ArrayList<>();
 		opciones.add(opcion);
@@ -136,11 +138,11 @@ public class PreguntaServiceTest {
 		this.tipoTestService.save(tipoTest);
 		pregunta.setTipoTest(tipoTest);
 		this.preguntaService.save(pregunta);
-		if(pregunta.getTipoTest() != null) {
+		if (pregunta.getTipoTest() != null) {
 			this.tipoTestService.delete(tipoTest);
 			this.preguntaService.save(pregunta);
 			assertThat(pregunta.getTipoTest() == null);
-		}else {
+		} else {
 			throw new UnknownError();
 		}
 	}

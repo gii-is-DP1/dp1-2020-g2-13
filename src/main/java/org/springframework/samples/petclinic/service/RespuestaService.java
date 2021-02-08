@@ -23,6 +23,10 @@ public class RespuestaService {
 		return respuestaRepository.findById(id);
 	}
 
+	public Collection<Respuesta> findByIntentoId(int intentoId) {
+		return respuestaRepository.findByIntentoId(intentoId);
+	}
+
 	public void delete(Respuesta Respuesta) {
 		respuestaRepository.deleteById(Respuesta.getId());
 
