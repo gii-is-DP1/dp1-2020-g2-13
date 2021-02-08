@@ -120,8 +120,8 @@ public class UsuarioController {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
-			modifiedUsuario.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
+			modifiedUsuario.setVersion(version+1);
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();

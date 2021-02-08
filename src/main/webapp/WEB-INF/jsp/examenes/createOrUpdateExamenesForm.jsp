@@ -13,6 +13,7 @@
     </h2>
     <form:form modelAttribute="examen" class="form-horizontal" id="add-examen-form">
         <div class="form-group has-feedback">
+         <input name="version" type=hidden value="${examen.version}">
             <petclinic:inputField label="Titulos" name="titulos"/>
             <petclinic:inputField label="Puntuacion Maxima" name="puntuacionMaxima"/>
             <petclinic:inputField label="Puntuacion Minima" name="puntuacionMinima"/>  

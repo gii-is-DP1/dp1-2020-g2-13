@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.CoreSearch;
-import org.springframework.samples.petclinic.model.Result;
+import org.springframework.samples.petclinic.model.Survey;
 import org.springframework.samples.petclinic.service.ClientAPIService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,7 +38,7 @@ public class CoreSearchController {
 		CoreSearch llamadaAPI;
 		try {
 			llamadaAPI = ClientAPIService.LlamadaLimeSurvey();
-			List<Result> surveys = llamadaAPI.getResult();
+			List<Survey> surveys = llamadaAPI.getResult();
 			List<String> enlaces = new ArrayList<>();
 			surveys = surveys.stream()
 					.filter(x -> x.getActive().equals("Y"))
