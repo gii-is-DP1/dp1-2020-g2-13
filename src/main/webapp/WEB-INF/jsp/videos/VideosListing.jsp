@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -7,13 +8,13 @@
 
 
 <petclinic:layout pageName="videos">
-	<h2>Vídeos</h2>
+	<h2>VÃ­deos</h2>
 	<table id="usuariosTable" class="table table-striped">
 		<thead>
 			<tr>
 				<th style="width: 40%;">Nombre</th>
-				<th style="width: 20%;">Descripción</th>
-				<th style="width: 20%;">Duración</th>
+				<th style="width: 20%;">DescripciÃ³n</th>
+				<th style="width: 20%;">DuraciÃ³n</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -42,8 +43,8 @@
 	</table>
 	<p>
 		<a href="/videos/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir
-			Vídeo</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir
+			VÃ­deo</a>
 			
 		
 	</p>

@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,7 +9,7 @@
 
 <petclinic:layout pageName="preguntas">
     <h2>
-        <c:if test="${opcion['new']}">New </c:if> Nueva Opción
+        <c:if test="${opcion['new']}">New </c:if> Nueva OpciÃ³n
     </h2>
     <form:form modelAttribute="opcion" class="form-horizontal" id="add-opcion-form">
         <div class="form-group has-feedback">

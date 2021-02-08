@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -7,21 +8,21 @@
 <petclinic:layout pageName="perfil">
 
 	<a href="/examenes">
-		<button class="btn btn-default">Volver a Lista de Ex�menes</button>
+		<button class="btn btn-default">Volver a Lista de Exámenes</button>
 	</a>
 
 	<h2>Detalles del examen</h2>
 	<table class="table table-striped">
 		<tr>
-			<th>Títulos</th>
+			<th>TÃ­tulos</th>
 			<td><b><c:out value="${examen.titulos}" /></b></td>
 		</tr>
 		<tr>
-			<th>Puntuaci�n m�xima</th>
+			<th>Puntuación máxima</th>
 			<td><c:out value="${examen.puntuacionMaxima}" /></td>
 		</tr>
 		<tr>
-			<th>Puntuaci�n m�nima</th>
+			<th>Puntuación mínima</th>
 			<td><c:out value="${examen.puntuacionMinima}" /></td>
 		</tr>
 	</table>
@@ -44,7 +45,7 @@
 					</c:forEach></td>
 				<td><a href="/opciones/${examen.id}/${pregunta.id}/new"
 					class="btn  btn-success"><span class="glyphicon glyphicon-plus"
-						aria-hidden="true"></span>A�adir Opci�n</a></td>
+						aria-hidden="true"></span>Añadir Opción</a></td>
 				<td><a href="/preguntas/${examen.id}/${pregunta.id}/delete"
 					class="btn  btn-success"><span
 						class="glyphicon glyphicon-trash" aria-hidden="true"></span>Borrar Pregunta</a></td>
@@ -53,6 +54,6 @@
 	</table>
 	<p>
 		<a href="/preguntas/${examen.id}/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>A�adir Pregunta</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Pregunta</a>
 	</p>
 </petclinic:layout>
