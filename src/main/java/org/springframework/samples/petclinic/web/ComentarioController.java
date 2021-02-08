@@ -79,7 +79,9 @@ public class ComentarioController {
 				
 			}
 		}
+		boolean suscrito = hilo.getSuscriptores().contains(usuario);
 		model.addAttribute("hilo", hilo);
+		model.addAttribute("suscrito", suscrito);
 		model.addAttribute("comentarios", comentarios);
 		model.addAttribute("usuario", usuario);
 		String authority = AuthController.highestLevel();
@@ -264,6 +266,25 @@ public class ComentarioController {
 		model.addAttribute("hilo", hilo);
 		model.addAttribute("usuario", usuarioLoggeado);
 		hiloService.suscribir(hilo, usuarioLoggeado);
-		return COMENTARIOS_LISTING;
+		return "redirect:/hilos/" + value;
+	}
+
+	@GetMapping("/{value}/unsubscribe")
+	public String unsubsccribeToThread(@PathVariable("value") int value,
+			ModelMap model) {
+		if (!AuthController.isAuthenticated()) {
+			return "redirect:/" + LOGIN;
+		}
+		if (!AuthController.hasPaid()) {
+			return "redirect:/" + MEJORAR_CUENTA;
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		Hilo hilo = hiloService.findById(value);
+		model.addAttribute("hilo", hilo);
+		model.addAttribute("usuario", usuarioLoggeado);
+		hiloService.dessuscribir(hilo, usuarioLoggeado);
+		return "redirect:/hilos/" + value;
 	}
 }

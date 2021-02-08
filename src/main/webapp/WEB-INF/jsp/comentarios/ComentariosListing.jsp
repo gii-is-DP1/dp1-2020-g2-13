@@ -10,9 +10,16 @@
    	<a href="/hilos">
    		<button class="btn btn-default">Volver a la lista de hilos</button>
    	</a>
-   	<a href="/hilos/${hilo.id}/subscribe">
-   		<button class="btn btn-default">Suscribirse al hilo</button>
-   	</a>
+   	<c:if test="${suscrito}">
+	   	<a href="/hilos/${hilo.id}/unsubscribe">
+	   		<button class="btn btn-default">Eliminar suscripción</button>
+	   	</a>
+   	</c:if>
+   	<c:if test="${!suscrito}">
+	   	<a href="/hilos/${hilo.id}/subscribe">
+	   		<button class="btn btn-default">Suscribirse al hilo</button>
+	   	</a>
+   	</c:if>
 	<h2>${hilo.nombre}</h2>
 	<table id="hilosTable" class="table table-striped">
 		<thead>
