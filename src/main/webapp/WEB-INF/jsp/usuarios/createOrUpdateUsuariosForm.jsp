@@ -12,6 +12,7 @@
         <c:if test="${usuario['new']}">Nuevo </c:if> usuario
     </h2>
     <form:form modelAttribute="usuario" class="form-horizontal" id="add-usuario-form">
+     <input name="version" type=hidden value="${usuario.version}">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>     
