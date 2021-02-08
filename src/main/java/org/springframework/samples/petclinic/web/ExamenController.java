@@ -170,7 +170,7 @@ public class ExamenController {
 		usuarioService.save(usuario);
 		log.info("El examen " + idlogs + " fue eliminado por el usuario " + username);
 		model.addAttribute("message", "El examen fue eliminado exitosamente");
-		return "redirect:/" +"examenes";
+		return "redirect:/examenes";
 	}
 
 	@GetMapping("/new")
