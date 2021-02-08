@@ -11,7 +11,7 @@ public class CoreSearch {
 
     private Integer id;
 
-    private List<Result> result;
+    private List<Survey> result;
 
     private Object error;
 
@@ -25,11 +25,11 @@ public class CoreSearch {
         this.id = id;
     }
 
-    public List<Result> getResult() {
+    public List<Survey> getResult() {
         return result;
     }
 
-    public void setResult(List<Result> result) {
+    public void setResult(List<Survey> result) {
         this.result = result;
     }
 
