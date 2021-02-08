@@ -149,7 +149,7 @@ public class ComentarioController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
-		if (!comentario.getUsuario().equals(usuarioLoggeado) && !AuthController.isAdmin()) {
+		if (!AuthController.isAdmin()) {
 			return "redirect:/" + ERROR;
 		}
 		int idlog = comentario.getId();
@@ -204,7 +204,7 @@ public class ComentarioController {
 		}
 	}
 
-	@GetMapping("/{value}/edit/{comment}")
+//	@GetMapping("/{value}/edit/{comment}")
 	public String editComentario(@PathVariable("value") int value, @PathVariable("comment") int comment, ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
@@ -226,7 +226,7 @@ public class ComentarioController {
 		return COMENTARIOS_FORM;
 	}
 
-	@PostMapping("/{value}/edit/{comment}")
+//	@PostMapping("/{value}/edit/{comment}")
 	public String editComentario(@PathVariable("comment") int comment, @PathVariable("value") int id, 
 			@Valid Comentario modifiedComentario, BindingResult binding, ModelMap model,
 			@RequestParam(value="version", required= false) Integer version) {

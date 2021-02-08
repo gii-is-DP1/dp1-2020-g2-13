@@ -105,7 +105,7 @@
                         </ul>
                 </petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'herramientas'}" url="/"
+				<petclinic:menuItem active="${name eq 'herramientas'}" url="/herramientas"
                     title="herramientas" >
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Herramientas</span>

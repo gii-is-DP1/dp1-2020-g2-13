@@ -1,18 +1,21 @@
-
 package org.springframework.samples.petclinic.model;
 
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.SerializedName;
 
 public class Result {
 
+
+
     private String sid;
-    private String surveylsTitle;
+
+    private String surveyls_title;
+
     private Object startdate;
+
     private Object expires;
+
     private String active;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
     public String getSid() {
         return sid;
@@ -22,12 +25,12 @@ public class Result {
         this.sid = sid;
     }
 
-    public String getSurveylsTitle() {
-        return surveylsTitle;
+    public String getSurveyls_title() {
+        return surveyls_title;
     }
 
-    public void setSurveylsTitle(String surveylsTitle) {
-        this.surveylsTitle = surveylsTitle;
+    public void setSurveyls_title(String surveyls_title) {
+        this.surveyls_title = surveyls_title;
     }
 
     public Object getStartdate() {
@@ -54,12 +57,13 @@ public class Result {
         this.active = active;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+
+    @Override
+    public String toString() {
+        return "Result [sid=" + sid + ", surveylsTitle=" + surveyls_title + ", startdate=" + startdate + ", expires="
+                + expires + ", active=" + active + "]";
     }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
 
 }
+
