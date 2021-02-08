@@ -112,7 +112,7 @@ public class PdfController {
 	}
 	
 	@GetMapping("/new")
-	public String editNewDisease(ModelMap model) {
+	public String editNewPdf(ModelMap model) {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}

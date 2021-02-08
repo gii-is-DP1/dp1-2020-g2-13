@@ -51,7 +51,7 @@ public class MensajePrivadoController {
 	NotificacionService notificacionService;
 	
 	@InitBinder("mensajePrivado")
-	public void initPreguntaBinder(WebDataBinder dataBinder) {
+	public void initMensajePrivadoBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new MensajePrivadoValidator());
 	}
 
