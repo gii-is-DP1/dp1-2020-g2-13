@@ -120,8 +120,8 @@ public class UsuarioController {
 		if (binding.hasErrors()) {
 			return USUARIOS_FORM;
 		} else {
-			modifiedUsuario.setVersion(version+1);
 			BeanUtils.copyProperties(modifiedUsuario, usuario, "id");
+			modifiedUsuario.setVersion(version+1);
 			usuarioService.save(usuario);
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
@@ -261,6 +261,11 @@ public class UsuarioController {
 		if (!AuthController.isAuthenticated()) {
 			return "redirect:/" + LOGIN;
 		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Usuario usuarioLoggeado = usuarioService.findByUsername(username);
+		String nivel = authController.highestLevel(usuarioLoggeado);
+		model.addAttribute("nivel", nivel);
 		return MEJORAR_CUENTA;
 	}
 

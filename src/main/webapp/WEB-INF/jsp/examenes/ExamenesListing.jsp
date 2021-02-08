@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -7,13 +8,13 @@
 
 
 <petclinic:layout pageName="examenes">
-	<h2>Exámenes creados</h2>
+	<h2>ExÃ¡menes creados</h2>
 	<table id="examenesTable" class="table table-striped">
 		<thead>
 			<tr>
 				<th style="width: 20%;">Examen</th>
-				<th style="width: 40%;">Puntuación máxima</th>
-				<th style="width: 40%;">Puntuación mínima</th>
+				<th style="width: 40%;">PuntuaciÃ³n mÃ¡xima</th>
+				<th style="width: 40%;">PuntuaciÃ³n mÃ­nima</th>
 				<th></th>
 				<th></th>
 
@@ -51,7 +52,7 @@
 
 	<p>
 		<a href="/examenes/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Examen</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir Examen</a>
 
 	</p>
 

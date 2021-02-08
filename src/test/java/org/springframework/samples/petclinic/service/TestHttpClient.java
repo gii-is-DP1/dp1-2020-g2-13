@@ -17,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import org.springframework.samples.petclinic.model.CoreSearch;
-import org.springframework.samples.petclinic.model.Result;
+import org.springframework.samples.petclinic.model.Survey;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;

@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,8 +12,8 @@
         <table id="cuestionariosTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 20%;">Título</th>
-            <th style="width: 80%;">Descripción</th>
+            <th style="width: 20%;">TÃ­tulo</th>
+            <th style="width: 80%;">DescripciÃ³n</th>
 
             <th></th>
             <th></th>
@@ -51,7 +52,7 @@
     </table>
     
     <p>
-    	<a href="/cuestionarios/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Cuestionario</a>
+    	<a href="/cuestionarios/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir Cuestionario</a>
     </p>
 
 </petclinic:layout>

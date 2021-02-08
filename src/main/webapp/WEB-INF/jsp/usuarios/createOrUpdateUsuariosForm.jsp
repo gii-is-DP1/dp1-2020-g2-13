@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,6 +12,7 @@
         <c:if test="${usuario['new']}">Nuevo </c:if> usuario
     </h2>
     <form:form modelAttribute="usuario" class="form-horizontal" id="add-usuario-form">
+     <input name="version" type=hidden value="${usuario.version}">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="nombre"/>
             <petclinic:inputField label="Apellidos" name="apellidos"/>     
@@ -18,7 +20,7 @@
             <petclinic:inputField label="Colegio" name="colegio"/>
             <petclinic:inputField label="Email" name="email"/>
             <petclinic:inputField label="Nombre de usuario" name="user.username"/>
-            <petclinic:inputField label="Contraseña" name="user.password"/>
+            <petclinic:inputField label="ContraseÃ±a" name="user.password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
