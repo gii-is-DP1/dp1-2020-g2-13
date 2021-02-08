@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,7 +12,7 @@
         Mejorar cuenta
     </h2>
     <h3>
-    	Cuota no c quÈ, datos bancarios y no c quÈ m·s
+    	Cuota no c qu√©, datos bancarios y no c qu√© m√°s
     </h3>
     <a href="mejorarCuenta/confirma">
         <button class="btn btn-default" type="submit">Mejorar cuenta</button>

@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,10 +19,10 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${pregunta['new']}">
-                        <button class="btn btn-default" type="submit">Add Question</button>
+                        <button class="btn btn-default" type="submit">Añadir Pregunta</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Question</button>
+                        <button class="btn btn-default" type="submit">Actualizar Pregunta</button>
                     </c:otherwise>
                 </c:choose>
             </div>

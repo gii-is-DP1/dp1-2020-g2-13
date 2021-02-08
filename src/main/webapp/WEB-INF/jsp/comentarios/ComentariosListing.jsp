@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -10,9 +11,16 @@
    	<a href="/hilos">
    		<button class="btn btn-default">Volver a la lista de hilos</button>
    	</a>
-   	<a href="/hilos/${hilo.id}/subscribe">
-   		<button class="btn btn-default">Suscribirse al hilo</button>
-   	</a>
+   	<c:if test="${suscrito}">
+	   	<a href="/hilos/${hilo.id}/unsubscribe">
+	   		<button class="btn btn-default">Eliminar suscripción</button>
+	   	</a>
+   	</c:if>
+   	<c:if test="${!suscrito}">
+	   	<a href="/hilos/${hilo.id}/subscribe">
+	   		<button class="btn btn-default">Suscribirse al hilo</button>
+	   	</a>
+   	</c:if>
 	<h2>${hilo.nombre}</h2>
 	<table id="hilosTable" class="table table-striped">
 		<thead>
@@ -52,7 +60,7 @@
 
 	<p>
 		<a href="/hilos/${hilo.id}/new" class="btn  btn-success"><span
-			class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir comentario</a>
+			class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir comentario</a>
 	</p>
 	
 

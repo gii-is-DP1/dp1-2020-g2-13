@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -11,7 +12,7 @@
 	<table id="notificacionesTable" class="table table-striped">
 		<thead>
 			<tr>
-				<th style="width: 50%;">Notificación</th>
+				<th style="width: 50%;">NotificaciÃ³n</th>
 				<th style="width: 50%;">Vista previa</th>
 				<th></th>
 				<th></th>
