@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -47,7 +48,7 @@
     </table>
     
     <p>
-    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Añadir Documento</a>
+    	<a href="/pdfs/new" class="btn  btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>AÃ±adir Documento</a>
     	
     </p>
 

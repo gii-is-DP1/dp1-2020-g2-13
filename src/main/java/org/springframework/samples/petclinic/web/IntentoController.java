@@ -57,7 +57,4 @@ public class IntentoController {
 		model.addAttribute("respuestas", respuestas);
 		return INTENTOS_LISTING;
 	}
-	
-	
-
 }
