@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExceptionHandlerConfiguration 
 {
-//	@Autowired
-//	private CustomErrorController customErrorController;
-	
 	@Autowired
-	private ErrorController errorController;
+	private CustomErrorController customErrorController;
+	
+//	@Autowired
+//	private ErrorController errorController;
     // add any exceptions/validations/binding problems
 
    @ExceptionHandler(Exception.class)
