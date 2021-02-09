@@ -35,8 +35,8 @@ public class VideoValidator implements Validator {
 					"descripcion debe tener entre 1 y 250 caracteres");
 		}
 		if (descripcion.trim().length() == 0) {
-			errors.rejectValue("descripcion", "La descripcion no puede estar vacía",
-					"descripcion no puede estar vacía");
+			errors.rejectValue("descripcion", "La descripción no puede estar vacía",
+					"La descripción no puede estar vacía");
 		}
 		// duracion validation
 		if (!StringUtils.hasLength(duracion) || duracion.length() < 1 || duracion.length() > 10) {
@@ -44,7 +44,7 @@ public class VideoValidator implements Validator {
 					"Duración debe tener entre 1 y 10 caracteres");
 		}
 		if (link.trim().length() == 0) {
-			errors.rejectValue("link", "Duració no puede estar vacío", "Duració no puede estar vacío");
+			errors.rejectValue("link", "Duración no puede estar vacío", "Duración no puede estar vacío");
 		}
 
 	}
