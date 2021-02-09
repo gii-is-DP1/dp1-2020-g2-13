@@ -88,7 +88,17 @@ public class ExamenController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		Usuario usuario = usuarioService.findByUsername(username);
+		List<String> realizable = new ArrayList<String>();
+		for(Examen examen:examenService.findAll()) {
+			if (examen.getPreguntas().size() > 1) {
+				realizable.add("t");
+			}
+			else {
+				realizable.add("f");
+			}
+		}
 		model.addAttribute("usuario", usuario);
+		model.addAttribute("realizable", realizable);
 		model.addAttribute("examenes", examenService.findAll());
 		return EXAMENES_LISTING;
 		
