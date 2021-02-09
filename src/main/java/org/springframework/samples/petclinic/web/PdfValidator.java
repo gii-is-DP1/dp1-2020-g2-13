@@ -14,7 +14,6 @@ public class PdfValidator implements Validator {
 		String nombre = pdf.getNombre();
 
 		// link validation
-
 		if (link.trim().length() == 0) {
 			errors.rejectValue("link", "El enlace no puede estar vacío", "El enlace no puede estar vacío");
 		}
@@ -23,10 +22,9 @@ public class PdfValidator implements Validator {
 			errors.rejectValue("nombre", "El nombre debe tener entre 1 y 50 caracteres",
 					"El nombre debe tener entre 1 y 50 caracteres");
 		}
-		if (link.trim().length() == 0) {
+		if (nombre.trim().length() == 0) {
 			errors.rejectValue("link", "El nombre no puede estar vacío", "El nombre no puede estar vacío");
 		}
-
 	}
 
 	@Override
