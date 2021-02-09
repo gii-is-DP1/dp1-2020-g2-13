@@ -21,10 +21,17 @@
 			</tr>
 		</thead>
 		<tbody>
+			<c:set var="i" value='0'/>
 			<c:forEach items="${examenes}" var="examenes">
 				<tr>
-					<td><a href="/examenes/${examenes.id}/newTry"> <c:out
+					<c:if test="${realizable[i] eq 't' }">
+						<td><a href="/examenes/${examenes.id}/newTry"> <c:out
 								value="${examenes.titulos}" /></a></td>
+					</c:if>
+					<c:if test="${realizable[i] eq 'f' }">
+						<td><c:out
+								value="${examenes.titulos}" /></td>
+					</c:if>
 					<td><c:out value="${examenes.puntuacionMaxima}" /></td>
 					<td><c:out value="${examenes.puntuacionMinima}" /></td>
 
@@ -46,6 +53,7 @@
 
 
 				</tr>
+				<c:set var="i" value="${i + 1}"/>
 			</c:forEach>
 		</tbody>
 	</table>
