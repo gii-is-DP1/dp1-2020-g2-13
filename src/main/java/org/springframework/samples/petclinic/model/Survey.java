@@ -2,7 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Survey {
 
 
 

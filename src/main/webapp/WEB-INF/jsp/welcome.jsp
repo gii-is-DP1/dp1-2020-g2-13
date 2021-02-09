@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,7 +17,7 @@
 	</h2>
 
 	<p>
-	El proyecto Golden5 tiene como objetivo crear, durante tres aÒos (2004-2007), un programa educativo dirigido al profesorado que le ayude a tener un ambiente escolar mas agradable y efectivo en el aula. Este proyecto est· fundamentado en la creencia de que las escuelas tienen importantes responsabilidades en la educaciÛn de los futuros ciudadanos y en el desarrollo de actitudes saludables hacia ellos mismos, los otros y la sociedad, teniendo especialmente en cuenta que los niÒos en riesgo de exclusiÛn social necesitan una atenciÛn especial. Los docentes necesitan ser competentes dirigiendo estrategias y mejorando el desarrollo social de los niÒos y niÒas, y de las clases como un grupo. En este sentido, el programa Golden5 propone un principio, unas ·reas y unos pasos claves que ayudan a conseguirlo.
+	El proyecto Golden5 tiene como objetivo crear, durante tres a√±os (2004-2007), un programa educativo dirigido al profesorado que le ayude a tener un ambiente escolar mas agradable y efectivo en el aula. Este proyecto est√° fundamentado en la creencia de que las escuelas tienen importantes responsabilidades en la educaci√≥n de los futuros ciudadanos y en el desarrollo de actitudes saludables hacia ellos mismos, los otros y la sociedad, teniendo especialmente en cuenta que los ni√±os en riesgo de exclusi√≥n social necesitan una atenci√≥n especial. Los docentes necesitan ser competentes dirigiendo estrategias y mejorando el desarrollo social de los ni√±os y ni√±as, y de las clases como un grupo. En este sentido, el programa Golden5 propone un principio, unas √°reas y unos pasos claves que ayudan a conseguirlo.
 	</p>
 	
 	<br>
@@ -25,16 +26,16 @@
 	</h2>
 
 	<p>
-	El equipo implicado en este proyecto tiene una larga experiencia previa en proyectos relacionados con problemas de comportamiento, y con problemas de convivencia, abordando siempre la diversidad dentro del aula. Nuestro objetivo ha sido organizar e integrar nuestros antecedentes y nuestra formaciÛn educativa en un enfoque sistÈmico llamado programa GOLDEN.
+	El equipo implicado en este proyecto tiene una larga experiencia previa en proyectos relacionados con problemas de comportamiento, y con problemas de convivencia, abordando siempre la diversidad dentro del aula. Nuestro objetivo ha sido organizar e integrar nuestros antecedentes y nuestra formaci√≥n educativa en un enfoque sist√©mico llamado programa GOLDEN.
 	</p>
 	
 	<br>
 	<h2>
-	ImplementaciÛn
+	Implementaci√≥n
 	</h2>
 	
 	<p>
-	El programa y la estrategia ser·n experimentadas, analizadas e implementadas por el profesorado a partir de un curso de formaciÛn (Resultados). Se crear· una p·gina Web y una red donde se difundir·n el programa, los cursos, etc. El programa se extender· hacia la formaciÛn inicial del profesorado y otros agentes educativos, que podr· ser presentado como curso a nivel europeo (Comenius 2.2).
+	El programa y la estrategia ser√°n experimentadas, analizadas e implementadas por el profesorado a partir de un curso de formaci√≥n (Resultados). Se crear√° una p√°gina Web y una red donde se difundir√°n el programa, los cursos, etc. El programa se extender√° hacia la formaci√≥n inicial del profesorado y otros agentes educativos, que podr√° ser presentado como curso a nivel europeo (Comenius 2.2).
 	</p>
 <!--     <img class="img-responsive" src="https://www.us.es/sites/default/files/logoPNG_3.png"/>
 
