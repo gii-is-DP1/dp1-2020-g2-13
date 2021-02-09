@@ -88,7 +88,7 @@ public class VideoController {
 	}
 
 	@GetMapping("/{id}/edit")
-	public String editPdf(@PathVariable("id") int id, ModelMap model) {
+	public String editVideo(@PathVariable("id") int id, ModelMap model) {
 		Video video = videoService.findById(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -107,7 +107,7 @@ public class VideoController {
 		Video video = videoService.findById(id);
 		if(video.getVersion()!=version) {	
 			model.put("message", "Alguien ha modificado simultáneamente el vídeo, prueba otra vez");
-			return editPdf(id, model);
+			return editVideo(id, model);
 		}
 		if (binding.hasErrors()) {
 			return VIDEOS_FORM;
